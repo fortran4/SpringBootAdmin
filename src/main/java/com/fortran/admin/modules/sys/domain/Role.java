@@ -18,4 +18,5 @@ public class Role extends Domain {
     private String roleName;
 
 
+
 }
