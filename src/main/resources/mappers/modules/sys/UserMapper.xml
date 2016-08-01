@@ -10,5 +10,9 @@
         select * from sys_user where login_name=#{loginName} and login_pwd=#{loginPwd}
     </select>
 
+    <select id="findRoleByLoginName" resultType="Role">
+        
+    </select>
+
 
 </mapper>

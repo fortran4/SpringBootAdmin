@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>controller</name>
+    <filePath>src/main/java/${packageName}/${moduleName}/web/${subModuleName}</filePath>
+    <fileName>${ClassName}Controller.java</fileName>
+    <content><![CDATA[
+package ${packageName}.${moduleName}.web<#if subModuleName != "">.${subModuleName}</#if>;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import com.google.common.base.Strings;
+import com.zcoder.admin.core.common.BaseController;
+import com.zcoder.admin.core.common.Constants;
+import com.zcoder.admin.core.message.ResponseMsg;
+import com.zcoder.admin.core.common.Constants;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
+import ${packageName}.${moduleName}.service<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Service;
+
+/**
+ * ${funcName}
+ * @author ${gen.author}
+ * @version ${gen.version}
+ */
+@Slf4j
+@Controller
+@RequestMapping(value = "${urlPrefix}")
+public class ${ClassName}Controller extends BaseController {
+
+	@Autowired
+	private ${ClassName}Service ${className}Service;
+
+	@ModelAttribute
+	public ${ClassName} get(@RequestParam(required=false) String id) {
+
+		if (!Strings.isNullOrEmpty(id)) {
+			return ${className}Service.findOne(Long.parseLong(id));
+		}else {
+			return new ${ClassName}();
+		}
+	}
+
+	@RequestMapping("/find")
+	@RequiresPermissions("${permissionPrefix}:view")
+	public String init() {
+		return "/${urlPrefix}List";
+	}
+
+	@RequestMapping("/findAll")
+	@RequiresPermissions("${permissionPrefix}:view")
+	public @ResponseBody Map<Object, Object> findList(HttpServletRequest request, ${ClassName} ${className}) {
+		Page<${ClassName}> result = ${className}Service.findAll(getPageRequest(request));
+		Map<Object, Object> info = new HashMap<Object, Object>();
+		info.put("data", result.getContent());
+		info.put("recordsTotal", result.getTotalElements());
+		info.put("recordsFiltered", result.getTotalElements());
+		info.put("draw", request.getParameter("draw"));
+		return info;
+	}
+
+
+	@RequestMapping(value = "form")
+	@RequiresPermissions("${permissionPrefix}:view")
+	public String form(${ClassName} ${className},HttpServletRequest request, Model model) {
+		model.addAttribute("${className}", ${className});
+		model.addAttribute("action", request.getParameter("action"));
+		return "/${urlPrefix}Form";
+	}
+
+
+	@RequestMapping(value = "save")
+	@RequiresPermissions("${permissionPrefix}:edit")
+	public String save(${ClassName} ${className}, Model model,HttpServletRequest request, RedirectAttributes redirectAttributes) {
+
+		if (!beanValidator(model, ${className})) {
+			return form(${className},request,model);
+		}
+		${className}Service.save(${className});
+		addMessage(redirectAttributes ,Constants.SUCCESS_MSG);
+		return "redirect:/${urlPrefix}";
+	}
+
+	@RequestMapping(value = "delete")
+	@RequiresPermissions("${permissionPrefix}:edit")
+	public @ResponseBody ResponseMsg<String> delete(${ClassName} ${className}) {
+		try {
+			${className}Service.delete(${className});
+			return new ResponseMsg<String>(Constants.SUCCESS_MSG);
+		} catch (Exception e) {
+			return new ResponseMsg<String>(Constants.ERROR_MSG);
+		}
+	}
+
+}]]>
+    </content>
+</template>

@@ -1,6 +1,7 @@
 package com.fortran.admin.modules.gen.service;
 
 import com.fortran.admin.modules.gen.dao.GenDao;
+import com.fortran.admin.modules.gen.domain.Column;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,15 @@ public class GenService {
      */
     public List queryTable(){
         return genDao.queryTable();
-    }
+        }
 
+    /**
+     * 根据表名查询字段
+     * @param tableName
+     * @return
+     */
+    public List<Column> getColumnsByTableName(String tableName) {
+        return genDao.getColumnsByTableName(tableName);
+    }
 
 }

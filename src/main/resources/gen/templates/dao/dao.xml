@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>dao</name>
+    <filePath>src/main/java/${packageName}/${moduleName}/dao/${subModuleName}</filePath>
+    <fileName>${ClassName}Dao.java</fileName>
+    <content><![CDATA[
+
+package ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
+
+/**
+ * ${funcName}DAO接口
+ * @author ${gen.author}
+ * @version ${gen.version}
+ */
+public interface ${ClassName}Dao extends JpaRepository<${ClassName}, Long> {
+
+}]]>
+    </content>
+</template>

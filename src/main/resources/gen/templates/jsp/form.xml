@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <name>viewForm</name>
+    <filePath>src/main/webapp/WEB-INF/views/${moduleName}/${subModuleName}</filePath>
+    <fileName>${className}Form.jsp</fileName>
+    <content><![CDATA[
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@include file="/WEB-INF/views/common/taglib.jsp"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>数据字典</title>
+<%@include file="/WEB-INF/views/common/include.jsp"%>
+</head>
+<body class="main-bg">
+	<sys:message type="${r"${type}"}" content="${r"${content}"}"></sys:message>
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="" role="tabpanel" data-example-id="togglable-tabs">
+				<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+					<li><a href="${r"${ctx}"}/${urlPrefix}/find" role="tab">列表</a>
+					</li>
+					<li  class="active"><c:choose>
+							<c:when test="${r"${action=='edit'}"}">
+								<a href="${r"${ctx}"}/${urlPrefix}/form?action='edit'&id=${"${"+className+".id}"}"
+									role="tab">编辑</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${r"${ctx}"}/${urlPrefix}/form?id=${"${"+className+".id}"}" role="tab">新增</a>
+							</c:otherwise>
+						</c:choose></li>
+				</ul>
+			</div>
+			<div id="myTabContent" class="tab-content">
+				<div role="tabpanel" class="tab-pane fade active in" id="listPanel"
+					aria-labelledby="home-tab">
+					<br>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>
+										<i class="glyphicon glyphicon-th-large"></i>${funcName}信息
+									</h2>
+									<ul class="nav navbar-right panel_toolbox">
+										<li><a class="collapse-link"><i
+												class="fa fa-chevron-up"></i></a></li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<form:form id="inputForm" modelAttribute="${className}" role="form"
+										action="${r"${ctx}"}/${urlPrefix}/save" method="post"
+										class="form-horizontal form-label-left">
+										<form:hidden path="id" />
+
+										<#list columns as column>
+											<#if column.field??>
+													<div class="item form-group">
+													<label for="${column.javaField}"
+														class="control-label col-md-3 col-sm-3 col-xs-12">${column.comment}<span
+														class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+
+														<#if column.formType?? && column.formType =='text'>
+															<form:input  path="${column.javaField}" maxLength="${column.length}"
+															    <#if column.validator?? && column.validator.required??>
+																    required="required"
+																</#if>
+																 <#if column.validator?? && column.validator.validatorData??>
+																    type="${column.validator.validatorData}"
+																</#if>
+                                                                <#if column.validator?? && column.validator.dataValidateLengthRange??>
+																    data-validate-length-range="${column.validator.dataValidateLengthRange}"
+																</#if>
+																placeholder="请输入${column.comment}"
+																class="form-control col-md-7 col-xs-12" />
+														</#if>
+
+														<#if column.formType?? && column.formType =='select'>
+                                                            <form:select path="${column.javaField}" class="input-xlarge"
+                                                                <#if column.validator?? && column.validator.required??>
+																    required="required"
+																</#if>>
+                                                                <form:option value="" label=""/>
+                                                                <form:options items="${"$"}{fns:getDictList('${column.dictType}')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+                                                            </form:select>
+														</#if>
+
+                                                        <#if column.formType?? && column.formType =='checkbox'>
+                                                            <form:checkboxes path="${column.javaField}" items="${"$"}{fns:getDictList('${column.dictType}')}"
+                                                            itemLabel="label" itemValue="value" htmlEscape="false"
+                                                            <#if column.validator?? && column.validator.required =='required'>
+																    required="required"
+															</#if>
+                                                            />
+                                                        </#if>
+
+                                                         <#if column.formType?? && column.formType =='radio'>
+                                                            <form:radiobuttons path="${column.javaField}" items="${"$"}{fns:getDictList('${column.dictType}')}"
+                                                            itemLabel="label" itemValue="value" htmlEscape="false"
+                                                             <#if column.validator?? && column.validator.required =='required'>
+																    required="required"
+															</#if>
+                                                            />
+                                                         </#if>
+
+														<#if column.formType?? && column.formType =='textarea'>
+															<form:textarea  path="${column.javaField}" rows="3" data-validate-length-range="1,200"
+															 <#if column.validator?? && column.validator.required??>
+																    required="required"
+																</#if>
+																 <#if column.validator?? && column.validator.validatorData??>
+																    type="${column.validator.validatorData}"
+																</#if>
+                                                                <#if column.validator?? && column.validator.dataValidateLengthRange??>
+																    data-validate-length-range="${column.validator.dataValidateLengthRange}"
+																</#if>
+															class="form-control col-md-7 col-xs-12" />
+														</#if>
+													</div>
+												</div>
+											</#if>
+										</#list>
+										<div class="ln_solid"></div>
+											<div class="form-group">
+												<div class="col-md-6 col-md-offset-3">
+													<shiro:hasPermission name="${permissionPrefix}:edit">
+														<button id="send" type="submit" class="btn btn-success">保存/button>
+													</shiro:hasPermission>
+													<button type="button" class="btn btn-primary">取消</button>
+												</div>
+										</div>
+									</form:form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<%@include file="/WEB-INF/views/common/include-js.jsp"%>
+<%@include file="/WEB-INF/views/common/include-custom-validator.jsp"%>
+</body>
+</html>]]>
+    </content>
+</template>
