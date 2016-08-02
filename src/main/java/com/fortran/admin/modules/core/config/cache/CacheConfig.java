@@ -1,7 +1,6 @@
 package com.fortran.admin.modules.core.config.cache;
 
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,14 +16,10 @@ import org.springframework.core.io.ClassPathResource;
 public class CacheConfig {
 
 
-    /**
-     * cache 主管理器
-     * @param bean
-     * @return
-     */
-    @Bean(name = "appCacheManager")
-    public EhCacheCacheManager ehCacheCacheManager(EhCacheManagerFactoryBean bean){
-        return new EhCacheCacheManager (bean.getObject ());
+    @Bean(name = "cacheManager")
+    public net.sf.ehcache.CacheManager getCacheManager(EhCacheManagerFactoryBean bean){
+        return bean.getObject();
+
     }
 
     /*

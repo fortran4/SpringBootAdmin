@@ -2,6 +2,7 @@ package com.fortran.admin.modules.gen.domain;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
  * @description: 生成代码对象
  */
 @Data
+@Component
 @ConfigurationProperties(prefix = "gen", locations = "classpath:gen/gen.properties")
 public class Gen {
     /**

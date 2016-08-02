@@ -29,10 +29,10 @@ public class ShiroConfig {
      * <p>缓存管理器 使用Ehcache实现</p>
      * @return
      */
-    @Bean
-    public EhCacheManager getEhCacheManager() {
+    @Bean(name = "shiroCacheManager")
+    public EhCacheManager getEhCacheManager(net.sf.ehcache.CacheManager manager) {
         EhCacheManager em = new EhCacheManager();
-        em.setCacheManagerConfigFile("classpath:cfg/ehcache.xml");
+        em.setCacheManager(manager);
         return em;
     }
 
@@ -92,10 +92,10 @@ public class ShiroConfig {
      * @return
      */
     @Bean(name = "securityManager")
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(MyShiroRealm myShiroRealm) {
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(MyShiroRealm myShiroRealm,net.sf.ehcache.CacheManager manager) {
         DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
         dwsm.setRealm(myShiroRealm);
-        dwsm.setCacheManager(getEhCacheManager());
+        dwsm.setCacheManager(getEhCacheManager(manager));
         dwsm.setSessionManager(getDefaultWebSessionManager());
         return dwsm;
     }
