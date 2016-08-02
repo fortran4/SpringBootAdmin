@@ -38,12 +38,19 @@ public interface Msg<T> {
     RespMsg<T> ok(String content,T data);
 
     /**
-     * 操作失败
-     * @param content 自定义提示语
+     * 操作成功
      * @param data 返回的数据集合
      * @return
      */
-    RespMsg<T> error(String content,T data);
+    RespMsg<T> ok(T data);
+
+    /**
+     * 操作失败
+     * @param content 自定义提示语
+     * @return
+     */
+    RespMsg<T> error(String content);
+
 
     /**
      * 自定义消息

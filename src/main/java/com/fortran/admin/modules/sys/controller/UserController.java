@@ -2,17 +2,24 @@ package com.fortran.admin.modules.sys.controller;
 
 import com.fortran.admin.modules.core.common.BaseController;
 import com.fortran.admin.modules.core.common.constant.Constants;
+import com.fortran.admin.modules.core.message.RespMsg;
+import com.fortran.admin.modules.sys.domain.Menu;
 import com.fortran.admin.modules.sys.domain.User;
+import com.fortran.admin.modules.sys.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 /**
  * @author: lin
@@ -22,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @Slf4j
 public class UserController extends BaseController {
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String init(Model model, @ModelAttribute("type") String type, @ModelAttribute("content") String content) {
@@ -69,6 +79,7 @@ public class UserController extends BaseController {
         // 验证是否登录成功
         if (currentUser.isAuthenticated()) {
             log.info("用户[" + username + "]登录认证通过.");
+            redirectAttributes.addAttribute("username",username);
             return "index";
         } else {
             token.clear();
@@ -83,5 +94,14 @@ public class UserController extends BaseController {
         return "redirect:/login";
     }
 
+    /**
+     * 查询菜单
+     */
+    @RequestMapping(value = "/user/getMenu", method = RequestMethod.GET)
+    @ResponseBody
+    public RespMsg getMenu(String userName){
+        List<Menu> menus = userService.findPermissionByLoginName(userName);
+        return ok("",menus);
+    }
 
 }

@@ -43,9 +43,13 @@ public class BaseController implements Msg {
     }
 
     @Override
-    public RespMsg error(String content, Object data) {
-        if (Strings.isNullOrEmpty(content)) content = Constants.FAIL_MSG;
-        return new RespMsg(RespMsgStatus.ERROR,content,data);
+    public RespMsg ok(Object data) {
+        return new RespMsg(Constants.SUCCESS_MSG,data);
+    }
+
+    @Override
+    public RespMsg error(String content) {
+        return new RespMsg(RespMsgStatus.ERROR,Constants.FAIL_MSG,null);
     }
 
     @Override
