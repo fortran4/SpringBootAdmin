@@ -2,9 +2,12 @@ package com.fortran.admin.modules.sys.dao;
 
 import com.fortran.admin.modules.core.common.CrudDao;
 import com.fortran.admin.modules.core.config.mybatis.annotation.MybatisDao;
+import com.fortran.admin.modules.sys.domain.Menu;
 import com.fortran.admin.modules.sys.domain.Role;
 import com.fortran.admin.modules.sys.domain.User;
 import org.springframework.dao.DataAccessException;
+
+import java.util.List;
 
 /**
  * @author: lin
@@ -18,5 +21,12 @@ public interface UserDao extends CrudDao<User> {
 
     User findByLoginNameAndLoginPwd(String loginName,String loginPwd) throws DataAccessException ;
 
-    Role findRoleByLoginName(String loginName) throws DataAccessException;
+
+    //@Cacheable(value = CacheHelper.SYS_CACHE,key = "findRolesByLoginName<-"+"#loginName")
+    List<Role> findRolesByLoginName(String loginName)throws DataAccessException;
+
+    //@Cacheable(value = CacheHelper.SYS_CACHE,key = "findPermissionByLoginName<-"+"#loginName")
+    List<Menu> findPermissionByLoginName(String loginName) throws DataAccessException;
+
+
 }

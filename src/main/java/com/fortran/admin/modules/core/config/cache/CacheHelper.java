@@ -18,12 +18,12 @@ public final  class CacheHelper {
     /**
      * 系统模块
      */
-    private static final String SYS_CACHE = "sysCache";
+    public static final String SYS_CACHE = "sysCache";
 
     /**
      * 数据字典缓存
      */
-    private static final String DICT_CACHE = "dictCache";
+    public static final String DICT_CACHE = "dictCache";
 
 
     /**

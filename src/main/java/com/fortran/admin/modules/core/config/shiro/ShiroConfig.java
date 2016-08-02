@@ -1,10 +1,14 @@
 package com.fortran.admin.modules.core.config.shiro;
 
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
+import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +25,10 @@ import java.util.Map;
 public class ShiroConfig {
 
 
+    /**
+     * <p>缓存管理器 使用Ehcache实现</p>
+     * @return
+     */
     @Bean
     public EhCacheManager getEhCacheManager() {
         EhCacheManager em = new EhCacheManager();
@@ -28,6 +36,10 @@ public class ShiroConfig {
         return em;
     }
 
+    /**
+     * <p>保证实现了Shiro内部lifecycle函数的bean执行</p>
+     * @return
+     */
     @Bean(name = "lifecycleBeanPostProcessor")
     public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
@@ -40,15 +52,60 @@ public class ShiroConfig {
         return daap;
     }
 
+    /**
+     * <p>会话ID生成</p>
+     * @return
+     */
+    @Bean(name = "sessionIdGenerator")
+    public SessionIdGenerator getSessionIdGenerator(){
+        return new JavaUuidSessionIdGenerator();
+    }
+
+    /**
+     * <p>会话DAO</p>
+     * @return
+     */
+    @Bean(name = "sessionDAO")
+    public EnterpriseCacheSessionDAO getEnterpriseCacheSessionDAO(){
+        EnterpriseCacheSessionDAO sessionDAO = new EnterpriseCacheSessionDAO();
+        sessionDAO.setActiveSessionsCacheName("shiro-activeSessionCache");
+        sessionDAO.setSessionIdGenerator(getSessionIdGenerator());
+        return sessionDAO;
+    }
+
+    /**
+     *  <p>会话管理器</p>
+     * @return
+     */
+    @Bean(name = "sessionManager")
+    public DefaultWebSessionManager getDefaultWebSessionManager(){
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionDAO(getEnterpriseCacheSessionDAO());
+        sessionManager.setGlobalSessionTimeout(1800000);
+        sessionManager.setDeleteInvalidSessions(true);
+        return sessionManager;
+    }
+
+    /**
+     * <p>安全管理器</p>
+     * @param myShiroRealm 自实行验证机制
+     * @return
+     */
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager(MyShiroRealm myShiroRealm) {
         DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
         dwsm.setRealm(myShiroRealm);
-        //用户授权/认证信息Cache, 采用EhCache 缓存
         dwsm.setCacheManager(getEhCacheManager());
+        dwsm.setSessionManager(getDefaultWebSessionManager());
         return dwsm;
     }
 
+    /**
+     * <p>开启权限注解功能</p>
+     * <p>可在代码中使用如：@RequiresRoles("admin")进行权限验证</p>
+     * @param securityManager
+     * @return
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
@@ -57,11 +114,10 @@ public class ShiroConfig {
     }
 
     /**
-     * 加载shiroFilter权限控制规则（从数据库读取然后配置）
+     * 加载shiroFilter权限控制规则
      */
     private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean) {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-        // authc：该过滤器下的页面必须验证后才能访问，它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/**", "authc");

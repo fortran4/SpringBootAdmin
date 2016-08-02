@@ -10,8 +10,23 @@
         select * from sys_user where login_name=#{loginName} and login_pwd=#{loginPwd}
     </select>
 
-    <select id="findRoleByLoginName" resultType="Role">
-        
+    <select id="findRolesByLoginName" resultType="Role">
+        select r.role_id,r.role_name from sys_user u
+            LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
+            LEFT JOIN sys_role r ON ur.role_id = u.role_id
+            WHERE u.login_name = #{loginName} AND  u.status = 0
+                  AND  r.status = 0
+    </select>
+
+
+    <select id="findPermissionByLoginName" resultType="Menu">
+        select m.* from sys_user u
+        LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
+        LEFT JOIN sys_role r ON ur.role_id = u.role_id
+        LEFT JOIN sys_role_menu rm ON r.role_id = rm.role_id
+        LEFT JOIN sys_menu m ON rm.menu_id = m.menu_id
+        WHERE u.login_name = #{loginName} AND  u.status = 0
+        AND  r.status = 0 AND m.status = 0
     </select>
 
 
