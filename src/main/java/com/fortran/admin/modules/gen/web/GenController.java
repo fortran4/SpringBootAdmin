@@ -78,7 +78,7 @@ public class GenController extends BaseController{
     }
 
 
- /*   @RequestMapping("/save")
+  /* @RequestMapping("/save")
     public String save(HttpServletRequest request, Model model, Gen gen) {
         try {
             log.debug("Gen ：" + gen.toString());

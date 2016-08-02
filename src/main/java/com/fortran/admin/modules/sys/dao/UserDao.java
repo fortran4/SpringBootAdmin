@@ -18,6 +18,5 @@ public interface UserDao extends CrudDao<User> {
 
     User findByLoginNameAndLoginPwd(String loginName,String loginPwd) throws DataAccessException ;
 
-
     Role findRoleByLoginName(String loginName) throws DataAccessException;
 }
