@@ -13,10 +13,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -46,7 +44,7 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(User user, RedirectAttributes redirectAttributes) throws Exception {
+    public ModelAndView login(User user, RedirectAttributes redirectAttributes) throws Exception {
 
         UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(), user.getLoginPwd());
         Subject currentUser = SecurityUtils.getSubject();
@@ -79,11 +77,14 @@ public class UserController extends BaseController {
         // 验证是否登录成功
         if (currentUser.isAuthenticated()) {
             log.info("用户[" + username + "]登录认证通过.");
-            redirectAttributes.addAttribute("username",username);
-            return "index";
+            redirectAttributes.addFlashAttribute("username",username);
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("username",username);
+            return mv;
         } else {
             token.clear();
-            return "redirect:/login";
+            ModelAndView mv = new ModelAndView("redirect:/login");
+            return mv;
         }
     }
 
@@ -99,9 +100,9 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/user/getMenu", method = RequestMethod.GET)
     @ResponseBody
-    public RespMsg getMenu(String userName){
+    public RespMsg getMenu(@RequestParam("userName") String userName){
         List<Menu> menus = userService.findPermissionByLoginName(userName);
-        return ok("",menus);
+        return ok(menus);
     }
 
 }

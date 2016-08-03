@@ -1,12 +1,17 @@
 package com.fortran.admin.modules.core.common;
 
-import com.google.common.base.Strings;
 import com.fortran.admin.modules.core.common.constant.Constants;
 import com.fortran.admin.modules.core.message.Msg;
 import com.fortran.admin.modules.core.message.RespMsg;
 import com.fortran.admin.modules.core.message.RespMsgStatus;
+import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.beans.PropertyEditorSupport;
 
 /**
  * @author: lin
@@ -14,6 +19,36 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @description: 控制器基类
  */
 public class BaseController implements Msg {
+
+
+    /**
+     * <p>初始化数据绑定</p>
+     * <p>将所有传递进来的String进行HTML编码，防止XSS攻击</p>
+     * <p>将字段中Date类型转换为String类型</p>
+     */
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        // String类型转换，将所有传递进来的String进行HTML编码，防止XSS攻击
+        binder.registerCustomEditor(String.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) {
+                setValue(text == null ? null : StringEscapeUtils.escapeHtml4(text.trim()));
+            }
+
+            @Override
+            public String getAsText() {
+                Object value = getValue();
+                return value != null ? value.toString() : "";
+            }
+        });
+       /* // Date 类型转换
+        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) {
+                setValue(DateUtils.parseDate(text));
+            }
+        });*/
+    }
 
 
     @Override

@@ -82,12 +82,12 @@
         <!-- /menu footer buttons -->
     </div>
 </div>
+<script src="/js/angularjs/angular.min.js"></script>
 <script>
     var userName = '${username}';
-    alert('当前用户：'+userName);
     var menuApp = angular.module('menuApp', []);
     menuApp.controller('menuCtrl', function ($scope, $http) {
-        $http.get("${ctx}/user/getMenu", {params: {username:userName}
+        $http.get("${ctx}/user/getMenu", {params: {userName:userName}
         }).success(function (response) {
                     console.log(response)
                     $scope.menus = response.menus;

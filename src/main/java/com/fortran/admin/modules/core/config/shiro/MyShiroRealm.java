@@ -85,7 +85,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = userDao.findByLoginName(token.getUsername());
         if (user != null) {
             log.info("login name : {} at {} ", user.getLoginName(), new Date());
-            isKick(user.getLoginName());
+            //isKick(user.getLoginName());
             return new SimpleAuthenticationInfo(user.getLoginName(), user.getLoginPwd(), getName());
         }
         return null;

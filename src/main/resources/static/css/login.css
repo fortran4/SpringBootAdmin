@@ -1,0 +1,262 @@
+html {
+    min-height: 100%
+}
+
+body {
+    background: url("../images/login/login_bg.jpg") no-repeat center top;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/images/background.jpg', sizingMethod='scale');
+    background-size: cover;
+    min-height: 100%
+}
+
+.login-top {
+    height: 70px
+}
+
+.login-top a {
+    color: rgba(255, 255, 255, .7);
+    color: #fff \9;
+    float: right;
+    padding: 28px 35px;
+    font-size: 14px
+}
+
+.login-centent {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    margin-top: -212px
+}
+
+.login-centent .login-title {
+    color: #fff;
+    font-size: 30px;
+    text-align: center
+}
+
+.login-box {
+    width: 600px;
+    margin: 50px auto 0;
+    height: auto;
+    z-index: 1;
+    position: relative
+}
+
+.login-box .login-box-t {
+    height: 5px;
+    background-image: url(../../images/login/login_box-t.png)
+}
+
+.login-box .login-box-m {
+    height: auto;
+    background-image: url(../../images/login/login_box-m.png)
+}
+
+.login-box .login-box-b {
+    height: 30px;
+    background-image: url(../../images/login/login_box-b.png)
+}
+
+.login-box-shadow {
+    margin: -40px auto 0;
+    text-align: center
+}
+
+.login-box-shadow.for-forget {
+    margin: -11px auto 0
+}
+
+.login-box-shadow.for-forget img {
+    width: 500px
+}
+
+.login-box-main {
+    width: 570px;
+    height: 100%;
+    margin: 0 auto
+}
+
+.login-box-left {
+    width: 241px;
+    height: 230px;
+    text-align: center;
+    display: inline-block
+}
+
+.login-box-left {
+    *display: inline
+}
+
+.login-box-left img {
+    position: relative;
+    top: 50%;
+    margin-top: -34px
+}
+
+.login-box-right {
+    width: 324px;
+    height: auto;
+    display: inline-block;
+    vertical-align: top
+}
+
+.login-box-right {
+    *display: inline
+}
+
+.login-box-right form {
+    width: 280px;
+    margin: 0 auto
+}
+
+.login-box-right form h3 {
+    color: #0e3f83;
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 600;
+    margin-top: 12px
+}
+
+.input-box {
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    margin-top: 9px;
+    background-color: #FFF
+}
+
+.input-box .input-before {
+    width: 35px;
+    display: inline-block;
+    text-align: center;
+    height: 100%;
+    line-height: 31px;
+    #line-height: 30px
+}
+
+.input-box .input-before img {
+    display: inline-block
+}
+
+.input-box input {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 12px;
+    height: 28px;
+    line-height: 28px;
+    #line-height: 28px;
+    margin-left: -4px;
+    color: #333;
+    width: 240px;
+    box-sizing: border-box;
+    border: 0
+}
+
+.v-code .input-box {
+    display: inline-block
+}
+
+.v-code .input-box {
+    *display: inline
+}
+
+.v-code .input-box input {
+    width: 130px
+}
+
+.v-code .v-codeb-box {
+    width: 100px;
+    height: 30px;
+    border: 0 solid #CCC;
+    border-radius: 2px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 9px;
+    box-sizing: border-box;
+    margin-left: 5px;
+    background-color: #FFF;
+    text-align: center;
+    cursor: pointer
+}
+
+.forget .v-code .v-codeb-box {
+    height: 35px
+}
+
+.v-code .v-codeb-box {
+    *display: inline
+}
+
+.v-code .v-codeb-box img {
+    margin-top: 0
+}
+
+.error-text {
+    font-size: 12px;
+    color: #c7494b;
+    position: relative;
+    top: 5px
+}
+
+.error-border {
+    border-color: #c7494b
+}
+
+.login-final {
+    margin-top: 18px
+}
+
+.login-button {
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+    border: 1px solid #0c549e;
+    border-radius: 2px;
+    box-sizing: border-box;
+    background-image: url(../../images/login/login-btn_bg.png);
+    color: #FFF;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer
+}
+
+#btn-load {
+    background-image: url(../../images/login/login-btn-hover_bg.png);
+    background-image: url(../../images/login/login-btn-check_bg.png)
+}
+
+.login-button:hover {
+    background-image: url(../../images/login/login-btn-hover_bg.png)
+}
+
+.login-button.checked {
+    background-image: url(../../images/login/login-btn-check_bg.png)
+}
+
+.extra-link {
+    font-size: 12px;
+    color: #333;
+    margin-left: 10px;
+    cursor: pointer
+}
+
+.support-footer {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0
+}
+
+.support-footer .support-text {
+    color: rgba(255, 255, 255, .9);
+    color: #fff \9;
+    margin-bottom: 20px;
+    font-size: 14px
+}
+
+.support-footer .support-text a {
+    color: inherit;
+    color: #fff \9
+}

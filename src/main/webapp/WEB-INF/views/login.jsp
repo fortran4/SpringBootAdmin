@@ -11,49 +11,76 @@
     <title>login</title>
     <%@include file="/WEB-INF/views/common/taglib.jsp"%>
     <%@include file="/WEB-INF/views/common/css.jsp"%>
-
+    <link href="/css/login.css" rel="stylesheet">
 </head>
-<body class="login">
-    <sys:message content="${content}" type="${type}"/>
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+<div class="login-top">
+        <a href="javascript:;;">下载 Testin Pro 客户端</a>
+</div>
+<div class="login-centent">
+        <h2 class="login-title">Testin Pro自动化测试系统</h2>
+    <div class="login-box">
+        <div class="login-box-t"></div>
+        <div class="login-box-m">
+            <div class="login-box-main">
+                <div class="login-box-left">
+                    <c:if test="${not empty enterpriseInfo.logo}">
+                        <img src="${enterpriseInfo.logo}">
+                    </c:if>
+                    <c:if test="${empty enterpriseInfo.logo}">
+                        <img src="">
+                    </c:if>
+                </div>
+                <div class="login-box-right">
+                    <form method="post" action="${ctx}/login">
+                        <input type="hidden" id="imageCodeAuth" name="imageCodeAuth" value="${imageCodeAuth}"/>
 
-      <div class="login_wrapper">
+                        <h3>用户登录</h3>
 
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form id="loginForm" class="form-horizontal" action="${ctx}/login" method="post">
-              <h1>Zcoder Admin System</h1>
-              <div>
-                <input name="loginName" type="text" class="form-control" placeholder="账号：" required="" />
-              </div>
-              <div>
-                <input name="loginPwd" type="password" class="form-control" placeholder="密码：" required="" />
-              </div>
-              <div>
-                <button type="submit" class="btn btn-primary">登录</button>
-                <a class="reset_pass" href="#">忘记密码?</a>
-              </div>
+                        <div class="input-box" id="email_div">
+        							<span class="input-before">
+        								<img src="/images/login/user_icon.png"/>
+        							</span>
+                            <input type="text" value="${loginName}" placeholder="输入您的用户名" id="loginName" name="loginName"/>
+                        </div>
+                        <div class="input-box" id="pwd_div">
+        							<span class="input-before">
+        								<img src="/images/login/password_icon.png"/>
+        							</span>
+                            <input type="password" value="${pwd}" placeholder="请输入登录密码" id="loginPwd" name="loginPwd"/>
+                        </div>
+                        <div class="v-code">
+                            <div class="input-box" style="width: 170px;" id="image_code_div">
+	        							<span class="input-before">
+	        								<img src="/images/login/vcode_icon.png"/>
+	        							</span>
+                                <input type="text" value="" placeholder="验证码" id="image_code" name="imageCode"
+                                       maxlength="4"/>
+                            </div>
+                            <div class="v-codeb-box">
+                                <img src="${ctx}/common/getimagecode" id="image_code_pic">
+                            </div>
+                        </div>
+                        <p class="error-text" id="login_err_msg"></p>
 
-              <div class="clearfix"></div>
-
-              <div class="separator">
-               <%-- <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
-                </p>--%>
-                <div class="clearfix"></div>
-                <br />
-               <%-- <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
-                </div>--%>
-              </div>
-            </form>
-          </section>
+                        <div class="login-final">
+                            <button type="submit" class="login-button">登录</button>
+                            <a class="extra-link" href="/account/forgot.htm">忘记密码？</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="login-box-b"></div>
     </div>
-    <%@include file="/WEB-INF/views/common/js.jsp"%>
+    <div class="login-box-shadow">
+        <img src="/images/login/login_box-shadow.png">
+    </div>
+    <sys:message content="${content}" type="${type}"/>
+</div>
+<div class="support-footer">
+    <p class="support-text"><a href="">Testin云测</a>提供技术支持</p>
+</div>
+
+<%@include file="/WEB-INF/views/common/js.jsp"%>
   </body>
 </html>
