@@ -21,6 +21,8 @@ public class User extends Domain{
 
     private List<Role> roles;
 
+    private String validateCode;
+
 
 
 }

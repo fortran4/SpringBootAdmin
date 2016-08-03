@@ -53,11 +53,11 @@
 	        							<span class="input-before">
 	        								<img src="/images/login/vcode_icon.png"/>
 	        							</span>
-                                <input type="text" value="" placeholder="验证码" id="image_code" name="imageCode"
+                                <input type="text" value="" placeholder="验证码" id="validateCode" name="validateCode"
                                        maxlength="4"/>
                             </div>
                             <div class="v-codeb-box">
-                                <img src="${ctx}/common/getimagecode" id="image_code_pic">
+                                <img src="${ctx}/common/getimagecode" id="validate_code_pic">
                             </div>
                         </div>
                         <p class="error-text" id="login_err_msg"></p>

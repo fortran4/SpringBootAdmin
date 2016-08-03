@@ -21,7 +21,7 @@ import java.util.Random;
 @Slf4j
 public class ValidateCodeUtils {
 
-    private static final String VALIDATE_CODE = "validateCode";
+    public static final String VALIDATE_CODE = "validateCode";
 
     static int w = 100;
     static int h = 30;

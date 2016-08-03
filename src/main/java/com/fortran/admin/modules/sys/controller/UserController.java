@@ -3,9 +3,11 @@ package com.fortran.admin.modules.sys.controller;
 import com.fortran.admin.modules.core.common.BaseController;
 import com.fortran.admin.modules.core.common.constant.Constants;
 import com.fortran.admin.modules.core.message.RespMsg;
+import com.fortran.admin.modules.core.utils.ValidateCodeUtils;
 import com.fortran.admin.modules.sys.domain.Menu;
 import com.fortran.admin.modules.sys.domain.User;
 import com.fortran.admin.modules.sys.service.UserService;
+import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -44,15 +47,20 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(User user, RedirectAttributes redirectAttributes) throws Exception {
+    public ModelAndView login(User user, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 
         UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(), user.getLoginPwd());
         Subject currentUser = SecurityUtils.getSubject();
         String username = user.getLoginName();
         try {
-            // 在调用了login方法后,SecurityManager会收到AuthenticationToken,并将其发送给已配置的Realm执行必须的认证检查
-            // 每个Realm都能在必要时对提交的AuthenticationTokens作出反应
-            // 所以这一步在调用login(token)方法时,它会走到MyRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法
+
+            String valicateCode = (String)request.getSession().getAttribute(ValidateCodeUtils.VALIDATE_CODE);
+            if (Strings.isNullOrEmpty(valicateCode) || !user.getValidateCode().equalsIgnoreCase(valicateCode)){
+                rtnMessage(redirectAttributes, Constants.MSG_TYPE_DANGER,"验证码错误");
+                ModelAndView mv = new ModelAndView("redirect:/login");
+                return mv;
+            }
+
             log.info("对用户[" + username + "]进行登录验证,验证开始...");
             currentUser.login(token);
             log.info("对用户[" + username + "]进行登录验证,验证通过.");
