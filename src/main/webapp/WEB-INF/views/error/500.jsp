@@ -8,9 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>500 error page</title>
     <%@include file="/WEB-INF/views/common/taglib.jsp"%>
-    <%@include file="/WEB-INF/views/common/include.jsp"%>
+    <%@include file="/WEB-INF/views/common/css.jsp"%>
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -43,6 +42,5 @@
       </div>
     </div>
 
-   <%@include file="/WEB-INF/views/common/include-js.jsp"%>
   </body>
 </html>

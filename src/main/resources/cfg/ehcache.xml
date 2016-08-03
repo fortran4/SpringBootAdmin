@@ -2,10 +2,10 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false">
-    <diskStore path="user.dir/Tmp_EhCache" />
+    <diskStore path="user.dir/Tmp_EhCache"/>
     <defaultCache eternal="false" maxElementsInMemory="1000"
                   overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
-                  timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU" />
+                  timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU"/>
 
     <!--
         eternal: true 表示对象永远不过期，此时会忽略timeToIdleSeconds和timeToLiveSeconds属性，默认为false
@@ -22,11 +22,18 @@
      -->
 
 
+    <cache name="shiro-activeSessionCache"
+           maxEntriesLocalHeap="10000"
+           overflowToDisk="false"
+           eternal="false"
+           diskPersistent="false"
+           timeToLiveSeconds="0"
+           timeToIdleSeconds="0"
+           statistics="true"/>
+
     <cache name="sysCache" eternal="false" maxElementsInMemory="500"
            overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
-           timeToLiveSeconds="3000" memoryStoreEvictionPolicy="LRU" />
-
-
+           timeToLiveSeconds="3000" memoryStoreEvictionPolicy="LRU"/>
 
 
 </ehcache>
