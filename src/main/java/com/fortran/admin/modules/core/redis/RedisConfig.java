@@ -1,4 +1,4 @@
-package com.fortran.admin.modules.redis;
+package com.fortran.admin.modules.core.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
