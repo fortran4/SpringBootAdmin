@@ -7,15 +7,17 @@
 
 package ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.fortran.admin.modules.core.common.CrudDao;
+import com.fortran.admin.modules.core.config.mybatis.annotation.MybatisDao;
 import ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
 
 /**
- * ${funcName}DAO接口
+ * <p>${funcName}DAO接口</p>
  * @author ${gen.author}
  * @version ${gen.version}
  */
-public interface ${ClassName}Dao extends JpaRepository<${ClassName}, Long> {
+@MybatisDao
+public interface ${ClassName}Dao extends CrudDao<Log> {
 
 }]]>
     </content>

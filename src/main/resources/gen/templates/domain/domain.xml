@@ -6,34 +6,27 @@
     <content><![CDATA[
 package ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>;
 
+import com.fortran.admin.modules.core.common.Domain;
 import lombok.Data;
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
+import lombok.EqualsAndHashCode;
 
 /**
- * ${funcName}
- * @author ${gen.author}
- * @version ${gen.version}
+ * @author: ${gen.author}
+ * @Date:
+ * @description: <p>${funcName}</p>
  */
-@Entity
 @Data
-public class ${ClassName} implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class ${ClassName} extends Domain {
 
 	private static final long serialVersionUID = 1L;
-<#list columns as column>
-  <#if column.field =='id'>
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Long id;
-  <#else>
-    /**
-     * ${column.comment}
-     */
-    @Column
-    private ${column.javaType} ${column.javaField};
-    </#if>
-</#list>
+
+    <#list columns as column>
+        /**
+         * ${column.comment}
+         */
+        private ${column.javaType} ${column.javaField};
+    </#list>
 
 }]]>
     </content>
