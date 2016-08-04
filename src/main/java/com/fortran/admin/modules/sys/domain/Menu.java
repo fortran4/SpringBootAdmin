@@ -13,7 +13,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class Menu extends Domain {
 
-    private Long id;
+    /**
+     * 主键
+     */
+    private Long menuId;
 
     /**
      * 菜单名称

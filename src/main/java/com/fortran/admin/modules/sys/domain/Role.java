@@ -15,7 +15,10 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class Role extends Domain {
 
-    private Long id;
+    /**
+     * 主键
+     */
+    private Long roleId;
 
     /**
      * 角色名称

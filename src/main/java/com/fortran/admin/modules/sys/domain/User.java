@@ -15,12 +15,29 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class User extends Domain{
 
+    /**
+     * 用户ID
+     */
+    private Long userId;
+
+    /**
+     * 用户名
+     */
     private String loginName;
 
+    /**
+     * 登录密码
+     */
     private String loginPwd;
 
+    /**
+     * 拥有角色
+     */
     private List<Role> roles;
 
+    /**
+     * 登录验证码
+     */
     private String validateCode;
 
 
