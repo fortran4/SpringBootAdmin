@@ -22,3 +22,5 @@
 <link href="/js/gentelella/build/css/custom.min.css" rel="stylesheet">
 <!-- alert confirm-->
 <link href="/js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+<!--form validation-->
+<link href="/js/formValidation/css/formValidation.min.css" rel="stylesheet">
