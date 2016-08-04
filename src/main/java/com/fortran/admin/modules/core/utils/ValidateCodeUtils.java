@@ -23,7 +23,7 @@ public class ValidateCodeUtils {
 
     public static final String VALIDATE_CODE = "validateCode";
 
-    static int w = 100;
+    static int w = 90;
     static int h = 30;
 
 

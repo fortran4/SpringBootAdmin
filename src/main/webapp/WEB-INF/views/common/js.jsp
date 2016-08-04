@@ -7,9 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <!-- jQuery -->
-<script src="/js/gentelella/vendors/jquery/dist/jquery.min.js"></script>
+<script src="/js/formValidation/vendor/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="/js/gentelella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/js/formValidation/vendor/bootstrap/js/bootstrap.min.js"></script>
+<%--
 <!-- angularjs -->
 <script src="/js/angularjs/angular.min.js"></script>
 <!-- FastClick -->
@@ -31,13 +32,17 @@
 <!-- Select2 -->
 <script src="/js/gentelella/vendors/select2/dist/js/select2.full.min.js"></script>
 <!-- switchery -->
+--%>
 <!-- <script src="/gentelella/vendors/switchery/switchery.js"></script> -->
 <!-- validator -->
-<script src="/js/formValidation/js/formValidation.min.js"></script>
+<script src="/js/formValidation/js/formValidation.js"></script>
+<script src="/js/formValidation/framework/bootstrap.js"></script>
 <script src="/js/formValidation/js/language/zh_CN.js"></script>
+<%--
 <script src="/js/gentelella/build/js/custom.js"></script>
 <script src="/js/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="/js/custom/custom.js"></script>
+--%>
 
 <script type="text/javascript">
     var ctx = '${ctx}', ctxStatic = '${ctxStatic}';

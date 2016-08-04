@@ -106,7 +106,7 @@ body {
 
 .login-box-right form {
     width: 280px;
-    margin: 0 auto
+    margin: 40px auto
 }
 
 .login-box-right form h3 {
@@ -119,35 +119,30 @@ body {
 
 .input-box {
     width: 100%;
-    height: 30px;
+    height: 34px;
     border: 1px solid #ccc;
     border-radius: 2px;
     box-sizing: border-box;
-    margin-top: 9px;
+    margin-top: 2px;
     background-color: #FFF
 }
 
-.input-box .input-before {
+/*.input-box .input-before {
     width: 35px;
     display: inline-block;
     text-align: center;
     height: 100%;
     line-height: 31px;
-    #line-height: 30px
-}
+}*/
 
 .input-box .input-before img {
     display: inline-block
 }
 
 .input-box input {
-    display: inline-block;
-    vertical-align: top;
     font-size: 12px;
     height: 28px;
     line-height: 28px;
-    #line-height: 28px;
-    margin-left: -4px;
     color: #333;
     width: 240px;
     box-sizing: border-box;
@@ -173,7 +168,7 @@ body {
     border-radius: 2px;
     display: inline-block;
     vertical-align: top;
-    margin-top: 9px;
+    margin-top: 2px;
     box-sizing: border-box;
     margin-left: 5px;
     background-color: #FFF;
@@ -204,36 +199,6 @@ body {
     border-color: #c7494b
 }
 
-.login-final {
-    margin-top: 18px
-}
-
-.login-button {
-    display: inline-block;
-    width: 120px;
-    height: 30px;
-    border: 1px solid #0c549e;
-    border-radius: 2px;
-    box-sizing: border-box;
-    background-image: url(../../images/login/login-btn_bg.png);
-    color: #FFF;
-    text-align: center;
-    line-height: 28px;
-    cursor: pointer
-}
-
-#btn-load {
-    background-image: url(../../images/login/login-btn-hover_bg.png);
-    background-image: url(../../images/login/login-btn-check_bg.png)
-}
-
-.login-button:hover {
-    background-image: url(../../images/login/login-btn-hover_bg.png)
-}
-
-.login-button.checked {
-    background-image: url(../../images/login/login-btn-check_bg.png)
-}
 
 .extra-link {
     font-size: 12px;
