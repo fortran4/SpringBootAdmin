@@ -77,7 +77,6 @@ public class UserController extends BaseController {
             log.error("对用户[" + username + "]进行登录验证,验证未通过,错误次数过多");
             rtnMessage(redirectAttributes, Constants.MSG_TYPE_DANGER,"用户名或密码错误次数过多");
         } catch (AuthenticationException ae) {
-            // 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
             log.error("对用户[" + username + "]进行登录验证,验证未通过,堆栈轨迹如下");
             ae.printStackTrace();
             rtnMessage(redirectAttributes, Constants.MSG_TYPE_DANGER,"用户名或密码不正确");
