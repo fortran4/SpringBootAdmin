@@ -1,211 +1,179 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@include file="/WEB-INF/views/common/taglib.jsp"%>
+<%@include file="/WEB-INF/views/common/taglib.jsp" %>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>数据字典</title>
-<%@include file="/WEB-INF/views/common/css.jsp"%>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>数据字典</title>
+    <%@include file="/WEB-INF/views/common/css.jsp" %>
+    <link href="/js/fileUpload/css/fileinput.css" rel="stylesheet">
+    <link href="" rel="stylesheet">
 </head>
 <body class="main-bg">
-	<sys:message type="${type}" content="${content}"></sys:message>
-	<div class="row">
-		<div class="col-md-12 col-sm-12 col-xs-12">
-			<div class="" role="tabpanel" data-example-id="togglable-tabs">
-				<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-					<li><a href="${ctx}/sys/sysUser/find" role="tab">列表</a>
-					</li>
-					<li  class="active"><c:choose>
-							<c:when test="${action=='edit'}">
-								<a href="${ctx}/sys/sysUser/form?action='edit'&id=${sysUser.id}"
-									role="tab">编辑</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${ctx}/sys/sysUser/form?id=${sysUser.id}" role="tab">新增</a>
-							</c:otherwise>
-						</c:choose></li>
-				</ul>
-			</div>
-			<div id="myTabContent" class="tab-content">
-				<div role="tabpanel" class="tab-pane fade active in" id="listPanel"
-					aria-labelledby="home-tab">
-					<br>
-					<div class="row">
-						<div class="col-md-12 col-sm-12 col-xs-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>
-										<i class="glyphicon glyphicon-th-large"></i>用户信息
-									</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<form:form id="inputForm" modelAttribute="sysUser" role="form"
-										action="${ctx}/sys/sysUser/save" method="post"
-										class="form-horizontal form-label-left">
-										<form:hidden path="id" />
+<sys:message type="${type}" content="${content}"></sys:message>
+<!--nav-->
+<div class="row">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2><i class="glyphicon glyphicon-th-large"></i>用户管理</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <ul class="nav nav-tabs">
+                <li><a href="${ctx}/user/findUsers">用户列表</a></li>
+                <li class="active"><a href="${ctx}/user/add">新增</a></li>
+            </ul>
+            <br/>
+            <form:form id="inputForm" modelAttribute="user" role="form"
+                       action="${ctx}/user/save" method="post" enctype="multipart/form-data"
+                       class="form-horizontal form-label-left">
+                <form:hidden path="userId"/>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginName">用户名<span
+                            class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form:input path="loginName" cssClass="form-control col-md-7 col-xs-9" maxlength="12"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="loginPwd">登录密码<span
+                            class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form:password path="loginPwd" cssClass="form-control col-md-7 col-xs-9" maxlength="12"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="realName">真实姓名<span
+                            class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form:input path="realName" cssClass="form-control col-md-7 col-xs-9" maxlength="12"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="realName">头像<span
+                            class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="file" class="form-control" name="headImg" data-min-file-count="1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="phone">手机
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form:input path="phone" cssClass="form-control col-md-7 col-xs-9" maxlength="11"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">邮箱
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <form:input path="email" cssClass="form-control col-md-7 col-xs-9"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">性别</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary"
+                                   data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="1"> &nbsp; 男 &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary"
+                                   data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="0"> 女
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
-													<div class="item form-group">
-													<label for="id"
-														class="control-label col-md-3 col-sm-3 col-xs-12"><span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary">重置</button>
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </form:form>
+        </div>
+    </div>
+</div>
+<%@include file="/WEB-INF/views/common/js.jsp" %>
+<script src="/js/fileUpload/js/fileinput.js"></script>
+<script src="/js/fileUpload/js/fileinput_locale_zh.js"></script>
+<script>
+    $(function () {
 
-															<form:input  path="id" maxLength="11"
-																placeholder="请输入"
-																class="form-control col-md-7 col-xs-12" />
+        $('#inputForm').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                loginName: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入用户名'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 12,
+                            message: '用户名必须在6-12个字符之间'
+                        },
+                        regexp: {
+                            regexp: /^[a-zA-Z0-9_\.]+$/,
+                            message: '用户名只支持数字，字母，下划线的组合'
+                        }
+                    }
+                },
+                loginPwd: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入密码'
+                        }, stringLength: {
+                            min: 6,
+                            max: 12,
+                            message: '密码必须在6-12个字符之间'
+                        }
+                    }
+                },
+                realName: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入真实姓名'
+                        }, stringLength: {
+                            max: 20,
+                            message: '真实姓名最大长度为20个字符'
+                        }
+                    }
+                },
+                phone: {
+                    validators: {
+                        phone: {
+                            message: '请输入正确的手机号'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        emailAddress: {
+                            message: '请输入正确的邮箱地址'
+                        }
+                    }
+                }
+            }
+        });
+    });
 
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="userId"
-														class="control-label col-md-3 col-sm-3 col-xs-12">用户信息表ID<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="userId" maxLength="11"
-																placeholder="请输入用户信息表ID"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="loginName"
-														class="control-label col-md-3 col-sm-3 col-xs-12">登录名<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="loginName" maxLength="0"
-																placeholder="请输入登录名"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="loginPwd"
-														class="control-label col-md-3 col-sm-3 col-xs-12">登录密码<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="loginPwd" maxLength="0"
-																placeholder="请输入登录密码"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="lastLoginIp"
-														class="control-label col-md-3 col-sm-3 col-xs-12">最近一次登录IP<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="lastLoginIp" maxLength="0"
-																placeholder="请输入最近一次登录IP"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="lastLoginDate"
-														class="control-label col-md-3 col-sm-3 col-xs-12">最近一次登录时间<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="lastLoginDate" maxLength="0"
-																placeholder="请输入最近一次登录时间"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="createBy"
-														class="control-label col-md-3 col-sm-3 col-xs-12">创建人ID<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="createBy" maxLength="11"
-																placeholder="请输入创建人ID"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="createDate"
-														class="control-label col-md-3 col-sm-3 col-xs-12">创建时间<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="createDate" maxLength="0"
-																placeholder="请输入创建时间"
-																class="form-control col-md-7 col-xs-12" />
-
-
-
-
-													</div>
-												</div>
-													<div class="item form-group">
-													<label for="status"
-														class="control-label col-md-3 col-sm-3 col-xs-12">0正常：-1：失效<span
-														class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-
-															<form:input  path="status" maxLength="6"
-																placeholder="请输入0正常：-1：失效"
-																class="form-control col-md-7 col-xs-12" />
-
-													</div>
-												</div>
-										<div class="ln_solid"></div>
-											<div class="form-group">
-												<div class="col-md-6 col-md-offset-3">
-													<shiro:hasPermission name="sys:sysUser:edit">
-														<button id="send" type="submit" class="btn btn-success">保存/button>
-													</shiro:hasPermission>
-													<button type="button" class="btn btn-primary">取消</button>
-												</div>
-										</div>
-									</form:form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-<%@include file="/WEB-INF/views/common/js.jsp"%>
+    $("input[name=headImg]").fileinput({
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-lg",
+        fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+    });
+</script>
 </body>
 </html>

@@ -136,5 +136,10 @@ public class UserController extends BaseController {
         return "modules/sys/userList";
     }
 
+    @RequestMapping(value = "/user/add")
+    public String add(User user,HttpServletRequest request, HttpServletResponse response, Model model){
+        return "modules/sys/userForm";
+    }
+
 
 }

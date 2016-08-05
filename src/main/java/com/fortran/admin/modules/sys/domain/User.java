@@ -4,6 +4,7 @@ import com.fortran.admin.modules.core.common.Domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,9 +41,34 @@ public class User extends Domain{
      */
     private String validateCode;
 
+    /**
+     * 真实姓名
+     */
+    private String realName;
+
+    /**
+     * 电话
+     */
+    private String phone;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
 
+    /**
+     * 头像地址
+     */
+    private String headImg;
 
+    /**
+     * 性别
+     */
+    private String gender;
 
-
+    /**
+     * 生日
+     */
+    private Date birthday;
 }

@@ -13,7 +13,7 @@
 <div class="row">
     <div class="x_panel">
         <div class="x_title">
-            <h2>用户管理</h2>
+            <h2><i class="glyphicon glyphicon-th-large"></i>用户管理</h2>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
