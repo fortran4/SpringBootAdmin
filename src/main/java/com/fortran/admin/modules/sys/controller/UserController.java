@@ -2,6 +2,7 @@ package com.fortran.admin.modules.sys.controller;
 
 import com.fortran.admin.modules.core.common.BaseController;
 import com.fortran.admin.modules.core.common.constant.Constants;
+import com.fortran.admin.modules.core.config.mybatis.Page;
 import com.fortran.admin.modules.core.message.RespMsg;
 import com.fortran.admin.modules.core.utils.ValidateCodeUtils;
 import com.fortran.admin.modules.sys.domain.Menu;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -125,6 +127,14 @@ public class UserController extends BaseController {
         return ok(menus);
     }
 
+
+    //@RequiresPermissions("sys:user:view")
+    @RequestMapping(value = "/user/findAll")
+    public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<User> page = userService.findUsers(new Page<User>(request, response), user);
+        model.addAttribute("page", page);
+        return "modules/sys/userList";
+    }
 
 
 }

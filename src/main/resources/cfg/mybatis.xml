@@ -38,25 +38,15 @@
         <setting name="jdbcTypeForNull" value="NULL"/>
 
     </settings>
-<!--
-    &lt;!&ndash; 类型别名 &ndash;&gt;
+
     <typeAliases>
-        <typeAlias alias="Page" type="com.cinyi.admin.common.persistence.Page" />&lt;!&ndash;分页  &ndash;&gt;
+        <typeAlias alias="Page" type="com.fortran.admin.modules.core.config.mybatis.Page"/>
     </typeAliases>
 
-    &lt;!&ndash; 类型转换 &ndash;&gt;
-    <typeHandlers>
-        <typeHandler javaType="com.cinyi.admin.modules.sys.entity.User" jdbcType="VARCHAR" handler="com.cinyi.admin.modules.handler.SysUserHandler" />
-    </typeHandlers>
-
-    &lt;!&ndash; 插件配置 &ndash;&gt;
-    <plugins>
-        <plugin interceptor="com.cinyi.admin.common.persistence.interceptor.PaginationInterceptor" />
-        <plugin interceptor="com.cinyi.admin.common.persistence.interceptor.MybatisInterceptor"></plugin>
-    </plugins>-->
 
     <plugins>
-        <plugin interceptor="com.fortran.admin.modules.core.config.mybatis.interceptor.PaginationInterceptor" />
+        <plugin interceptor="com.fortran.admin.modules.core.config.mybatis.interceptor.PaginationInterceptor"/>
+        <!--<plugin interceptor="com.fortran.admin.modules.core.config.mybatis.interceptor.MybatisInterceptor"/>-->
     </plugins>
 
 </configuration>

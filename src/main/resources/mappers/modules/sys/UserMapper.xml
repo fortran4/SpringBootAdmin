@@ -13,7 +13,7 @@
     <select id="findRolesByLoginName" resultType="Role">
         select r.role_id,r.role_name from sys_user u
             LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
-            LEFT JOIN sys_role r ON ur.role_id = u.role_id
+            LEFT JOIN sys_role r ON ur.role_id = r.role_id
             WHERE u.login_name = #{loginName} AND  u.status = 0
                   AND  r.status = 0
     </select>
@@ -32,4 +32,14 @@
     <select id="findMenuByParentId" resultType="Menu">
         SELECT * FROM  sys_menu m WHERE  m.status=0 and m.parent_id=#{parentId}
     </select>
+    
+    <select id="findUsers" resultType="User">
+        SELECT * FROM  sys_user u
+        <where>
+            <if test="loginName!= null and loginName !=''">
+                u.login_name=#{loginName}
+            </if>
+        </where>
+    </select>
+
 </mapper>

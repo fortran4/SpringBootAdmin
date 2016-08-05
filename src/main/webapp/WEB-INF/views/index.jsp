@@ -30,7 +30,7 @@ response.setDateHeader("Expires", -10);
 			<!-- /#top -->
 			<!-- mainframe -->
 			<div class="right_col" role="main">
-				<iframe id="mainFrame" name="mainFrame" src="" style="overflow:visible;" scrolling="yes" frameborder="no" width="100%" height="650"></iframe>
+				<iframe id="mainFrame" name="mainFrame" src=""  scrolling="no" frameborder="no" width="100%" height="100%"></iframe>
 			</div>
 			<!-- /#mainframe -->
 			<!-- footer -->

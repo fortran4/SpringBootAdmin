@@ -8,6 +8,7 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -83,7 +84,21 @@ public class ShiroConfig {
         sessionManager.setSessionDAO(getEnterpriseCacheSessionDAO());
         sessionManager.setGlobalSessionTimeout(1800000);
         sessionManager.setDeleteInvalidSessions(true);
+        sessionManager.setSessionIdCookie(sessionIdCookie());
+        sessionManager.setSessionIdCookieEnabled(true);
         return sessionManager;
+    }
+
+    /**
+     * <p>指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID</p>
+     * <p>当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失</p>
+     * @return
+     */
+    @Bean
+    public SimpleCookie sessionIdCookie(){
+        SimpleCookie simpleCookie = new SimpleCookie();
+        simpleCookie.setName("springbootadmin.sesssion.id");
+        return simpleCookie;
     }
 
     /**

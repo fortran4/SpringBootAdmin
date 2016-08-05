@@ -30,4 +30,7 @@ public interface UserDao extends CrudDao<User> {
 
 
     List<Menu> findMenuByParentId(String parentId)throws DataAccessException;
+
+
+    List<User> findUsers(User user)throws  DataAccessException;
 }

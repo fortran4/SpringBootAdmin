@@ -39,7 +39,9 @@
     <logger name="java.sql.Statement" level="DEBUG" />
     <logger name="java.sql.PreparedStatement" level="DEBUG" />
 
-    <logger name="org.apache.shiro" level="DEBUG" />
+    <logger name="org.apache.shiro" level="INFO" />
+
+    <logger name="com.fortran.admin" level="DEBUG" />
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>

@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>数据字典</title>
-<%@include file="/WEB-INF/views/common/include.jsp"%>
+<%@include file="/WEB-INF/views/common/css.jsp"%>
 </head>
 <body class="main-bg">
 	<sys:message type="${type}" content="${content}"></sys:message>
@@ -206,7 +206,6 @@
 					</div>
 				</div>
 			</div>
-<%@include file="/WEB-INF/views/common/include-js.jsp"%>
-<%@include file="/WEB-INF/views/common/include-custom-validator.jsp"%>
+<%@include file="/WEB-INF/views/common/js.jsp"%>
 </body>
 </html>

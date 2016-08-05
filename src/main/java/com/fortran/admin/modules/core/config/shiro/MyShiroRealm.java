@@ -1,6 +1,5 @@
 package com.fortran.admin.modules.core.config.shiro;
 
-import com.fortran.admin.modules.core.config.cache.CacheHelper;
 import com.fortran.admin.modules.sys.dao.UserDao;
 import com.fortran.admin.modules.sys.domain.Menu;
 import com.fortran.admin.modules.sys.domain.Role;
@@ -63,7 +62,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
             //set permisssion
             List<Menu> menus = userDao.findPermissionByLoginName(loginName);
-            CacheHelper.put(loginName, menus);
+            //CacheHelper.put(loginName, menus);
             List<String> permisssions = Lists.newArrayList();
             for (Menu menu : menus) {
                 permisssions.add(menu.getPermission());

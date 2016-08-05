@@ -90,6 +90,7 @@
             dataType:'json',
             success : function (response) {
                 if (response.code == 200){
+                    $('#menu_'+pid).html("");
                     $.each(response.data, function(idx, obj) {
                         var html = '<li><a href="${ctx}'+obj.href+'" target="mainFrame">'+obj.menuName+'</a></li>';
                        $('#menu_'+pid).append(html);
