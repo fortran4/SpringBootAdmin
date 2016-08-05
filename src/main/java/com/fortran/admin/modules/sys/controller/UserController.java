@@ -85,8 +85,10 @@ public class UserController extends BaseController {
         if (currentUser.isAuthenticated()) {
             log.info("用户[" + username + "]登录认证通过.");
             redirectAttributes.addFlashAttribute("username",username);
+            List<Menu> menus = userService.findPermissionByLoginName(username);
             ModelAndView mv = new ModelAndView("index");
             mv.addObject("username",username);
+            mv.addObject("menus",menus);
             return mv;
         } else {
             token.clear();
@@ -94,6 +96,7 @@ public class UserController extends BaseController {
             return mv;
         }
     }
+
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(RedirectAttributes redirectAttributes) {
@@ -103,7 +106,7 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 查询菜单
+     * 查询一级菜单
      */
     @RequestMapping(value = "/user/getMenu", method = RequestMethod.GET)
     @ResponseBody
@@ -111,5 +114,17 @@ public class UserController extends BaseController {
         List<Menu> menus = userService.findPermissionByLoginName(userName);
         return ok(menus);
     }
+
+    /**
+     * 查询子菜单
+     */
+    @RequestMapping(value = "/user/getMenuById", method = RequestMethod.GET)
+    @ResponseBody
+    public RespMsg getMenuById(@RequestParam("pid") String pid){
+        List<Menu> menus = userService.findMenuByParentId(pid);
+        return ok(menus);
+    }
+
+
 
 }

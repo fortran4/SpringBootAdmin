@@ -32,7 +32,15 @@ public class UserService extends CrudService<UserDao,User> {
         return dao.findPermissionByLoginName(loginName);
     }
 
-
+    /**
+     * <p>查询子菜单</p>
+     * @param parentId 父ID
+     * @return
+     * @throws ServiceException
+     */
+    public List<Menu> findMenuByParentId(String parentId)throws ServiceException{
+        return dao.findMenuByParentId(parentId);
+    }
 
 
 }

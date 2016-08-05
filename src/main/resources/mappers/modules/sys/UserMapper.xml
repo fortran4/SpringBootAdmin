@@ -26,8 +26,10 @@
         LEFT JOIN sys_role_menu rm ON r.role_id = rm.role_id
         LEFT JOIN sys_menu m ON rm.menu_id = m.menu_id
         WHERE u.login_name = #{loginName} AND  u.status = 0
-        AND  r.status = 0 AND m.status = 0
+        AND  r.status = 0 AND m.status = 0 AND m.parent_id=1
     </select>
 
-
+    <select id="findMenuByParentId" resultType="Menu">
+        SELECT * FROM  sys_menu m WHERE  m.status=0 and m.parent_id=#{parentId}
+    </select>
 </mapper>

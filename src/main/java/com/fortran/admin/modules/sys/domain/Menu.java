@@ -4,6 +4,8 @@ import com.fortran.admin.modules.core.common.Domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * @author: lin
  * @Date: 2016-08-02 Time: 9:22
@@ -55,6 +57,11 @@ public class Menu extends Domain {
      *备注
      */
     private  String remarks;
+
+    /**
+     * 子菜单
+     */
+    private List<Menu> childMenu;
 
 
 }

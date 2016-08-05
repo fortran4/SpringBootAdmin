@@ -3,14 +3,14 @@
   User: lin
   Date: 2016-05-20
   Time: 16:56
-  To change this template use File | Settings | File Templates.
+  左侧菜单
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
             <a href="index.html" class="site_title"> <i class="fa fa-anchor"></i>
-                <span>Zcoder</span></a>
+                <span>Fortran</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -30,22 +30,18 @@
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-            <div class="menu_section" ng-app="menuApp" ng-controller="menuCtrl">
+            <div class="menu_section">
                 <h3>&nbsp;</h3>
                 <ul class="nav side-menu">
+                    <c:forEach var="menu" items="${menus}" varStatus="status">
+                        <li>
+                            <a href="javascript:;" onclick="findChildMenu('${menu.menuId}')"><i class="fa fa-home"></i>${menu.menuName}<span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu" id="menu_${menu.menuId}">
+                            </ul>
+                        </li>
+                    </c:forEach>
 
-                    <li ng-repeat="menu in menus">
-                        <a><i class="fa fa-home"></i>{{menu.name}}<span
-                                class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li ng-repeat="chlid in menus">
-                                <if test="chlid.parentId == menu.id">
-                                    <a href='${ctx}{{chlid.href}}' target="mainFrame">{{chlid.name}}</a>
-                                </if>
-
-                            </li>
-                        </ul>
-                    </li>
 
                     <%--<li><a><i class="fa fa-home"></i>系统管理<span
                             class="fa fa-chevron-down"></span></a>
@@ -82,15 +78,29 @@
         <!-- /menu footer buttons -->
     </div>
 </div>
-<script src="/js/angularjs/angular.min.js"></script>
 <script>
-    var userName = '${username}';
-    var menuApp = angular.module('menuApp', []);
-    menuApp.controller('menuCtrl', function ($scope, $http) {
-        $http.get("${ctx}/user/getMenu", {params: {userName:userName}
-        }).success(function (response) {
-                    console.log(response)
-                    $scope.menus = response.menus;
-                });
-    });
+
+
+    function findChildMenu(pid){
+        if (pid=='')return;
+        $.ajax({
+            url:'${ctx}/user/getMenuById',
+            data:{pid:pid},
+            method:'get',
+            dataType:'json',
+            success : function (response) {
+                if (response.code == 200){
+                    $.each(response.data, function(idx, obj) {
+                        var html = '<li><a href="${ctx}'+obj.href+'" target="mainFrame">'+obj.menuName+'</a></li>';
+                       $('#menu_'+pid).append(html);
+                    });
+                }
+            },
+            error:function () {
+                throw new Error('load menu error');
+            }
+        });
+
+    }
+
 </script>

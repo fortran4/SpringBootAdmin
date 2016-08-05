@@ -16,9 +16,9 @@ import ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleN
 import ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Dao;
 
 /**
- * ${funcName}
+ * <p></p>
  * @author ${gen.author}
- * @version ${gen.version}
+ * @Date ${gen.version}
  */
 @Service
 @Transactional(readOnly = true)

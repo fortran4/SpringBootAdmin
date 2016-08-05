@@ -29,4 +29,5 @@ public interface UserDao extends CrudDao<User> {
     List<Menu> findPermissionByLoginName(String loginName) throws DataAccessException;
 
 
+    List<Menu> findMenuByParentId(String parentId)throws DataAccessException;
 }
