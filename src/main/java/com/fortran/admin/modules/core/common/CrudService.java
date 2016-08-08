@@ -1,7 +1,8 @@
 package com.fortran.admin.modules.core.common;
 
-import com.google.common.base.Preconditions;
 import com.fortran.admin.modules.core.config.mybatis.Page;
+import com.fortran.admin.modules.core.exception.ServiceException;
+import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +22,10 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
     /**
      * 获取单条数据
      *
-     * @param id  主键
+     * @param id 主键
      * @return
      */
-    public T get(String id) {
+    public T get(String id) throws ServiceException{
         Preconditions.checkArgument(id != null, "id must be not null");
         return (T) dao.get(id);
     }
@@ -35,7 +36,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    T get(T entity) {
+    T get(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return (T) dao.get(entity);
     }
@@ -46,7 +47,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    List<T> findListByCondition(T entity) {
+    List<T> findListByCondition(T entity)throws ServiceException {
         return dao.findListByCondition(entity);
     }
 
@@ -57,7 +58,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     @Transactional(readOnly = false)
-    int insert(T entity) {
+    int insert(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return dao.insert(entity);
     }
@@ -69,7 +70,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     @Transactional(readOnly = false)
-    T update(T entity) {
+    T update(T entity)throws ServiceException {
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return (T) dao.update(entity);
     }
@@ -81,7 +82,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     @Transactional(readOnly = false)
-    T updateStatus(T entity) {
+    T updateStatus(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return (T) dao.update(entity);
     }
@@ -93,7 +94,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     @Transactional(readOnly = false)
-    int delete(T entity) {
+    public int delete(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return dao.delete(entity);
     }
@@ -105,10 +106,29 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    public Page<T> findPage(Page<T> page, T entity) {
+    public Page<T> findPage(Page<T> page, T entity) throws ServiceException{
         entity.setPage(page);
         page.setList(dao.findListByCondition(entity));
         return page;
+    }
+
+
+    /**
+     * 新增或修改
+     *
+     * @param entity
+     * @return
+     */
+    public T saveOrUpdate(T entity, Long id) throws ServiceException{
+
+        if ( null == id ) {
+            this.insert(entity);
+        } else {
+
+            this.update(entity);
+        }
+        return entity;
+
     }
 
 

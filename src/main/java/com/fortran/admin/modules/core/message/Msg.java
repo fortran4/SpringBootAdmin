@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 public interface Msg<T> {
 
+
     /**
      * 返回自定义类型消息
      * @param model
@@ -27,6 +28,18 @@ public interface Msg<T> {
      * @param content 消息内容
      */
     void rtnMessage(RedirectAttributes redirectAttributes, String type, String... content);
+
+    /**
+     * 自定义消息
+     * @param code 自定义code @link{ com.fortran.admin.modules.core.message.RespMsgStatus}
+     * @param msg 自定义提示语
+     * @param data 返回的数据集合
+     * @return
+     */
+    RespMsg<T> rtnMessage(int code,String msg,T data);
+
+
+    //--------------------------异步操作-------------------------------
 
 
     /**
@@ -47,18 +60,23 @@ public interface Msg<T> {
     /**
      * 操作失败
      * @param content 自定义提示语
-     * @return
-     */
-    RespMsg<T> error(String content);
-
-
-    /**
-     * 自定义消息
-     * @param code 自定义code @link{ com.fortran.admin.modules.core.message.RespMsgStatus}
-     * @param msg 自定义提示语
      * @param data 返回的数据集合
      * @return
      */
-    RespMsg<T> rtnMessage(int code,String msg,T data);
+    RespMsg<T> error(String content,T data);
+
+    /**
+     * 操作失败
+     * @param data 返回的数据集合
+     * @return
+     */
+    RespMsg<T> error(T data);
+
+
+
+    //--------------------------异步操作-------------------------------
+
+
+
 
 }

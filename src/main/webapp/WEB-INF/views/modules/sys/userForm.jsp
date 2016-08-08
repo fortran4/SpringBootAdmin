@@ -19,8 +19,16 @@
         </div>
         <div class="x_content">
             <ul class="nav nav-tabs">
+                <c:choose>
+                    <c:when test="${action == 'edit'}">
+                        <li class="active"><a href="${ctx}/user/form?id=${user.userId}&action=edit">编辑</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="active"><a href="${ctx}/user/form">新增</a></li>
+                    </c:otherwise>
+                </c:choose>
                 <li><a href="${ctx}/user/findUsers">用户列表</a></li>
-                <li class="active"><a href="${ctx}/user/add">新增</a></li>
+
             </ul>
             <br/>
             <form:form id="inputForm" modelAttribute="user" role="form"

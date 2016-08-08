@@ -19,7 +19,7 @@
         <div class="x_content">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="${ctx}/user/findUsers">用户列表</a></li>
-                <li><a href="${ctx}/user/add">新增</a></li>
+                <li><a href="${ctx}/user/form/add">新增</a></li>
             </ul>
             <br/>
             <!--search form-->
@@ -64,7 +64,7 @@
                         <td>${user.loginName}</td>
                         <td>
                             <a href="${ctx}/user/form?id=${user.userId}" class="fa fa-pencil-square-o">修改</a>
-                            <a href="${ctx}/user/delete?id=${user.userId}" class="fa fa-remove"
+                            <a href="${ctx}/user/delete/${user.userId}" class="fa fa-remove"
                                onclick="return confirmx('确认要删除该用户吗？', this.href)">删除</a>
                         </td>
                     </tr>
