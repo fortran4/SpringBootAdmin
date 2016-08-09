@@ -3,6 +3,9 @@ package com.fortran.admin.modules.sys.dao;
 import com.fortran.admin.modules.core.common.CrudDao;
 import com.fortran.admin.modules.core.config.mybatis.annotation.MybatisDao;
 import com.fortran.admin.modules.sys.domain.Role;
+import org.apache.shiro.dao.DataAccessException;
+
+import java.util.List;
 
 /**
  * @author: lin
@@ -12,5 +15,7 @@ import com.fortran.admin.modules.sys.domain.Role;
 @MybatisDao
 public interface RoleDao extends CrudDao<Role> {
 
+
+    List<Role> findRoles(Role role)throws DataAccessException;
 
 }

@@ -3,6 +3,9 @@ package com.fortran.admin.modules.sys.dao;
 import com.fortran.admin.modules.core.common.CrudDao;
 import com.fortran.admin.modules.core.config.mybatis.annotation.MybatisDao;
 import com.fortran.admin.modules.sys.domain.Menu;
+import org.springframework.dao.DataAccessException;
+
+import java.util.List;
 
 /**
  * @author: lin
@@ -12,6 +15,8 @@ import com.fortran.admin.modules.sys.domain.Menu;
 @MybatisDao
 public interface MenuDao  extends CrudDao<Menu> {
 
+
+    List<Menu> findMenus(Menu menu)throws DataAccessException;
 
 }
 

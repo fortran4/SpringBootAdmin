@@ -25,8 +25,8 @@ import java.lang.reflect.Method;
  * @author: lin
  * @Date: 2016-08-02 Time: 8:45
  * @description: redis config
- *               <p>启动缓存，使用@Cacheable注解在需要缓存的接口上即可</p>
- *               <p> @Cacheable(value = "reportcache", keyGenerator = "wiselyKeyGenerator")</p>
+ * <p>启动缓存，使用@Cacheable注解在需要缓存的接口上即可</p>
+ * <p> @Cacheable(value = "reportcache", keyGenerator = "wiselyKeyGenerator")</p>
  */
 @Configuration
 @EnableCaching
@@ -53,7 +53,7 @@ public class RedisConfig extends CachingConfigurerSupport {
                 for (Object obj : params) {
                     builder.append(obj.toString());
                 }
-                log.debug("keyGenerator : "+ builder.toString());
+                log.debug("keyGenerator : " + builder.toString());
                 return builder.toString();
             }
         };
