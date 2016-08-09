@@ -16,8 +16,14 @@ public class Domain<T> implements Serializable {
      */
     protected User currentUser;
 
+
+    protected String status;
+
+
+
     /**
      * 当前实体分页对象
+
      */
     protected Page<T> page;
 
@@ -39,5 +45,13 @@ public class Domain<T> implements Serializable {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

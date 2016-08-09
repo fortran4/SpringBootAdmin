@@ -19,7 +19,7 @@
 <!-- bootstrap-progressbar -->
 <link href="/js/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
 <!-- Custom Theme Style -->
-<link href="/js/gentelella/build/css/custom.css" rel="stylesheet">
+<link href="/js/gentelella/build/css/custom.min.css" rel="stylesheet">
 <!-- alert confirm-->
 <link href="/js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 <!--form validation-->

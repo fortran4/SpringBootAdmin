@@ -40,7 +40,7 @@
 			</form:form>
 			<br/>
 			<!--data table-->
-			<table id="dataTable" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+			<table id="dataTable" class="table table-striped table-bordered table-responsive table-hover" cellspacing="0" width="100%">
 				<thead>
 				<tr>
 					<th>请求链接</th>
