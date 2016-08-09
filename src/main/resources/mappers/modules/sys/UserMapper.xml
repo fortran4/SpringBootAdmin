@@ -2,12 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fortran.admin.modules.sys.dao.UserDao">
 
-   <select id="findByLoginName" resultType="User">
-        select * from sys_user where login_name=#{loginName}
+    <sql id="user_columns">
+        user_id,login_name,login_pwd,real_name,gender,birthday,head_img,phone,email,create_by,create_date
+    </sql>
+
+    <select id="get" resultType="User">
+        SELECT
+        <include refid="user_columns"/>
+        FROM sys_user
+        WHERE user_id=#{id}
+    </select>
+
+    <select id="findByLoginName" resultType="User">
+        select
+        <include refid="user_columns"/>
+        from sys_user where login_name=#{loginName}
     </select>
 
     <select id="findByLoginNameAndLoginPwd" resultType="User">
-        select * from sys_user where login_name=#{loginName} and login_pwd=#{loginPwd}
+        select
+        <include refid="user_columns"/>
+        from sys_user where login_name=#{loginName} and login_pwd=#{loginPwd}
     </select>
 
     <select id="findRolesByLoginName" resultType="Role">
@@ -32,14 +47,52 @@
     <select id="findMenuByParentId" resultType="Menu">
         SELECT * FROM  sys_menu m WHERE  m.status=0 and m.parent_id=#{parentId}
     </select>
-    
+
     <select id="findUsers" resultType="User">
-        SELECT * FROM  sys_user u
+        SELECT
+        <include refid="user_columns"/>
+        FROM sys_user u
         <where>
             <if test="loginName!= null and loginName !=''">
                 u.login_name=#{loginName}
             </if>
         </where>
     </select>
+
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        INSERT INTO sys_user (
+        <include refid="user_columns"/>
+        ) VALUES (
+        #{loginName},
+        #{loginPwd},
+        #{realName},
+        #{phoen},
+        #{email},
+        #{birthday},
+        #{gender},
+        now(),
+        #{currentUser}
+        )
+    </insert>
+
+    <update id="update">
+        update sys_user set
+           login_name=#{loginName},
+            login_pwd=#{loginPwd},
+            real_name=#{realName},
+            phone=#{phoen},
+            email=#{email},
+            birthday=#{birthday},
+            gender=#{gender},
+            create_date=now(),
+            create_by=#{currentUser}
+        WHERE  user_id=#{userId}
+    </update>
+
+
+    <update id="delete">
+        UPDATE SYS_USER SET status = 1 WHERE  user_id=#{id}
+    </update>
+
 
 </mapper>

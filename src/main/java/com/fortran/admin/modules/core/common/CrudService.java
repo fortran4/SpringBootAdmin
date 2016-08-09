@@ -26,7 +26,6 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     public T get(String id) throws ServiceException{
-        Preconditions.checkArgument(id != null, "id must be not null");
         return (T) dao.get(id);
     }
 
@@ -37,7 +36,6 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     T get(T entity) throws ServiceException{
-        Preconditions.checkArgument(entity != null, "entity must be not null");
         return (T) dao.get(entity);
     }
 

@@ -150,14 +150,14 @@ public class UserController extends BaseController {
 
     //----------------- user -----------------------
 
-    @ModelAttribute
+   /* @ModelAttribute
     public User get(@RequestParam(required = false) String id) {
         if (Strings.isNullOrEmpty(id)) {
             return userService.get(id);
         } else {
             return new User();
         }
-    }
+    }*/
 
     /**
      * 新增编辑入口
@@ -166,7 +166,7 @@ public class UserController extends BaseController {
      * @param model
      * @param action view 查看 ; edit 编辑 ;add 新增;
      * @param id     主键ID
-     * @return
+     * @returnR
      */
     @RequestMapping(value = "form/{action}/{id}")
     public String form(User user, Model model, @PathVariable String action, @PathVariable String id) {
