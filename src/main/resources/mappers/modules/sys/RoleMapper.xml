@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fortran.admin.modules.sys.dao.RoleDao">
+
+    <select id="role_columns">
+        role_id,role_name,create_by,create_date,update_by,update_date,remarks,status
+    </select>
+
+
+    <select id="get" resultType="Role">
+        SELECT
+        <include refid="role_columns"></include>
+        FROM
+        sys_role
+        WHERE role_id=#{id}
+    </select>
+
+    <select id="findRoles" resultType="Role">
+        SELECT
+        <include refid="role_columns"/>
+        FROM sys_role r
+        <where>
+            <if test="roleName!= null and roleName !=''">
+                r.role_name=#{roleName}
+            </if>
+        </where>
+    </select>
+
+    <update id="update">
+        UPDATE sys_role SET
+          role_name=#{roleName},
+          remarks=#{remarks},
+          status=#{status},
+          update_by=#{currentUser},
+          update_date=now()
+          WHERE role_id=#{roleId}
+    </update>
+
+    <update id="delete">
+        UPDATE sys_role set status = 1 WHERE  role_id=#{roleId}
+    </update>
+
+    <insert id="insert" keyProperty="roleId" useGeneratedKeys="true">
+        INSERT INTO  sys_role (
+          role_name,create_by,create_date,remarks,status
+        ) VALUES {
+          #{roleName},#{currentUser},now(),#{remarks},0
+        }
+    </insert>
+
+
+</mapper>

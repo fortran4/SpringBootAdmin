@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fortran.admin.modules.sys.dao.MenuDao">
+
+    <select id="menu_columns">
+        menu_id,menu_name,parent_id,`level`,href,target,icon,sort,is_show,permission,
+        create_by,create_date,update_by,update_date,remarks,status
+    </select>
+
+
+    <select id="get" resultType="Menu">
+        SELECT
+        <include refid="menu_columns"></include>
+        FROM
+        sys_menu
+        WHERE menu_id=#{id}
+    </select>
+
+    <select id="findMenus" resultType="Menu">
+        SELECT
+        <include refid="menu_columns"/>
+        FROM sys_menu m
+        <where>
+            <if test="menuName!= null and menuName !=''">
+                m.menu_name=#{menuName}
+            </if>
+        </where>
+    </select>
+
+
+    <update id="update">
+        UPDATE sys_menu SET
+            menu_name=#{menuName},
+            parent_id=#{parentId},
+            level=#{level},
+            href=#{href},
+            target=#{target},
+            icon=#{icon},
+            sort=#{sort},
+            is_show=#{isShow},
+            permission=#{permission},
+            remarks=#{remarks},
+            status=#{status},
+            update_by=#{currentUser},
+            update_date=now()
+        WHERE menu_id=#{menuId}
+    </update>
+
+    <update id="delete">
+        UPDATE sys_menu set status = 1 WHERE  menu_id=#{menuId}
+    </update>
+
+    <insert id="insert" keyProperty="menuId" useGeneratedKeys="true">
+        INSERT INTO  sys_menu (
+        menu_name,parent_id,`level`,href,target,icon,sort,is_show,permission,
+        create_by,create_date,remarks,status
+        ) VALUES {
+        #{menuName},#{parnetId},#{level},#{href},#{target},#{icon},#{sort},#{isShow},#{permission},
+        #{currentUser},now(),#{remarks},0
+        }
+    </insert>
+
+
+</mapper>
