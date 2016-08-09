@@ -40,7 +40,7 @@
 			</form:form>
 			<br/>
 			<!--data table-->
-			<table id="dataTable" class="table table-striped table-bordered table-responsive table-hover" cellspacing="0" width="100%">
+			<table id="dataTable" style="" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 				<thead>
 				<tr>
 					<th>请求链接</th>
@@ -77,16 +77,20 @@
 					<nav>${page}</nav>
 				</div>
 			</div>
+
 		</div>
 	</div>
 </div>
 
 <%@include file="/WEB-INF/views/common/js.jsp" %>
 <script type="javascript">
-	$(function(){
-
+	/*$(function(){
+		$('#dataTable').DataTable({
+			"scrollY": 200,
+			"scrollX": true
+		});
 	});
-
+*/
 	function page(n,s){
 		if(n) $("#pageNo").val(n);
 		if(s) $("#pageSize").val(s);

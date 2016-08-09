@@ -36,6 +36,8 @@
 <script src="/js/formValidation/js/language/zh_CN.js"></script>
 <script src="/js/gentelella/build/js/custom.js"></script>
 <script src="/js/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/js/gentelella/vendors/datatables.net/js/jquery.dataTables.js"></script>
+<script src="/js/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.js"></script>
 <script src="/js/custom/custom.js"></script>
 
 <script type="text/javascript">
