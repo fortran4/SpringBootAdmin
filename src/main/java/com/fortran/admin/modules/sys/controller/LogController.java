@@ -4,8 +4,9 @@ import com.fortran.admin.modules.core.common.BaseController;
 import com.fortran.admin.modules.core.config.mybatis.Page;
 import com.fortran.admin.modules.core.exception.ServiceException;
 import com.fortran.admin.modules.core.message.RespMsg;
+import com.fortran.admin.modules.sys.domain.Log;
 import com.fortran.admin.modules.sys.domain.Role;
-import com.fortran.admin.modules.sys.service.RoleService;
+import com.fortran.admin.modules.sys.service.LogService;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * <p>角色控制器</p>
+ * <p>日志控制器</p>
  * Created by lin on 16/8/9.
  */
 @Controller
 @Slf4j
-public class RoleController extends BaseController {
+public class LogController extends BaseController {
 
     @Autowired
-    private RoleService roleService;
+    private LogService logService;
 
-    private final String ROLE_FORM = "modules/sys/roleForm";
+    private final String LOG_FORM = "modules/sys/logForm";
 
-    private final String ROLE_LIST = "modules/sys/roleList";
+    private final String LOG_LIST = "modules/sys/logList";
 
 
     /**
@@ -41,28 +42,28 @@ public class RoleController extends BaseController {
      * @param action @See{com.fortran.admin.modules.core.enumeration.Action}
      * @returnR
      */
-    @RequestMapping(value = "/role/form/{action}")
+    @RequestMapping(value = "/log/form/{action}")
     public String form(Model model, @PathVariable String action, Role role) {
         if (!Strings.isNullOrEmpty(action)) model.addAttribute("action", action);
         model.addAttribute("role", role);
-        return ROLE_FORM;
+        return LOG_FORM;
     }
 
 
     /**
      * 查询列表
      *
-     * @param role
+     * @param log
      * @param request
      * @param response
      * @param model
      * @return
      */
-    @RequestMapping(value = "/role/findAll")
-    public String list(HttpServletRequest request, HttpServletResponse response, Model model, Role role) {
-        Page<Role> page = roleService.findRoles(new Page<Role>(request, response), role);
+    @RequestMapping(value = "/log/findAll")
+    public String list(HttpServletRequest request, HttpServletResponse response, Model model, Log log) {
+        Page<Log> page = logService.findLogs(new Page<Log>(request, response), log);
         model.addAttribute("page", page);
-        return ROLE_LIST;
+        return LOG_LIST;
     }
 
 
@@ -73,19 +74,18 @@ public class RoleController extends BaseController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/role/delete/{id}")
+    @RequestMapping(value = "/log/delete/{id}")
     public RespMsg delete(Model model, @PathVariable String id) {
 
-        Role role = new Role();
+        Log log = new Log();
         try {
-            role.setRoleId(Long.parseLong(id));
-            roleService.delete(role);
+            log.setLogId(Long.parseLong(id));
+            logService.delete(log);
         } catch (ServiceException e) {
-            return error(role);
+            return error(log);
         }
-        return ok(role);
+        return ok(log);
 
     }
-
 
 }

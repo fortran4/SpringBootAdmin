@@ -164,12 +164,11 @@ public class UserController extends BaseController {
      *
      * @param user
      * @param model
-     * @param action view 查看 ; edit 编辑 ;add 新增;
-     * @param id     主键ID
+     * @param action @See{com.fortran.admin.modules.core.enumeration.Action}
      * @returnR
      */
-    @RequestMapping(value = "form/{action}/{id}")
-    public String form(User user, Model model, @PathVariable String action, @PathVariable String id) {
+    @RequestMapping(value = "form/{action}")
+    public String form(Model model, @PathVariable String action,User user) {
         if (!Strings.isNullOrEmpty(action)) model.addAttribute("action", action);
         model.addAttribute("user", user);
         return USER_FORM;
@@ -186,7 +185,7 @@ public class UserController extends BaseController {
     public String saveOrUpdate(User user, Model model, @PathVariable String action, @PathVariable String id) {
 
         if (!beanValidator(model, user)) {
-            return form(user, model, action,id);
+            return form(model, action,user);
         }
         try {
             userService.saveOrUpdate(user, user != null ? user.getUserId() : null);
