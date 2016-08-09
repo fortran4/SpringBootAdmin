@@ -30,6 +30,11 @@ public class Role extends Domain {
      */
     private List<Menu> permissionList;
 
+    /**
+     * 备注
+     */
+    private String remarks;
+
 
 
 }

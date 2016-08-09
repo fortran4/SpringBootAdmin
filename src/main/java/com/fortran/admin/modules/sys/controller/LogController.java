@@ -5,7 +5,6 @@ import com.fortran.admin.modules.core.config.mybatis.Page;
 import com.fortran.admin.modules.core.exception.ServiceException;
 import com.fortran.admin.modules.core.message.RespMsg;
 import com.fortran.admin.modules.sys.domain.Log;
-import com.fortran.admin.modules.sys.domain.Role;
 import com.fortran.admin.modules.sys.service.LogService;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
@@ -37,15 +36,15 @@ public class LogController extends BaseController {
     /**
      * 新增编辑
      *
-     * @param role
+     * @param log
      * @param model
      * @param action @See{com.fortran.admin.modules.core.enumeration.Action}
      * @returnR
      */
     @RequestMapping(value = "/log/form/{action}")
-    public String form(Model model, @PathVariable String action, Role role) {
+    public String form(Model model, @PathVariable String action, Log log) {
         if (!Strings.isNullOrEmpty(action)) model.addAttribute("action", action);
-        model.addAttribute("role", role);
+        model.addAttribute("Log", log);
         return LOG_FORM;
     }
 

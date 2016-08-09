@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fortran.admin.modules.sys.dao.LogDao">
 
-    <select id="log_columns">
+    <sql id="log_columns">
         log_id,`type`,remote_addr,user_agent,request_uri,method,params,`exception`,response
         create_by,create_date,status
-    </select>
+    </sql>
 
 
     <select id="get" resultType="Log">

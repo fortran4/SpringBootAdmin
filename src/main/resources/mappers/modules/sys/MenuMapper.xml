@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fortran.admin.modules.sys.dao.MenuDao">
 
-    <select id="menu_columns">
+    <sql id="menu_columns">
         menu_id,menu_name,parent_id,`level`,href,target,icon,sort,is_show,permission,
         create_by,create_date,update_by,update_date,remarks,status
-    </select>
+    </sql>
 
 
     <select id="get" resultType="Menu">

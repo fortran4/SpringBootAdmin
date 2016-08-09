@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fortran.admin.modules.sys.dao.RoleDao">
 
-    <select id="role_columns">
+    <sql id="role_columns">
         role_id,role_name,create_by,create_date,update_by,update_date,remarks,status
-    </select>
+    </sql>
 
 
     <select id="get" resultType="Role">
