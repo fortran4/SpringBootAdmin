@@ -12,6 +12,7 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import java.util.TimeZone;
  * @author ThinkGem
  * @version 2013-11-15
  */
+@Slf4j
 public class JsonMapper extends ObjectMapper {
 
     private static final long serialVersionUID = 1L;
@@ -59,6 +61,8 @@ public class JsonMapper extends ObjectMapper {
                 jgen.writeString("");
             }
         });
+        //枚举
+        //this.enableEnumUseToString();
         // 进行HTML解码。
         this.registerModule(new SimpleModule().addSerializer(String.class, new JsonSerializer<String>() {
             @Override
@@ -105,6 +109,27 @@ public class JsonMapper extends ObjectMapper {
             return null;
         }
     }
+
+
+/*    private Object enumToString(Object object) {
+        Field[] fields = object.getClass().getFields();
+        for (Field f : fields) {
+            if (f.isAnnotationPresent(State.class)) {
+                State state = f.getAnnotation(State.class);
+                Class stateEnum = state.value();
+                Map<String, String> enumMap = ReflectionUtils.parseEumn(stateEnum);
+                Object value = ReflectionUtils.getFieldValue(object, f.getName());
+                System.out.println("field Name :"+ f.getName() + " value : "+ value);
+                if (log.isDebugEnabled()) {
+                    log.debug("state value : {}", value);
+                    log.debug("state enum value : {}", enumMap.get(value));
+                }
+                ReflectionUtils.setFieldValue(object, f.getName(), enumMap.get(value));
+            }
+        }
+        return object;
+    }*/
+
 
     /**
      * 反序列化POJO或简单Collection如List<String>.

@@ -26,6 +26,7 @@
                     <img src="">
                 </div>
                 <div class="login-box-right">
+                    <sys:message content="${content}" type="${type}"/>
                     <form method="post" action="${ctx}/login" id="loginForm" class="form-horizontal">
                         <h3></h3>
                         <div class="form-group has-feedback">
@@ -71,7 +72,6 @@
     <div class="login-box-shadow">
         <img src="/images/login/login_box-shadow.png">
     </div>
-    <sys:message content="${content}" type="${type}"/>
 </div>
 <div class="support-footer">
     <p class="support-text"><a href="">Testin云测</a>提供技术支持</p>

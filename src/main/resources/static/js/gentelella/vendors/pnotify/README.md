@@ -19,7 +19,7 @@ You can include PNotify using Bower, NPM, or a custom download.
 
 PNotify custom download comes with the following files:
 
-* `pnotify.custom.js` & `pnotify.custom.min.js` (Minified)
+* `pnotify.myTable.js` & `pnotify.custom.min.js` (Minified)
 * `pnotify.custom.css` & `pnotify.custom.min.css` (Minified)
 
 So here's how you'd include them on your page:

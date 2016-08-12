@@ -36,6 +36,7 @@
         <xstream.version>1.4.7</xstream.version>
         <mybatis.version>3.3.1</mybatis.version>
         <mybatis.spring.version>1.2.4</mybatis.spring.version>
+        <mybatis.pagehelper.version>4.0.0</mybatis.pagehelper.version>
         <druid.version>1.0.18</druid.version>
         <lombok.version>1.16.6</lombok.version>
         <poi.version>3.9</poi.version>
@@ -236,6 +237,11 @@
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis.spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${mybatis.pagehelper.version}</version>
+        </dependency>
         <!-- poi office -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -252,7 +258,6 @@
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>${poi.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>

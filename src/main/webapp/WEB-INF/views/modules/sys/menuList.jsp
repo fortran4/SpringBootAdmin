@@ -6,6 +6,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>菜单列表</title>
 	<%@include file="/WEB-INF/views/common/css.jsp" %>
+	<script type="javascript">
+		$(function () {
+
+		});
+	</script>
 </head>
 <body class="main-bg">
 <sys:message type="${type}" content="${content}"></sys:message>
@@ -81,7 +86,7 @@
 <%@include file="/WEB-INF/views/common/js.jsp" %>
 <script type="javascript">
 	$(function(){
-
+		alert(55);
 	});
 
 	function page(n,s){

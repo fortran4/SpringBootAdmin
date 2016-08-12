@@ -45,8 +45,7 @@
 
 
     <plugins>
-        <plugin interceptor="com.fortran.admin.modules.core.config.mybatis.interceptor.PaginationInterceptor"/>
-        <!--<plugin interceptor="com.fortran.admin.modules.core.config.mybatis.interceptor.MybatisInterceptor"/>-->
+       <plugin interceptor="com.fortran.admin.modules.core.config.mybatis.PageHelper"></plugin>
     </plugins>
 
 </configuration>

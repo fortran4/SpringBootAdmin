@@ -1,6 +1,8 @@
 package com.fortran.admin.modules.sys.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fortran.admin.modules.core.common.Domain;
+import com.fortran.admin.modules.sys.enumeration.LogType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +24,7 @@ public class Log extends Domain{
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     private Date createDate;
     /**
      * 日志类型
@@ -55,5 +58,10 @@ public class Log extends Domain{
      * 异常信息
      */
     private String exception;
+
+
+    public String getType(){
+        return LogType.getLabelByValue(this.type);
+    }
 
 }

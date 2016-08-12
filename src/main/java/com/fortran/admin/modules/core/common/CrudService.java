@@ -1,6 +1,5 @@
 package com.fortran.admin.modules.core.common;
 
-import com.fortran.admin.modules.core.config.mybatis.Page;
 import com.fortran.admin.modules.core.exception.ServiceException;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import java.util.List;
  * @Date: 2016-07-26 Time: 12:44
  * @description:
  */
-@Transactional(readOnly = true)
 public abstract class CrudService<D extends CrudDao, T extends Domain> implements Service {
 
     @Autowired
@@ -35,7 +33,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    T get(T entity) throws ServiceException{
+    public T get(T entity) throws ServiceException{
         return (T) dao.get(entity);
     }
 
@@ -45,7 +43,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    List<T> findListByCondition(T entity)throws ServiceException {
+    public List<T> findListByCondition(T entity)throws ServiceException {
         return dao.findListByCondition(entity);
     }
 
@@ -55,8 +53,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    @Transactional(readOnly = false)
-    int insert(T entity) throws ServiceException{
+    public int insert(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return dao.insert(entity);
     }
@@ -67,8 +64,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    @Transactional(readOnly = false)
-    T update(T entity)throws ServiceException {
+    public T update(T entity)throws ServiceException {
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return (T) dao.update(entity);
     }
@@ -80,7 +76,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     @Transactional(readOnly = false)
-    T updateStatus(T entity) throws ServiceException{
+    public T updateStatus(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return (T) dao.update(entity);
     }
@@ -104,14 +100,14 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
-    public Page<T> findPage(Page<T> page, T entity) throws ServiceException{
-        entity.setPage(page);
-        page.setList(dao.findListByCondition(entity));
+   /* public Page<T> findPage(Page<T> page, T entity) throws ServiceException{
+       // entity.setPage(page);
+        page.setData(dao.findListByCondition(entity));
         return page;
     }
+*/
 
-
-    /**
+    /**Data
      * 新增或修改
      *
      * @param entity

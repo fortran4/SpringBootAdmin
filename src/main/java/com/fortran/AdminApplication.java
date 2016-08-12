@@ -28,6 +28,7 @@ public class AdminApplication extends SpringBootServletInitializer {
         return application.sources(AdminApplication.class);
     }
 
+
     public static void main(String[] args) {
         SpringApplication.run(AdminApplication.class, args);
     }

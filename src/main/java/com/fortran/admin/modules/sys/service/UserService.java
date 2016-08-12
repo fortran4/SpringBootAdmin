@@ -2,6 +2,7 @@ package com.fortran.admin.modules.sys.service;
 
 import com.fortran.admin.modules.core.common.CrudService;
 import com.fortran.admin.modules.core.config.mybatis.Page;
+import com.fortran.admin.modules.core.config.mybatis.PageHelper;
 import com.fortran.admin.modules.core.exception.ServiceException;
 import com.fortran.admin.modules.sys.dao.UserDao;
 import com.fortran.admin.modules.sys.domain.Menu;
@@ -47,15 +48,12 @@ public class UserService extends CrudService<UserDao,User> {
     /**
      * <p>查询所有用户</p>
      * @param page 分页参数
-     * @param user 包含查询条件用户对象
      * @return
      * @throws ServiceException
      */
-    public Page<User> findUsers(Page<User> page,User user)throws ServiceException{
-        user.setPage(page);
-        List<User> data = dao.findUsers(user);
-        page.setList(data);
-        return page;
+    public Page<User> findUsers(Page<User> page)throws ServiceException{
+        List<User> data = dao.findUsers(page.getCondition());
+        return PageHelper.endPage();
     }
 
 

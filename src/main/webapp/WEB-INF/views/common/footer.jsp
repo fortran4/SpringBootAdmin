@@ -9,7 +9,7 @@
 <!-- footer content -->
 <footer>
     <div class="pull-right">
-        fortran - 北京丰辰科技有限责任公司
+        fortran - <%--北京丰辰科技有限责任公司--%>
     </div>
     <div class="clearfix"></div>
 </footer>

@@ -13,7 +13,7 @@
 <link rel="shortcut icon" href="/charisma/img/favicon.ico">-->
 <!-- Bootstrap -->
 <link href="/js/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="/js/gentelella/vendors/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+<%--<link href="/js/gentelella/vendors/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">--%>
 <!-- Font Awesome -->
 <link href="/js/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <!-- bootstrap-progressbar -->
@@ -24,6 +24,6 @@
 <link href="/js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 <!--form validation-->
 <link href="/js/formValidation/css/formValidation.min.css" rel="stylesheet">
-
+<!--datatables-->
 <link href="/js/gentelella/vendors/datatables.net/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="/js/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">

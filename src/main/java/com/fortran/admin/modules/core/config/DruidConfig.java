@@ -9,7 +9,6 @@ import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -21,7 +20,6 @@ import java.sql.SQLException;
  * <url>http://localhost:8080/druid/login.html</url>
  */
 @Configuration
-@EnableTransactionManagement
 @Slf4j
 public class DruidConfig {
 

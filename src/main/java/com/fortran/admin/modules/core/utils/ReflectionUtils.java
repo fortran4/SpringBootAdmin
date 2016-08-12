@@ -6,6 +6,8 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @see {copy from jeesite}
@@ -287,5 +289,29 @@ public class ReflectionUtils {
             return (RuntimeException) e;
         }
         return new RuntimeException("Unexpected Checked Exception.", e);
+    }
+
+
+    /**
+     * 解析枚举类型,将枚举类型转换成map(String label)
+     * @param ref
+     * @param <T>
+     * @return
+     */
+    public static <T> Map<String, String> parseEumn(Class<T> ref){
+        Map<String, String> map = new LinkedHashMap<String, String>() ;
+        if(ref.isEnum()){
+            T[] ts = ref.getEnumConstants() ;
+            for(T t : ts){
+                String text = (String) invokeGetter(t, "getLabel");
+                Enum<?> tempEnum = (Enum<?>) t ;
+                if(text == null){
+                    text = tempEnum.name() ;
+                }
+                String value = (String)invokeGetter(t, "getValue") ;
+                map.put(value , text) ;
+            }
+        }
+        return map ;
     }
 }

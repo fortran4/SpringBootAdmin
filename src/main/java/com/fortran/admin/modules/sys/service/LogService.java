@@ -2,6 +2,7 @@ package com.fortran.admin.modules.sys.service;
 
 import com.fortran.admin.modules.core.common.CrudService;
 import com.fortran.admin.modules.core.config.mybatis.Page;
+import com.fortran.admin.modules.core.config.mybatis.PageHelper;
 import com.fortran.admin.modules.core.exception.ServiceException;
 import com.fortran.admin.modules.sys.dao.LogDao;
 import com.fortran.admin.modules.sys.domain.Log;
@@ -22,14 +23,16 @@ public class LogService extends CrudService<LogDao,Log> {
     /**
      * <p>查询所有日志</p>
      * @param page 分页参数
-     * @param log 包含查询条件用户对象
      * @return
      * @throws ServiceException
      */
-    public Page<Log> findLogs(Page<Log> page, Log log)throws ServiceException{
-        log.setPage(page);
-        List<Log> data = dao.findLogs(log);
-        page.setList(data);
-        return page;
+    public Page<Log> findLogs(Page<Log> page)throws ServiceException{
+        List<Log> data = dao.findLogs(page.getCondition());
+        return PageHelper.endPage();
+    }
+
+
+    public List<Log> findLogs(Log log) throws ServiceException{
+        return dao.findLogs(log);
     }
 }

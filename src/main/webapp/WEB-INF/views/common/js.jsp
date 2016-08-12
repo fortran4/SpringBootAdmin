@@ -30,6 +30,7 @@
 <script src="/js/gentelella/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 <!-- Select2 -->
 <script src="/js/gentelella/vendors/select2/dist/js/select2.full.min.js"></script>
+<script src="/js/My97DatePicker/WdatePicker.js"></script>
 <!-- validator -->
 <script src="/js/formValidation/js/formValidation.js"></script>
 <script src="/js/formValidation/framework/bootstrap.js"></script>
@@ -38,10 +39,8 @@
 <script src="/js/jquery-confirm/jquery-confirm.min.js"></script>
 <script src="/js/gentelella/vendors/datatables.net/js/jquery.dataTables.js"></script>
 <script src="/js/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.js"></script>
-<script src="/js/custom/custom.js"></script>
+<script src="/js/custom/myTable.js"></script>
 
 <script type="text/javascript">
     var ctx = '${ctx}', ctxStatic = '${ctxStatic}';
 </script>
-
-

@@ -1,12 +1,14 @@
 package com.fortran.admin.modules.core.common;
 
 import com.fortran.admin.modules.core.common.constant.Constants;
+import com.fortran.admin.modules.core.config.mybatis.Page;
 import com.fortran.admin.modules.core.message.Msg;
 import com.fortran.admin.modules.core.message.RespMsg;
 import com.fortran.admin.modules.core.message.RespMsgStatus;
 import com.fortran.admin.modules.core.utils.guava.MyLists;
 import com.fortran.admin.modules.core.validator.BeanValidators;
 import com.google.common.base.Strings;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.beans.PropertyEditorSupport;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: lin
@@ -27,6 +30,10 @@ import java.util.List;
  */
 @Slf4j
 public class BaseController implements Msg {
+
+
+    protected int startRow = 0;
+    protected int pageSize = 15;
 
 
     /**
@@ -157,6 +164,21 @@ public class BaseController implements Msg {
      */
     protected void beanValidator(Object object, Class<?>... groups) {
         BeanValidators.validateWithException(validator, object, groups);
+
+    }
+
+    /**
+     * 构造datatable数据
+     * @param page
+     */
+    protected Map<String,Object> buliderDataTable(Page<?> page){
+
+        Map<String ,Object> result = Maps.newConcurrentMap();
+        result.put("data", page.getResult());
+        result.put("recordsTotal", page.getTotal());
+        result.put("recordsFiltered", page.getTotal());
+        result.put("draw", page.getDraw());
+        return result;
 
     }
 

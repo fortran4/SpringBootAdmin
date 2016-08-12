@@ -1,10 +1,11 @@
 package com.fortran.admin.modules.core.intercepter;
 
-import com.fortran.admin.modules.sys.dao.LogDao;
 import com.fortran.admin.modules.sys.domain.Log;
-import lombok.extern.slf4j.Slf4j;
+import com.fortran.admin.modules.sys.service.LogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * @author: lin
@@ -26,8 +25,9 @@ import java.util.concurrent.Executors;
 @Aspect
 @Component
 @Configuration
-@Slf4j
 public class LogIntercepter {
+
+    private static final Logger logger = LoggerFactory.getLogger(LogIntercepter.class);
 
     @Value("${system.log.enabled}")
     private boolean enabled = true;
@@ -37,13 +37,12 @@ public class LogIntercepter {
     private final static int LOG_TYPE_EXCEPTION = 2;
 
     @Autowired
-    private LogDao logDao;
+    private LogService logService;
 
-    private ThreadLocal<Long> startTime = new ThreadLocal<>();
+    private static final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
-    private ThreadLocal<Log> logThread = new ThreadLocal<>();
+    private static final ThreadLocal<Log> logThread = new ThreadLocal<>();
 
-    private ExecutorService executor = Executors.newCachedThreadPool();
 
     @Pointcut("execution(* com.fortran.admin.modules.*.service..*Service.*(..))")
     public void webLog() {
@@ -56,17 +55,16 @@ public class LogIntercepter {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         // 记录下请求内容
-        if (log.isDebugEnabled()) {
-            log.debug("request uri : " + request.getRequestURL().toString());
-            log.debug("request method : " + request.getMethod());
-            log.debug("request remote addr: " + request.getRemoteAddr());
-            log.debug("class method : " + joinPoint.getSignature().getDeclaringTypeName() + "."
+        if (logger.isDebugEnabled()) {
+            logger.debug("request uri : " + request.getRequestURL().toString());
+            logger.debug("request method : " + request.getMethod());
+            logger.debug("request remoteAddr: " + request.getRemoteAddr());
+            logger.debug("request method : " + joinPoint.getSignature().getDeclaringTypeName() + "."
                     + joinPoint.getSignature().getName());
-            log.debug("args : " + Arrays.toString(joinPoint.getArgs()));
+            logger.debug("args : " + Arrays.toString(joinPoint.getArgs()));
         }
 
         Log log = new Log();
-        log.setCreateDate(new Date());
         Object[] args = joinPoint.getArgs();
         log.setMethod(joinPoint.getSignature().getName());
         if (args.length > 0) {
@@ -82,44 +80,42 @@ public class LogIntercepter {
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
 
-        if (log.isDebugEnabled()) {
-            log.debug("response : " + ret);
-            log.debug("spend time : " + (System.currentTimeMillis() - startTime.get()) + "ms");
+        if (logger.isDebugEnabled()) {
+            logger.debug("response : " + ret);
+            logger.debug("spend time : " + (System.currentTimeMillis() - startTime.get()) + "ms");
         }
 
         Log currentLog = logThread.get();
         currentLog.setResponse(String.valueOf(ret));
-        executor.execute(new MyLog());
+       // logService.insert(currentLog);
 
     }
 
     /**
      * 方法抛出异常走此方法
+     *
      * @param joinPoint
      * @param ex
      */
     @AfterThrowing(value = "webLog()", throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Exception ex) {
-        log.error("method : {}", joinPoint.getSignature().getName());
-        log.error("exception : {}", ex);
+        logger.error("method : {}", joinPoint.getSignature().getName());
+        logger.error("exception : {}", ex);
         Log currentLog = logThread.get();
         currentLog.setType(String.valueOf(LOG_TYPE_EXCEPTION));
         currentLog.setException(ex.getMessage());
-        executor.execute(new MyLog());
+       // saveLog(currentLog);
     }
 
-    class MyLog extends Thread {
-
-        @Override
-        public void run() {
-            Log currentLog = logThread.get();
-            if (enabled) {
-                logDao.insert(currentLog);
-            }else{
-                log.warn("system log is not enabled. please checking 'system.log.enabled' config.");
-            }
+    private void saveLog(Log log) {
+        Log currentLog = logThread.get();
+        if (enabled) {
+            logService.insert(currentLog);
+            logThread.remove();
+        } else {
+            logger.warn("system log is not enabled. please checking 'system.log.enabled' config.");
         }
-
     }
+
 
 }

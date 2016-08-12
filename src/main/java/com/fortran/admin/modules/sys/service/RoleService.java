@@ -2,6 +2,7 @@ package com.fortran.admin.modules.sys.service;
 
 import com.fortran.admin.modules.core.common.CrudService;
 import com.fortran.admin.modules.core.config.mybatis.Page;
+import com.fortran.admin.modules.core.config.mybatis.PageHelper;
 import com.fortran.admin.modules.core.exception.ServiceException;
 import com.fortran.admin.modules.sys.dao.RoleDao;
 import com.fortran.admin.modules.sys.domain.Role;
@@ -25,15 +26,12 @@ public class RoleService extends CrudService<RoleDao, Role> {
      * <p>查询所有角色</p>
      *
      * @param page 分页参数
-     * @param role 查询条件
      * @return
      * @throws ServiceException
      */
-    public Page<Role> findRoles(Page<Role> page, Role role) throws ServiceException {
-        role.setPage(page);
-        List<Role> data = dao.findRoles(role);
-        page.setList(data);
-        return page;
+    public Page<Role> findRoles(Page<Role> page) throws ServiceException {
+        List<Role> data = dao.findRoles(page.getCondition());
+        return PageHelper.endPage();
     }
 
 }

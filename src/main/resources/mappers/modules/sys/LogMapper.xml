@@ -32,13 +32,13 @@
         UPDATE sys_log set status = 1 WHERE  log_id=#{logId}
     </update>
 
-    <insert id="insert" keyProperty="logId" useGeneratedKeys="true">
+    <insert id="insert" keyProperty="logId" useGeneratedKeys="true" parameterType="Log">
         INSERT INTO  sys_log (
-            `type`,remote_addr,user_agent,request_uri,method,params,`exception`,response
+            `type`,remote_addr,user_agent,request_uri,method,params,`exception`,response,
             create_by,create_date,status
         ) VALUES {
         #{type},#{remoteAddr},#{userAgent},#{requestUri},#{method},#{params},#{exception},#{response},
-        #{currentUser},now(),0
+        1,now(),0
         }
     </insert>
 

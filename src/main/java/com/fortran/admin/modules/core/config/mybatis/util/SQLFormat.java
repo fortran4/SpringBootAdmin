@@ -1,4 +1,4 @@
-package com.fortran.admin.modules.core.config.mybatis;
+package com.fortran.admin.modules.core.config.mybatis.util;
 
 import java.util.HashSet;
 import java.util.LinkedList;
