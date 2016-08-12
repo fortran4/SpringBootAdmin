@@ -66,7 +66,7 @@
                 </div>
                 <div class="table_content">
                     <!--data table-->
-                    <table id="dataTable" class="display nowrap"  cellspacing="0"
+                    <table id="dataTable" class="table table-striped table-bordered nowrap"  cellspacing="0"
                            width="100%">
                         <thead>
                         <tr>
