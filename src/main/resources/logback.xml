@@ -41,7 +41,7 @@
 
     <logger name="org.apache.shiro" level="INFO"/>
 
-    <logger name="com.fortran.admin" level="DEBUG"/>
+    <logger name="com.zcoder.admin" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>

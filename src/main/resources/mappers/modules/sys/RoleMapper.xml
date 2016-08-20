@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fortran.admin.modules.sys.dao.RoleDao">
+<mapper namespace="com.zcoder.admin.modules.sys.dao.RoleDao">
 
     <sql id="role_columns">
         role_id,role_name,create_by,create_date,update_by,update_date,remarks,status

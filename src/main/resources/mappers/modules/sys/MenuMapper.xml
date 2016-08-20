@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fortran.admin.modules.sys.dao.MenuDao">
+<mapper namespace="com.zcoder.admin.modules.sys.dao.MenuDao">
 
     <sql id="menu_columns">
         menu_id,menu_name,parent_id,`level`,href,target,icon,sort,is_show,permission,

@@ -40,12 +40,15 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="Page" type="com.fortran.admin.modules.core.config.mybatis.Page"/>
+        <package name="com.zcoder.admin"></package>
     </typeAliases>
 
+    <mappers>
+        <package name="com.zcoder.admin"/>
+    </mappers>
 
-    <plugins>
-       <plugin interceptor="com.fortran.admin.modules.core.config.mybatis.PageHelper"></plugin>
-    </plugins>
+  <!--  <plugins>
+       <plugin interceptor="com.zcoderadmin.modules.core.config.mybatis.PageHelper"></plugin>
+    </plugins>-->
 
 </configuration>

@@ -9,8 +9,8 @@ package ${packageName}.${moduleName}.service<#if subModuleName != "">.${subModul
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.fortran.admin.modules.core.common.CrudService;
-import com.fortran.admin.modules.core.exception.ServiceException;
+import com.zcoder.admin.modules.core.common.CrudService;
+import com.zcoder.admin.modules.core.exception.ServiceException;
 
 import ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
 import ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>.${ClassName}Dao;

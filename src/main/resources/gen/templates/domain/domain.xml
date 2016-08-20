@@ -6,7 +6,7 @@
     <content><![CDATA[
 package ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>;
 
-import com.fortran.admin.modules.core.common.Domain;
+import com.zcoder.admin.modules.core.common.Domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -7,8 +7,8 @@
 
 package ${packageName}.${moduleName}.dao<#if subModuleName != "">.${subModuleName}</#if>;
 
-import com.fortran.admin.modules.core.common.CrudDao;
-import com.fortran.admin.modules.core.config.mybatis.annotation.MybatisDao;
+import com.zcoder.admin.modules.core.common.CrudDao;
+import com.zcoder.admin.modules.core.config.mybatis.annotation.MybatisDao;
 import ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>.${ClassName};
 
 /**

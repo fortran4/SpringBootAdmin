@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fortran.admin.modules.sys.dao.UserDao">
+<mapper namespace="com.zcoder.admin.modules.sys.dao.UserDao">
 
     <sql id="user_columns">
         user_id,login_name,login_pwd,real_name,gender,birthday,head_img,phone,email,create_by,create_date

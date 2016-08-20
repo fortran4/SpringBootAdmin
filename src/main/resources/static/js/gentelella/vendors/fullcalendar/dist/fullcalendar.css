@@ -63,7 +63,7 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 .fc-nonbusiness { /* default look for non-business-hours areas */
-	/* will inherit .fortran-bgevent's styles */
+	/* will inherit .zcoder-bgevent's styles */
 	background: #d7d7d7;
 }
 
@@ -282,7 +282,7 @@ previous button's border...
 	box-shadow: 0 2px 6px rgba(0,0,0,.15);
 }
 
-.fc-popover .fc-header { /* TODO: be more consistent with fortran-head/fortran-body */
+.fc-popover .fc-header { /* TODO: be more consistent with zcoder-head/zcoder-body */
 	padding: 2px 4px;
 }
 
@@ -530,7 +530,7 @@ temporary rendered events).
 	cursor: not-allowed;
 }
 
-.fc-event .fc-bg { /* the generic .fortran-bg already does position */
+.fc-event .fc-bg { /* the generic .zcoder-bg already does position */
 	z-index: 1;
 	background: #fff;
 	opacity: .25;
@@ -679,7 +679,7 @@ temporary rendered events).
 
 /* DayGrid events
 ----------------------------------------------------------------------------------------------------
-We use the full "fortran-day-grid-event" class instead of using descendants because the event won't
+We use the full "zcoder-day-grid-event" class instead of using descendants because the event won't
 be a descendant of the grid when it is being dragged.
 */
 
@@ -691,7 +691,7 @@ be a descendant of the grid when it is being dragged.
 .fc-day-grid-event.fc-selected:after {
 	content: "";
 	position: absolute;
-	z-index: 1; /* same z-index as fortran-bg, behind text */
+	z-index: 1; /* same z-index as zcoder-bg, behind text */
 	/* overcome the borders */
 	top: -1px;
 	right: -1px;
@@ -955,7 +955,7 @@ a.fc-more:hover {
 /* TimeGrid axis running down the side (for both the all-day area and the slot area)
 --------------------------------------------------------------------------------------------------*/
 
-.fc .fc-axis { /* .fortran to overcome default cell styles */
+.fc .fc-axis { /* .zcoder to overcome default cell styles */
 	vertical-align: middle;
 	padding: 0 4px;
 	white-space: nowrap;
@@ -984,7 +984,7 @@ a.fc-more:hover {
 }
 
 .fc-time-grid {
-	min-height: 100%; /* so if height setting is 'auto', .fortran-bg stretches to fill height */
+	min-height: 100%; /* so if height setting is 'auto', .zcoder-bg stretches to fill height */
 }
 
 .fc-time-grid table { /* don't put outer borders on slats/bg/content/etc */
@@ -1013,7 +1013,7 @@ a.fc-more:hover {
 	right: 0;
 }
 
-/* divs within a cell within the fortran-content-skeleton */
+/* divs within a cell within the zcoder-content-skeleton */
 
 .fc-time-grid .fc-business-container {
 	position: relative;
@@ -1039,7 +1039,7 @@ a.fc-more:hover {
 	z-index: 5;
 }
 
-.fc-time-grid .fc-helper-container { /* also is fortran-event-container */
+.fc-time-grid .fc-helper-container { /* also is zcoder-event-container */
 	position: relative;
 	z-index: 6;
 }
@@ -1058,15 +1058,15 @@ a.fc-more:hover {
 }
 
 .fc-time-grid .fc-slats .ui-widget-content { /* for jqui theme */
-	background: none; /* see through to fortran-bg */
+	background: none; /* see through to zcoder-bg */
 }
 
 
 /* TimeGrid Highlighting Slots
 --------------------------------------------------------------------------------------------------*/
 
-.fc-time-grid .fc-highlight-container { /* a div within a cell within the fortran-highlight-skeleton */
-	position: relative; /* scopes the left/right of the fortran-highlight to be in the column */
+.fc-time-grid .fc-highlight-container { /* a div within a cell within the zcoder-highlight-skeleton */
+	position: relative; /* scopes the left/right of the zcoder-highlight to be in the column */
 }
 
 .fc-time-grid .fc-highlight {
@@ -1127,7 +1127,7 @@ a.fc-more:hover {
 
 /* TimeGrid Event Styling
 ----------------------------------------------------------------------------------------------------
-We use the full "fortran-time-grid-event" class instead of using descendants because the event won't
+We use the full "zcoder-time-grid-event" class instead of using descendants because the event won't
 be a descendant of the grid when it is being dragged.
 */
 
@@ -1137,7 +1137,7 @@ be a descendant of the grid when it is being dragged.
 
 .fc-time-grid-event.fc-selected {
 	/* need to allow touch resizers to extend outside event's bounding box */
-	/* common fortran-selected styles hide the fortran-bg, so don't need this anyway */
+	/* common zcoder-selected styles hide the zcoder-bg, so don't need this anyway */
 	overflow: visible;
 }
 
@@ -1146,7 +1146,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .fc-time-grid-event .fc-content {
-	overflow: hidden; /* for when .fortran-selected */
+	overflow: hidden; /* for when .zcoder-selected */
 }
 
 .fc-time-grid-event .fc-time,

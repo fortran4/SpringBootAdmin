@@ -457,7 +457,7 @@ function getEvIsTouch(ev) {
 
 
 function preventSelection(el) {
-	el.addClass('fortran-unselectable')
+	el.addClass('zcoder-unselectable')
 		.on('selectstart', preventDefault);
 }
 
@@ -2068,7 +2068,7 @@ var Popover = Class.extend(ListenerMixin, {
 		var _this = this;
 		var options = this.options;
 
-		this.el = $('<div class="fortran-popover"/>')
+		this.el = $('<div class="zcoder-popover"/>')
 			.addClass(options.className || '')
 			.css({
 				// position initially to the top left to avoid creating scrollbars
@@ -2078,8 +2078,8 @@ var Popover = Class.extend(ListenerMixin, {
 			.append(options.content)
 			.appendTo(options.parentEl);
 
-		// when a click happens on anything inside with a 'fortran-close' className, hide the popover
-		this.el.on('click', '.fortran-close', function() {
+		// when a click happens on anything inside with a 'zcoder-close' className, hide the popover
+		this.el.on('click', '.zcoder-close', function() {
 			_this.hide();
 		});
 
@@ -3301,7 +3301,7 @@ var MouseFollower = Class.extend(ListenerMixin, {
 
 			// we don't want long taps or any mouse interaction causing selection/menus.
 			// would use preventSelection(), but that prevents selectstart, causing problems.
-			el.addClass('fortran-unselectable');
+			el.addClass('zcoder-unselectable');
 
 			el.appendTo(this.parentEl);
 		}
@@ -3569,8 +3569,8 @@ var Grid = FC.Grid = Class.extend(ListenerMixin, MouseIgnorerMixin, {
 		// jQuery will take care of unregistering them when removeElement gets called.
 		this.el.on(name, function(ev) {
 			if (
-				!$(ev.target).is('.fortran-event-container *, .fortran-more') && // not an an event element, or "more.." link
-				!$(ev.target).closest('.fortran-popover').length // not on a popover (like the "more.." events one)
+				!$(ev.target).is('.zcoder-event-container *, .zcoder-more') && // not an an event element, or "more.." link
+				!$(ev.target).closest('.zcoder-popover').length // not on a popover (like the "more.." events one)
 			) {
 				return handler.call(_this, ev);
 			}
@@ -3770,7 +3770,7 @@ var Grid = FC.Grid = Class.extend(ListenerMixin, MouseIgnorerMixin, {
 		this.view.calendar.normalizeEventDates(fakeEvent);
 
 		// this extra className will be useful for differentiating real events from mock events in CSS
-		fakeEvent.className = (fakeEvent.className || []).concat('fortran-helper');
+		fakeEvent.className = (fakeEvent.className || []).concat('zcoder-helper');
 
 		// if something external is being dragged in, don't render a resizer
 		if (!sourceSeg) {
@@ -3855,7 +3855,7 @@ var Grid = FC.Grid = Class.extend(ListenerMixin, MouseIgnorerMixin, {
 
 	// Generates an array of classNames for rendering the highlight. Used by the fill system.
 	highlightSegClasses: function() {
-		return [ 'fortran-highlight' ];
+		return [ 'zcoder-highlight' ];
 	},
 
 
@@ -3986,26 +3986,26 @@ var Grid = FC.Grid = Class.extend(ListenerMixin, MouseIgnorerMixin, {
 	getDayClasses: function(date) {
 		var view = this.view;
 		var today = view.calendar.getNow();
-		var classes = [ 'fortran-' + dayIDs[date.day()] ];
+		var classes = [ 'zcoder-' + dayIDs[date.day()] ];
 
 		if (
 			view.intervalDuration.as('months') == 1 &&
 			date.month() != view.intervalStart.month()
 		) {
-			classes.push('fortran-other-month');
+			classes.push('zcoder-other-month');
 		}
 
 		if (date.isSame(today, 'day')) {
 			classes.push(
-				'fortran-today',
+				'zcoder-today',
 				view.highlightStateClass
 			);
 		}
 		else if (date < today) {
-			classes.push('fortran-past');
+			classes.push('zcoder-past');
 		}
 		else {
-			classes.push('fortran-future');
+			classes.push('zcoder-future');
 		}
 
 		return classes;
@@ -4117,7 +4117,7 @@ Grid.mixin({
 				var el = view.resolveEventEl(seg.event, $(node));
 
 				if (el) {
-					el.data('fortran-seg', seg); // used by handlers
+					el.data('zcoder-seg', seg); // used by handlers
 					seg.el = el;
 					renderedSegs.push(seg);
 				}
@@ -4163,7 +4163,7 @@ Grid.mixin({
 		var event = seg.event;
 		var source = event.source || {};
 
-		return [ 'fortran-bgevent' ].concat(
+		return [ 'zcoder-bgevent' ].concat(
 			event.className,
 			source.className || []
 		);
@@ -4181,7 +4181,7 @@ Grid.mixin({
 
 	// Generates an array of classNames to be used for the rendering business hours overlay. Called by the fill system.
 	businessHoursSegClasses: function(seg) {
-		return [ 'fortran-nonbusiness', 'fortran-bgevent' ];
+		return [ 'zcoder-nonbusiness', 'zcoder-bgevent' ];
 	},
 
 
@@ -4205,8 +4205,8 @@ Grid.mixin({
 	bindSegHandler: function(name, handler) {
 		var _this = this;
 
-		this.el.on(name, '.fortran-event-container > *', function(ev) {
-			var seg = $(this).data('fortran-seg'); // grab segment data. put there by View::renderEvents
+		this.el.on(name, '.zcoder-event-container > *', function(ev) {
+			var seg = $(this).data('zcoder-seg'); // grab segment data. put there by View::renderEvents
 
 			// only call the handlers if there is not a drag/resize in progress
 			if (seg && !_this.isDraggingSeg && !_this.isResizingSeg) {
@@ -4228,7 +4228,7 @@ Grid.mixin({
 			!this.mousedOverSeg
 		) {
 			this.mousedOverSeg = seg;
-			seg.el.addClass('fortran-allow-mouse-resize');
+			seg.el.addClass('zcoder-allow-mouse-resize');
 			this.view.trigger('eventMouseover', seg.el[0], seg.event, ev);
 		}
 	},
@@ -4242,7 +4242,7 @@ Grid.mixin({
 		if (this.mousedOverSeg) {
 			seg = seg || this.mousedOverSeg; // if given no args, use the currently moused-over segment
 			this.mousedOverSeg = null;
-			seg.el.removeClass('fortran-allow-mouse-resize');
+			seg.el.removeClass('zcoder-allow-mouse-resize');
 			this.view.trigger('eventMouseout', seg.el[0], seg.event, ev);
 		}
 	},
@@ -4301,8 +4301,8 @@ Grid.mixin({
 	// assumes the seg allows resizing.
 	// `dragOptions` are optional.
 	startSegResize: function(seg, ev, dragOptions) {
-		if ($(ev.target).is('.fortran-resizer')) {
-			this.buildSegResizeListener(seg, $(ev.target).is('.fortran-start-resizer'))
+		if ($(ev.target).is('.zcoder-resizer')) {
+			this.buildSegResizeListener(seg, $(ev.target).is('.zcoder-start-resizer'))
 				.startInteraction(ev, dragOptions);
 			return true;
 		}
@@ -4341,11 +4341,11 @@ Grid.mixin({
 			interactionStart: function(ev) {
 				isDragging = false;
 				mouseFollower = new MouseFollower(seg.el, {
-					additionalClass: 'fortran-dragging',
+					additionalClass: 'zcoder-dragging',
 					parentEl: view.el,
 					opacity: dragListener.isTouch ? null : view.opt('dragOpacity'),
 					revertDuration: view.opt('dragRevertDuration'),
-					zIndex: 2 // one above the .fortran-view
+					zIndex: 2 // one above the .zcoder-view
 				});
 				mouseFollower.hide(); // don't show until we know this is a real drag
 				mouseFollower.start(ev);
@@ -4383,7 +4383,7 @@ Grid.mixin({
 				// if a valid drop location, have the subclass render a visual indication
 				if (dropLocation && (dragHelperEls = view.renderDrag(dropLocation, seg))) {
 
-					dragHelperEls.addClass('fortran-dragging');
+					dragHelperEls.addClass('zcoder-dragging');
 					if (!dragListener.isTouch) {
 						_this.applyDragOpacity(dragHelperEls);
 					}
@@ -4850,24 +4850,24 @@ Grid.mixin({
 		var view = this.view;
 		var event = seg.event;
 		var classes = [
-			'fortran-event',
-			seg.isStart ? 'fortran-start' : 'fortran-not-start',
-			seg.isEnd ? 'fortran-end' : 'fortran-not-end'
+			'zcoder-event',
+			seg.isStart ? 'zcoder-start' : 'zcoder-not-start',
+			seg.isEnd ? 'zcoder-end' : 'zcoder-not-end'
 		].concat(
 			event.className,
 			event.source ? event.source.className : []
 		);
 
 		if (isDraggable) {
-			classes.push('fortran-draggable');
+			classes.push('zcoder-draggable');
 		}
 		if (isResizable) {
-			classes.push('fortran-resizable');
+			classes.push('zcoder-resizable');
 		}
 
 		// event is currently selected? attach a className.
 		if (view.isEventSelected(event)) {
-			classes.push('fortran-selected');
+			classes.push('zcoder-selected');
 		}
 
 		return classes;
@@ -5129,7 +5129,7 @@ function compareRanges(range1, range2) {
 ----------------------------------------------------------------------------------------------------------------------*/
 
 // Require all HTML5 data-* attributes used by FullCalendar to have this prefix.
-// A value of '' will query attributes like data-event. A value of 'fortran' will query attributes like data-fortran-event.
+// A value of '' will query attributes like data-event. A value of 'zcoder' will query attributes like data-zcoder-event.
 FC.dataAttrPrefix = '';
 
 // Given a jQuery element that might represent a dragged FullCalendar event, returns an intermediate data structure
@@ -5434,7 +5434,7 @@ var DayTableMixin = FC.DayTableMixin = {
 		var view = this.view;
 
 		return '' +
-			'<div class="fortran-row ' + view.widgetHeaderClass + '">' +
+			'<div class="zcoder-row ' + view.widgetHeaderClass + '">' +
 				'<table>' +
 					'<thead>' +
 						this.renderHeadTrHtml() +
@@ -5478,7 +5478,7 @@ var DayTableMixin = FC.DayTableMixin = {
 		var view = this.view;
 
 		return '' +
-			'<th class="fortran-day-header ' + view.widgetHeaderClass + ' fortran-' + dayIDs[date.day()] + '"' +
+			'<th class="zcoder-day-header ' + view.widgetHeaderClass + ' zcoder-' + dayIDs[date.day()] + '"' +
 				(this.rowCnt == 1 ?
 					' data-date="' + date.format('YYYY-MM-DD') + '"' :
 					'') +
@@ -5530,7 +5530,7 @@ var DayTableMixin = FC.DayTableMixin = {
 		var view = this.view;
 		var classes = this.getDayClasses(date);
 
-		classes.unshift('fortran-day', view.widgetContentClass);
+		classes.unshift('zcoder-day', view.widgetContentClass);
 
 		return '<td class="' + classes.join(' ') + '"' +
 			' data-date="' + date.format('YYYY-MM-DD') + '"' + // if date has a time, won't format it
@@ -5610,8 +5610,8 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 		}
 		this.el.html(html);
 
-		this.rowEls = this.el.find('.fortran-row');
-		this.cellEls = this.el.find('.fortran-day');
+		this.rowEls = this.el.find('.zcoder-row');
+		this.cellEls = this.el.find('.zcoder-day');
 
 		this.rowCoordCache = new CoordCache({
 			els: this.rowEls,
@@ -5653,20 +5653,20 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 	// `row` is the row number.
 	renderDayRowHtml: function(row, isRigid) {
 		var view = this.view;
-		var classes = [ 'fortran-row', 'fortran-week', view.widgetContentClass ];
+		var classes = [ 'zcoder-row', 'zcoder-week', view.widgetContentClass ];
 
 		if (isRigid) {
-			classes.push('fortran-rigid');
+			classes.push('zcoder-rigid');
 		}
 
 		return '' +
 			'<div class="' + classes.join(' ') + '">' +
-				'<div class="fortran-bg">' +
+				'<div class="zcoder-bg">' +
 					'<table>' +
 						this.renderBgTrHtml(row) +
 					'</table>' +
 				'</div>' +
-				'<div class="fortran-content-skeleton">' +
+				'<div class="zcoder-content-skeleton">' +
 					'<table>' +
 						(this.numbersVisible ?
 							'<thead>' +
@@ -5722,7 +5722,7 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 		}
 
 		classes = this.getDayClasses(date);
-		classes.unshift('fortran-day-number');
+		classes.unshift('zcoder-day-number');
 
 		return '' +
 			'<td class="' + classes.join(' ') + '" data-date="' + date.format() + '">' +
@@ -5897,8 +5897,8 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 
 		// inject each new event skeleton into each associated row
 		this.rowEls.each(function(row, rowNode) {
-			var rowEl = $(rowNode); // the .fortran-row
-			var skeletonEl = $('<div class="fortran-helper-skeleton"><table/></div>'); // will be absolutely positioned
+			var rowEl = $(rowNode); // the .zcoder-row
+			var skeletonEl = $('<div class="zcoder-helper-skeleton"><table/></div>'); // will be absolutely positioned
 			var skeletonTop;
 
 			// If there is an original segment, match the top position. Otherwise, put it at the row's top level
@@ -5906,7 +5906,7 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 				skeletonTop = sourceSeg.el.position().top;
 			}
 			else {
-				skeletonTop = rowEl.find('.fortran-content-skeleton tbody').position().top;
+				skeletonTop = rowEl.find('.zcoder-content-skeleton tbody').position().top;
 			}
 
 			skeletonEl.css('top', skeletonTop)
@@ -5972,7 +5972,7 @@ var DayGrid = FC.DayGrid = Grid.extend(DayTableMixin, {
 		className = className || type.toLowerCase();
 
 		skeletonEl = $(
-			'<div class="fortran-' + className + '-skeleton">' +
+			'<div class="zcoder-' + className + '-skeleton">' +
 				'<table><tr/></table>' +
 			'</div>'
 		);
@@ -6045,7 +6045,7 @@ DayGrid.mixin({
 
 		// append to each row's content skeleton
 		this.rowEls.each(function(i, rowNode) {
-			$(rowNode).find('.fortran-content-skeleton > table').append(
+			$(rowNode).find('.zcoder-content-skeleton > table').append(
 				rowStructs[i].tbodyEl
 			);
 		});
@@ -6103,18 +6103,18 @@ DayGrid.mixin({
 		var timeText;
 		var titleHtml;
 
-		classes.unshift('fortran-day-grid-event', 'fortran-h-event');
+		classes.unshift('zcoder-day-grid-event', 'zcoder-h-event');
 
 		// Only display a timed events time if it is the starting segment
 		if (seg.isStart) {
 			timeText = this.getEventTimeText(event);
 			if (timeText) {
-				timeHtml = '<span class="fortran-time">' + htmlEscape(timeText) + '</span>';
+				timeHtml = '<span class="zcoder-time">' + htmlEscape(timeText) + '</span>';
 			}
 		}
 
 		titleHtml =
-			'<span class="fortran-title">' +
+			'<span class="zcoder-title">' +
 				(htmlEscape(event.title || '') || '&nbsp;') + // we always want one line of height
 			'</span>';
 		
@@ -6128,18 +6128,18 @@ DayGrid.mixin({
 					''
 					) +
 			'>' +
-				'<div class="fortran-content">' +
+				'<div class="zcoder-content">' +
 					(this.isRTL ?
 						titleHtml + ' ' + timeHtml : // put a natural space in between
 						timeHtml + ' ' + titleHtml   //
 						) +
 				'</div>' +
 				(isResizableFromStart ?
-					'<div class="fortran-resizer fortran-start-resizer" />' :
+					'<div class="zcoder-resizer zcoder-start-resizer" />' :
 					''
 					) +
 				(isResizableFromEnd ?
-					'<div class="fortran-resizer fortran-end-resizer" />' :
+					'<div class="zcoder-resizer zcoder-end-resizer" />' :
 					''
 					) +
 			'</a>';
@@ -6202,7 +6202,7 @@ DayGrid.mixin({
 					emptyCellsUntil(seg.leftCol);
 
 					// create a container that occupies or more columns. append the event element.
-					td = $('<td class="fortran-event-container"/>').append(seg.el);
+					td = $('<td class="zcoder-event-container"/>').append(seg.el);
 					if (seg.leftCol != seg.rightCol) {
 						td.attr('colspan', seg.rightCol - seg.leftCol + 1);
 					}
@@ -6377,7 +6377,7 @@ DayGrid.mixin({
 
 		// Reveal one level <tr> at a time and stop when we find one out of bounds
 		for (i = 0; i < trEls.length; i++) {
-			trEl = trEls.eq(i).removeClass('fortran-limited'); // reset to original state (reveal)
+			trEl = trEls.eq(i).removeClass('zcoder-limited'); // reset to original state (reveal)
 
 			// with rowspans>1 and IE8, trEl.outerHeight() would return the height of the largest cell,
 			// so instead, find the tallest inner content element.
@@ -6433,7 +6433,7 @@ DayGrid.mixin({
 			cellMatrix = rowStruct.cellMatrix;
 
 			limitedNodes = rowStruct.tbodyEl.children().slice(levelLimit) // get level <tr> elements past the limit
-				.addClass('fortran-limited').get(); // hide elements and get a simple DOM-nodes array
+				.addClass('zcoder-limited').get(); // hide elements and get a simple DOM-nodes array
 
 			// iterate though segments in the last allowable level
 			for (i = 0; i < levelSegs.length; i++) {
@@ -6457,7 +6457,7 @@ DayGrid.mixin({
 
 					// make a replacement <td> for each column the segment occupies. will be one for each colspan
 					for (j = 0; j < colSegsBelow.length; j++) {
-						moreTd = $('<td class="fortran-more-cell"/>').attr('rowspan', rowspan);
+						moreTd = $('<td class="zcoder-more-cell"/>').attr('rowspan', rowspan);
 						segsBelow = colSegsBelow[j];
 						moreLink = this.renderMoreLink(
 							row,
@@ -6470,7 +6470,7 @@ DayGrid.mixin({
 						moreNodes.push(moreTd[0]);
 					}
 
-					td.addClass('fortran-limited').after($(segMoreNodes)); // hide original <td> and inject replacements
+					td.addClass('zcoder-limited').after($(segMoreNodes)); // hide original <td> and inject replacements
 					limitedNodes.push(td[0]);
 				}
 			}
@@ -6493,7 +6493,7 @@ DayGrid.mixin({
 		}
 
 		if (rowStruct.limitedEls) {
-			rowStruct.limitedEls.removeClass('fortran-limited');
+			rowStruct.limitedEls.removeClass('zcoder-limited');
 			rowStruct.limitedEls = null;
 		}
 	},
@@ -6505,7 +6505,7 @@ DayGrid.mixin({
 		var _this = this;
 		var view = this.view;
 
-		return $('<a class="fortran-more"/>')
+		return $('<a class="zcoder-more"/>')
 			.text(
 				this.getMoreLinkText(hiddenSegs.length)
 			)
@@ -6557,7 +6557,7 @@ DayGrid.mixin({
 		}
 
 		options = {
-			className: 'fortran-more-popover',
+			className: 'zcoder-more-popover',
 			content: this.renderSegPopoverContent(row, col, segs),
 			parentEl: this.el,
 			top: topEl.offset().top,
@@ -6591,20 +6591,20 @@ DayGrid.mixin({
 		var isTheme = view.opt('theme');
 		var title = this.getCellDate(row, col).format(view.opt('dayPopoverFormat'));
 		var content = $(
-			'<div class="fortran-header ' + view.widgetHeaderClass + '">' +
-				'<span class="fortran-close ' +
-					(isTheme ? 'ui-icon ui-icon-closethick' : 'fortran-icon fortran-icon-x') +
+			'<div class="zcoder-header ' + view.widgetHeaderClass + '">' +
+				'<span class="zcoder-close ' +
+					(isTheme ? 'ui-icon ui-icon-closethick' : 'zcoder-icon zcoder-icon-x') +
 				'"></span>' +
-				'<span class="fortran-title">' +
+				'<span class="zcoder-title">' +
 					htmlEscape(title) +
 				'</span>' +
-				'<div class="fortran-clear"/>' +
+				'<div class="zcoder-clear"/>' +
 			'</div>' +
-			'<div class="fortran-body ' + view.widgetContentClass + '">' +
-				'<div class="fortran-event-container"></div>' +
+			'<div class="zcoder-body ' + view.widgetContentClass + '">' +
+				'<div class="zcoder-event-container"></div>' +
 			'</div>'
 		);
-		var segContainer = content.find('.fortran-event-container');
+		var segContainer = content.find('.zcoder-event-container');
 		var i;
 
 		// render each seg's `el` and only return the visible segs
@@ -6724,8 +6724,8 @@ var TimeGrid = FC.TimeGrid = Grid.extend(DayTableMixin, {
 	// Relies on the view's colCnt. In the future, this component should probably be self-sufficient.
 	renderDates: function() {
 		this.el.html(this.renderHtml());
-		this.colEls = this.el.find('.fortran-day');
-		this.slatContainerEl = this.el.find('.fortran-slats');
+		this.colEls = this.el.find('.zcoder-day');
+		this.slatContainerEl = this.el.find('.zcoder-slats');
 		this.slatEls = this.slatContainerEl.find('tr');
 
 		this.colCoordCache = new CoordCache({
@@ -6744,12 +6744,12 @@ var TimeGrid = FC.TimeGrid = Grid.extend(DayTableMixin, {
 	// Renders the basic HTML skeleton for the grid
 	renderHtml: function() {
 		return '' +
-			'<div class="fortran-bg">' +
+			'<div class="zcoder-bg">' +
 				'<table>' +
 					this.renderBgTrHtml(0) + // row=0
 				'</table>' +
 			'</div>' +
-			'<div class="fortran-slats">' +
+			'<div class="zcoder-slats">' +
 				'<table>' +
 					this.renderSlatRowHtml() +
 				'</table>' +
@@ -6773,7 +6773,7 @@ var TimeGrid = FC.TimeGrid = Grid.extend(DayTableMixin, {
 			isLabeled = isInt(divideDurationByDuration(slotTime, this.labelInterval));
 
 			axisHtml =
-				'<td class="fortran-axis fortran-time ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
+				'<td class="zcoder-axis zcoder-time ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
 					(isLabeled ?
 						'<span>' + // for matchCellWidths
 							htmlEscape(slotDate.format(this.labelFormat)) +
@@ -6784,7 +6784,7 @@ var TimeGrid = FC.TimeGrid = Grid.extend(DayTableMixin, {
 
 			html +=
 				'<tr data-time="' + slotDate.format('HH:mm:ss') + '"' +
-					(isLabeled ? '' : ' class="fortran-minor"') +
+					(isLabeled ? '' : ' class="zcoder-minor"') +
 					'>' +
 					(!isRTL ? axisHtml : '') +
 					'<td class="' + view.widgetContentClass + '"/>' +
@@ -7145,16 +7145,16 @@ var TimeGrid = FC.TimeGrid = Grid.extend(DayTableMixin, {
 
 		// render lines within the columns
 		for (i = 0; i < segs.length; i++) {
-			nodes.push($('<div class="fortran-now-indicator fortran-now-indicator-line"></div>')
+			nodes.push($('<div class="zcoder-now-indicator zcoder-now-indicator-line"></div>')
 				.css('top', top)
 				.appendTo(this.colContainerEls.eq(segs[i].col))[0]);
 		}
 
 		// render an arrow over the axis
 		if (segs.length > 0) { // is the current time in view?
-			nodes.push($('<div class="fortran-now-indicator fortran-now-indicator-arrow"></div>')
+			nodes.push($('<div class="zcoder-now-indicator zcoder-now-indicator-arrow"></div>')
 				.css('top', top)
-				.appendTo(this.el.find('.fortran-content-skeleton'))[0]);
+				.appendTo(this.el.find('.zcoder-content-skeleton'))[0]);
 		}
 
 		this.nowIndicatorEls = $(nodes);
@@ -7242,30 +7242,30 @@ TimeGrid.mixin({
 		for (i = 0; i < this.colCnt; i++) {
 			cellHtml +=
 				'<td>' +
-					'<div class="fortran-content-col">' +
-						'<div class="fortran-event-container fortran-helper-container"></div>' +
-						'<div class="fortran-event-container"></div>' +
-						'<div class="fortran-highlight-container"></div>' +
-						'<div class="fortran-bgevent-container"></div>' +
-						'<div class="fortran-business-container"></div>' +
+					'<div class="zcoder-content-col">' +
+						'<div class="zcoder-event-container zcoder-helper-container"></div>' +
+						'<div class="zcoder-event-container"></div>' +
+						'<div class="zcoder-highlight-container"></div>' +
+						'<div class="zcoder-bgevent-container"></div>' +
+						'<div class="zcoder-business-container"></div>' +
 					'</div>' +
 				'</td>';
 		}
 
 		skeletonEl = $(
-			'<div class="fortran-content-skeleton">' +
+			'<div class="zcoder-content-skeleton">' +
 				'<table>' +
 					'<tr>' + cellHtml + '</tr>' +
 				'</table>' +
 			'</div>'
 		);
 
-		this.colContainerEls = skeletonEl.find('.fortran-content-col');
-		this.helperContainerEls = skeletonEl.find('.fortran-helper-container');
-		this.fgContainerEls = skeletonEl.find('.fortran-event-container:not(.fortran-helper-container)');
-		this.bgContainerEls = skeletonEl.find('.fortran-bgevent-container');
-		this.highlightContainerEls = skeletonEl.find('.fortran-highlight-container');
-		this.businessContainerEls = skeletonEl.find('.fortran-business-container');
+		this.colContainerEls = skeletonEl.find('.zcoder-content-col');
+		this.helperContainerEls = skeletonEl.find('.zcoder-helper-container');
+		this.fgContainerEls = skeletonEl.find('.zcoder-event-container:not(.zcoder-helper-container)');
+		this.bgContainerEls = skeletonEl.find('.zcoder-bgevent-container');
+		this.highlightContainerEls = skeletonEl.find('.zcoder-highlight-container');
+		this.businessContainerEls = skeletonEl.find('.zcoder-business-container');
 
 		this.bookendCells(skeletonEl.find('tr')); // TODO: do this on string level
 		this.el.append(skeletonEl);
@@ -7467,7 +7467,7 @@ TimeGrid.mixin({
 		var fullTimeText; // more verbose time text. for the print stylesheet
 		var startTimeText; // just the start time text
 
-		classes.unshift('fortran-time-grid-event', 'fortran-v-event');
+		classes.unshift('zcoder-time-grid-event', 'zcoder-v-event');
 
 		if (view.isMultiDayEvent(event)) { // if the event appears to span more than one day...
 			// Don't display time text on segments that run entirely through a day.
@@ -7495,9 +7495,9 @@ TimeGrid.mixin({
 				''
 				) +
 			'>' +
-				'<div class="fortran-content">' +
+				'<div class="zcoder-content">' +
 					(timeText ?
-						'<div class="fortran-time"' +
+						'<div class="zcoder-time"' +
 						' data-start="' + htmlEscape(startTimeText) + '"' +
 						' data-full="' + htmlEscape(fullTimeText) + '"' +
 						'>' +
@@ -7506,21 +7506,21 @@ TimeGrid.mixin({
 						''
 						) +
 					(event.title ?
-						'<div class="fortran-title">' +
+						'<div class="zcoder-title">' +
 							htmlEscape(event.title) +
 						'</div>' :
 						''
 						) +
 				'</div>' +
-				'<div class="fortran-bg"/>' +
+				'<div class="zcoder-bg"/>' +
 				/* TODO: write CSS for this
 				(isResizableFromStart ?
-					'<div class="fortran-resizer fortran-start-resizer" />' :
+					'<div class="zcoder-resizer zcoder-start-resizer" />' :
 					''
 					) +
 				*/
 				(isResizableFromEnd ?
-					'<div class="fortran-resizer fortran-end-resizer" />' :
+					'<div class="zcoder-resizer zcoder-end-resizer" />' :
 					''
 					) +
 			'</a>';
@@ -7681,7 +7681,7 @@ TimeGrid.mixin({
 
 			// if the height is short, add a className for alternate styling
 			if (seg.bottom - seg.top < 30) {
-				seg.el.addClass('fortran-short');
+				seg.el.addClass('zcoder-short');
 			}
 		}
 	},
@@ -8227,7 +8227,7 @@ var View = FC.View = Class.extend(EmitterMixin, ListenerMixin, {
 
 	// Initializes internal variables related to theming
 	initThemingProps: function() {
-		var tm = this.opt('theme') ? 'ui' : 'fortran';
+		var tm = this.opt('theme') ? 'ui' : 'zcoder';
 
 		this.widgetHeaderClass = tm + '-widget-header';
 		this.widgetContentClass = tm + '-widget-content';
@@ -8749,7 +8749,7 @@ var View = FC.View = Class.extend(EmitterMixin, ListenerMixin, {
 		if (!this.selectedEvent || this.selectedEvent !== event) {
 			this.unselectEvent();
 			this.renderedEventSegEach(function(seg) {
-				seg.el.addClass('fortran-selected');
+				seg.el.addClass('zcoder-selected');
 			}, event);
 			this.selectedEvent = event;
 		}
@@ -8759,7 +8759,7 @@ var View = FC.View = Class.extend(EmitterMixin, ListenerMixin, {
 	unselectEvent: function() {
 		if (this.selectedEvent) {
 			this.renderedEventSegEach(function(seg) {
-				seg.el.removeClass('fortran-selected');
+				seg.el.removeClass('zcoder-selected');
 			}, this.selectedEvent);
 			this.selectedEvent = null;
 		}
@@ -8808,7 +8808,7 @@ var View = FC.View = Class.extend(EmitterMixin, ListenerMixin, {
 
 	processEventUnselect: function(ev) {
 		if (this.selectedEvent) {
-			if (!$(ev.target).closest('.fortran-selected').length) {
+			if (!$(ev.target).closest('.zcoder-selected').length) {
 				this.unselectEvent();
 			}
 		}
@@ -8954,7 +8954,7 @@ var Scroller = FC.Scroller = Class.extend({
 
 
 	renderEl: function() {
-		return (this.scrollEl = $('<div class="fortran-scroller"></div>'));
+		return (this.scrollEl = $('<div class="zcoder-scroller"></div>'));
 	},
 
 
@@ -9559,24 +9559,24 @@ function Calendar_constructor(element, overrides) {
 	
 	
 	function initialRender() {
-		tm = options.theme ? 'ui' : 'fortran';
-		element.addClass('fortran');
+		tm = options.theme ? 'ui' : 'zcoder';
+		element.addClass('zcoder');
 
 		if (options.isRTL) {
-			element.addClass('fortran-rtl');
+			element.addClass('zcoder-rtl');
 		}
 		else {
-			element.addClass('fortran-ltr');
+			element.addClass('zcoder-ltr');
 		}
 
 		if (options.theme) {
 			element.addClass('ui-widget');
 		}
 		else {
-			element.addClass('fortran-unthemed');
+			element.addClass('zcoder-unthemed');
 		}
 
-		content = $("<div class='fortran-view-container'/>").prependTo(element);
+		content = $("<div class='zcoder-view-container'/>").prependTo(element);
 
 		header = t.header = new Header(t, options);
 		headerElement = header.render();
@@ -9604,7 +9604,7 @@ function Calendar_constructor(element, overrides) {
 
 		header.removeElement();
 		content.remove();
-		element.removeClass('fortran fortran-ltr fortran-rtl fortran-unthemed ui-widget');
+		element.removeClass('zcoder zcoder-ltr zcoder-rtl zcoder-unthemed ui-widget');
 
 		if (windowResizeProxy) {
 			$(window).unbind('resize', windowResizeProxy);
@@ -9642,7 +9642,7 @@ function Calendar_constructor(element, overrides) {
 				(viewsByType[viewType] = t.instantiateView(viewType));
 
 			currentView.setElement(
-				$("<div class='fortran-view fortran-" + viewType + "-view' />").appendTo(content)
+				$("<div class='zcoder-view zcoder-" + viewType + "-view' />").appendTo(content)
 			);
 			header.activateButton(viewType);
 		}
@@ -10113,7 +10113,7 @@ FC.datepickerLang = function(langCode, dpLangCode, dpOptions) {
 	// get the FullCalendar internal option hash for this language. create if necessary
 	var fcOptions = langOptionHash[langCode] || (langOptionHash[langCode] = {});
 
-	// transfer some simple options from datepicker to fortran
+	// transfer some simple options from datepicker to zcoder
 	fcOptions.isRTL = dpOptions.isRTL;
 	fcOptions.weekNumberTitle = dpOptions.weekHeader;
 
@@ -10327,14 +10327,14 @@ function Header(calendar, options) {
 	function render() {
 		var sections = options.header;
 
-		tm = options.theme ? 'ui' : 'fortran';
+		tm = options.theme ? 'ui' : 'zcoder';
 
 		if (sections) {
-			el = $("<div class='fortran-toolbar'/>")
+			el = $("<div class='zcoder-toolbar'/>")
 				.append(renderSection('left'))
 				.append(renderSection('right'))
 				.append(renderSection('center'))
-				.append('<div class="fortran-clear"/>');
+				.append('<div class="zcoder-clear"/>');
 
 			return el;
 		}
@@ -10348,7 +10348,7 @@ function Header(calendar, options) {
 	
 	
 	function renderSection(position) {
-		var sectionEl = $('<div class="fortran-' + position + '"/>');
+		var sectionEl = $('<div class="zcoder-' + position + '"/>');
 		var buttonStr = options.header[position];
 
 		if (buttonStr) {
@@ -10418,14 +10418,14 @@ function Header(calendar, options) {
 								innerHtml = "<span class='ui-icon ui-icon-" + themeIcon + "'></span>";
 							}
 							else if (normalIcon && !options.theme) {
-								innerHtml = "<span class='fortran-icon fortran-icon-" + normalIcon + "'></span>";
+								innerHtml = "<span class='zcoder-icon zcoder-icon-" + normalIcon + "'></span>";
 							}
 							else {
 								innerHtml = htmlEscape(defaultText);
 							}
 
 							classes = [
-								'fortran-' + buttonName + '-button',
+								'zcoder-' + buttonName + '-button',
 								tm + '-button',
 								tm + '-state-default'
 							];
@@ -10494,7 +10494,7 @@ function Header(calendar, options) {
 				if (groupChildren.length > 1) {
 					groupEl = $('<div/>');
 					if (isOnlyButtons) {
-						groupEl.addClass('fortran-button-group');
+						groupEl.addClass('zcoder-button-group');
 					}
 					groupEl.append(groupChildren);
 					sectionEl.append(groupEl);
@@ -10515,26 +10515,26 @@ function Header(calendar, options) {
 	
 	
 	function activateButton(buttonName) {
-		el.find('.fortran-' + buttonName + '-button')
+		el.find('.zcoder-' + buttonName + '-button')
 			.addClass(tm + '-state-active');
 	}
 	
 	
 	function deactivateButton(buttonName) {
-		el.find('.fortran-' + buttonName + '-button')
+		el.find('.zcoder-' + buttonName + '-button')
 			.removeClass(tm + '-state-active');
 	}
 	
 	
 	function disableButton(buttonName) {
-		el.find('.fortran-' + buttonName + '-button')
+		el.find('.zcoder-' + buttonName + '-button')
 			.attr('disabled', 'disabled')
 			.addClass(tm + '-state-disabled');
 	}
 	
 	
 	function enableButton(buttonName) {
-		el.find('.fortran-' + buttonName + '-button')
+		el.find('.zcoder-' + buttonName + '-button')
 			.removeAttr('disabled')
 			.removeClass(tm + '-state-disabled');
 	}
@@ -11397,7 +11397,7 @@ function EventManager(options) { // assumed to be a calendar
 	function getBusinessHoursEvents(wholeDay) {
 		var optionVal = options.businessHours;
 		var defaultVal = {
-			className: 'fortran-nonbusiness',
+			className: 'zcoder-nonbusiness',
 			start: '09:00',
 			end: '17:00',
 			dow: [ 1, 2, 3, 4, 5 ], // monday - friday
@@ -11713,13 +11713,13 @@ var BasicView = FC.BasicView = View.extend({
 		this.weekNumbersVisible = this.opt('weekNumbers');
 		this.dayGrid.numbersVisible = this.dayNumbersVisible || this.weekNumbersVisible;
 
-		this.el.addClass('fortran-basic-view').html(this.renderSkeletonHtml());
+		this.el.addClass('zcoder-basic-view').html(this.renderSkeletonHtml());
 		this.renderHead();
 
 		this.scroller.render();
-		var dayGridContainerEl = this.scroller.el.addClass('fortran-day-grid-container');
-		var dayGridEl = $('<div class="fortran-day-grid" />').appendTo(dayGridContainerEl);
-		this.el.find('.fortran-body > tr > td').append(dayGridContainerEl);
+		var dayGridContainerEl = this.scroller.el.addClass('zcoder-day-grid-container');
+		var dayGridEl = $('<div class="zcoder-day-grid" />').appendTo(dayGridContainerEl);
+		this.el.find('.zcoder-body > tr > td').append(dayGridContainerEl);
 
 		this.dayGrid.setElement(dayGridEl);
 		this.dayGrid.renderDates(this.hasRigidRows());
@@ -11729,9 +11729,9 @@ var BasicView = FC.BasicView = View.extend({
 	// render the day-of-week headers
 	renderHead: function() {
 		this.headContainerEl =
-			this.el.find('.fortran-head-container')
+			this.el.find('.zcoder-head-container')
 				.html(this.dayGrid.renderHeadHtml());
-		this.headRowEl = this.headContainerEl.find('.fortran-row');
+		this.headRowEl = this.headContainerEl.find('.zcoder-row');
 	},
 
 
@@ -11754,12 +11754,12 @@ var BasicView = FC.BasicView = View.extend({
 	renderSkeletonHtml: function() {
 		return '' +
 			'<table>' +
-				'<thead class="fortran-head">' +
+				'<thead class="zcoder-head">' +
 					'<tr>' +
-						'<td class="fortran-head-container ' + this.widgetHeaderClass + '"></td>' +
+						'<td class="zcoder-head-container ' + this.widgetHeaderClass + '"></td>' +
 					'</tr>' +
 				'</thead>' +
-				'<tbody class="fortran-body">' +
+				'<tbody class="zcoder-body">' +
 					'<tr>' +
 						'<td class="' + this.widgetContentClass + '"></td>' +
 					'</tr>' +
@@ -11794,7 +11794,7 @@ var BasicView = FC.BasicView = View.extend({
 			// Make sure all week number cells running down the side have the same width.
 			// Record the width for cells created later.
 			this.weekNumberWidth = matchCellWidths(
-				this.el.find('.fortran-week-number')
+				this.el.find('.zcoder-week-number')
 			);
 		}
 	},
@@ -11980,7 +11980,7 @@ var basicDayGridMethods = {
 
 		if (view.weekNumbersVisible) {
 			return '' +
-				'<th class="fortran-week-number ' + view.widgetHeaderClass + '" ' + view.weekNumberStyleAttr() + '>' +
+				'<th class="zcoder-week-number ' + view.widgetHeaderClass + '" ' + view.weekNumberStyleAttr() + '>' +
 					'<span>' + // needed for matchCellWidths
 						htmlEscape(view.opt('weekNumberTitle')) +
 					'</span>' +
@@ -11997,7 +11997,7 @@ var basicDayGridMethods = {
 
 		if (view.weekNumbersVisible) {
 			return '' +
-				'<td class="fortran-week-number" ' + view.weekNumberStyleAttr() + '>' +
+				'<td class="zcoder-week-number" ' + view.weekNumberStyleAttr() + '>' +
 					'<span>' + // needed for matchCellWidths
 						this.getCellDate(row, 0).format('w') +
 					'</span>' +
@@ -12013,7 +12013,7 @@ var basicDayGridMethods = {
 		var view = this.view;
 
 		if (view.weekNumbersVisible) {
-			return '<td class="fortran-week-number ' + view.widgetContentClass + '" ' +
+			return '<td class="zcoder-week-number ' + view.widgetContentClass + '" ' +
 				view.weekNumberStyleAttr() + '></td>';
 		}
 
@@ -12027,7 +12027,7 @@ var basicDayGridMethods = {
 		var view = this.view;
 
 		if (view.weekNumbersVisible) {
-			return '<td class="fortran-week-number" ' + view.weekNumberStyleAttr() + '></td>';
+			return '<td class="zcoder-week-number" ' + view.weekNumberStyleAttr() + '></td>';
 		}
 
 		return '';
@@ -12179,37 +12179,37 @@ var AgendaView = FC.AgendaView = View.extend({
 	// Renders the view into `this.el`, which has already been assigned
 	renderDates: function() {
 
-		this.el.addClass('fortran-agenda-view').html(this.renderSkeletonHtml());
+		this.el.addClass('zcoder-agenda-view').html(this.renderSkeletonHtml());
 		this.renderHead();
 
 		this.scroller.render();
-		var timeGridWrapEl = this.scroller.el.addClass('fortran-time-grid-container');
-		var timeGridEl = $('<div class="fortran-time-grid" />').appendTo(timeGridWrapEl);
-		this.el.find('.fortran-body > tr > td').append(timeGridWrapEl);
+		var timeGridWrapEl = this.scroller.el.addClass('zcoder-time-grid-container');
+		var timeGridEl = $('<div class="zcoder-time-grid" />').appendTo(timeGridWrapEl);
+		this.el.find('.zcoder-body > tr > td').append(timeGridWrapEl);
 
 		this.timeGrid.setElement(timeGridEl);
 		this.timeGrid.renderDates();
 
 		// the <hr> that sometimes displays under the time-grid
-		this.bottomRuleEl = $('<hr class="fortran-divider ' + this.widgetHeaderClass + '"/>')
+		this.bottomRuleEl = $('<hr class="zcoder-divider ' + this.widgetHeaderClass + '"/>')
 			.appendTo(this.timeGrid.el); // inject it into the time-grid
 
 		if (this.dayGrid) {
-			this.dayGrid.setElement(this.el.find('.fortran-day-grid'));
+			this.dayGrid.setElement(this.el.find('.zcoder-day-grid'));
 			this.dayGrid.renderDates();
 
 			// have the day-grid extend it's coordinate area over the <hr> dividing the two grids
 			this.dayGrid.bottomCoordPadding = this.dayGrid.el.next('hr').outerHeight();
 		}
 
-		this.noScrollRowEls = this.el.find('.fortran-row:not(.fortran-scroller *)'); // fake rows not within the scroller
+		this.noScrollRowEls = this.el.find('.zcoder-row:not(.zcoder-scroller *)'); // fake rows not within the scroller
 	},
 
 
 	// render the day-of-week headers
 	renderHead: function() {
 		this.headContainerEl =
-			this.el.find('.fortran-head-container')
+			this.el.find('.zcoder-head-container')
 				.html(this.timeGrid.renderHeadHtml());
 	},
 
@@ -12234,17 +12234,17 @@ var AgendaView = FC.AgendaView = View.extend({
 	renderSkeletonHtml: function() {
 		return '' +
 			'<table>' +
-				'<thead class="fortran-head">' +
+				'<thead class="zcoder-head">' +
 					'<tr>' +
-						'<td class="fortran-head-container ' + this.widgetHeaderClass + '"></td>' +
+						'<td class="zcoder-head-container ' + this.widgetHeaderClass + '"></td>' +
 					'</tr>' +
 				'</thead>' +
-				'<tbody class="fortran-body">' +
+				'<tbody class="zcoder-body">' +
 					'<tr>' +
 						'<td class="' + this.widgetContentClass + '">' +
 							(this.dayGrid ?
-								'<div class="fortran-day-grid"/>' +
-								'<hr class="fortran-divider ' + this.widgetHeaderClass + '"/>' :
+								'<div class="zcoder-day-grid"/>' +
+								'<hr class="zcoder-divider ' + this.widgetHeaderClass + '"/>' :
 								''
 								) +
 						'</td>' +
@@ -12318,7 +12318,7 @@ var AgendaView = FC.AgendaView = View.extend({
 	// Refreshes the horizontal dimensions of the view
 	updateWidth: function() {
 		// make all axis cells line up, and record the width so newly created axis cells will have it
-		this.axisWidth = matchCellWidths(this.el.find('.fortran-axis'));
+		this.axisWidth = matchCellWidths(this.el.find('.zcoder-axis'));
 	},
 
 
@@ -12575,14 +12575,14 @@ var agendaTimeGridMethods = {
 			weekText = this.start.format(view.opt('smallWeekFormat'));
 
 			return '' +
-				'<th class="fortran-axis fortran-week-number ' + view.widgetHeaderClass + '" ' + view.axisStyleAttr() + '>' +
+				'<th class="zcoder-axis zcoder-week-number ' + view.widgetHeaderClass + '" ' + view.axisStyleAttr() + '>' +
 					'<span>' + // needed for matchCellWidths
 						htmlEscape(weekText) +
 					'</span>' +
 				'</th>';
 		}
 		else {
-			return '<th class="fortran-axis ' + view.widgetHeaderClass + '" ' + view.axisStyleAttr() + '></th>';
+			return '<th class="zcoder-axis ' + view.widgetHeaderClass + '" ' + view.axisStyleAttr() + '></th>';
 		}
 	},
 
@@ -12591,7 +12591,7 @@ var agendaTimeGridMethods = {
 	renderBgIntroHtml: function() {
 		var view = this.view;
 
-		return '<td class="fortran-axis ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '></td>';
+		return '<td class="zcoder-axis ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '></td>';
 	},
 
 
@@ -12600,7 +12600,7 @@ var agendaTimeGridMethods = {
 	renderIntroHtml: function() {
 		var view = this.view;
 
-		return '<td class="fortran-axis" ' + view.axisStyleAttr() + '></td>';
+		return '<td class="zcoder-axis" ' + view.axisStyleAttr() + '></td>';
 	}
 
 };
@@ -12615,7 +12615,7 @@ var agendaDayGridMethods = {
 		var view = this.view;
 
 		return '' +
-			'<td class="fortran-axis ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
+			'<td class="zcoder-axis ' + view.widgetContentClass + '" ' + view.axisStyleAttr() + '>' +
 				'<span>' + // needed for matchCellWidths
 					(view.opt('allDayHtml') || htmlEscape(view.opt('allDayText'))) +
 				'</span>' +
@@ -12628,7 +12628,7 @@ var agendaDayGridMethods = {
 	renderIntroHtml: function() {
 		var view = this.view;
 
-		return '<td class="fortran-axis" ' + view.axisStyleAttr() + '></td>';
+		return '<td class="zcoder-axis" ' + view.axisStyleAttr() + '></td>';
 	}
 
 };

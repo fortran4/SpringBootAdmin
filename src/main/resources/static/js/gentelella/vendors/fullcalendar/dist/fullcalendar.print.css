@@ -63,7 +63,7 @@ tbody,
 }
 
 .fc tbody .fc-row .fc-content-skeleton {
-	position: static; /* undo .fortran-rigid */
+	position: static; /* undo .zcoder-rigid */
 	padding-bottom: 0 !important; /* use a more border-friendly method for this... */
 }
 

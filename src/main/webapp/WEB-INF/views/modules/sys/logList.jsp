@@ -66,7 +66,7 @@
                 </div>
                 <div class="table_content">
                     <!--data table-->
-                    <table id="dataTable" class="table table-striped table-bordered nowrap"  cellspacing="0"
+                    <table id="dataTable" class="table table-striped table-bordered nowrap" cellspacing="0"
                            width="100%">
                         <thead>
                         <tr>
@@ -97,7 +97,7 @@
             "scrollY": 300,
             "ajax": {
                 "url": "${ctx}/log/findDataForTables",
-                "data":function(d){
+                "data": function (d) {
                     d.beginDate = $('#beginDate').val();
                     d.endDate = $('#endDate').val();
                     d.type = $('#type').val();
@@ -110,18 +110,11 @@
                 {"data": "userAgent"},
                 {"data": "requestUri"},
                 {"data": "method"},
-                {"data": "params"}]
-
-
+                {"data": "params"}
+            ]
         });
-
     });
 
-    function format ( d ) {
-        return 'Full name: '+d.type+' '+d.createDate+'<br>'+
-                'Salary: '+d.remoteAddr+'<br>'+
-                'The child row can contain any data you wish, including links, images, inner tables etc.';
-    }
 
     function page(n, s) {
         if (n) $("#pageNo").val(n);

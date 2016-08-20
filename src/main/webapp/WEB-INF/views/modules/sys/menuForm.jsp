@@ -29,7 +29,7 @@
 				</c:choose>
 			</ul>
 			<br/>
-			<form:form id="inputForm" modelAttribute="menu" role="form"  action="${ctx}/menu/save" method="post"
+			<form:form id="inputForm" modelAttribute="menu" role="form"  action="${ctx}/menu/save/${action}" method="post"
 					   class="form-horizontal form-label-left">
 				<form:hidden path="menuId"/>
 				<div class="form-group">
@@ -45,7 +45,7 @@
 							class="required">*</span>
 					</label>
 					<div class="col-md-6 col-sm-6 col-xs-12">
-						<form:password path="parentId" cssClass="form-control col-md-7 col-xs-9" maxlength="12"/>
+						<form:input path="parentId" cssClass="form-control col-md-7 col-xs-9" maxlength="12"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -96,7 +96,7 @@
 
 				<div class="form-group">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-						<button type="submit" class="btn btn-primary">重置</button>
+						<button type="button" class="btn btn-primary">重置</button>
 						<button type="submit" class="btn btn-success">提交</button>
 					</div>
 				</div>
