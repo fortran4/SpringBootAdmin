@@ -8,9 +8,10 @@
     <%@include file="/WEB-INF/views/common/css.jsp" %>
 </head>
 <body class="main-bg">
-<sys:message type="${type}" content="${content}"></sys:message>
-
 <div class="container-fluid">
+    <div class="row">
+        <sys:message type="${type}" content="${content}"></sys:message>
+    </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="search_panel">
@@ -22,7 +23,6 @@
 
                         <div class="row">
                             <div class="form-group  col-xs-6 col-md-4">
-                                <label for="roleName">角色名称</label>
                                 <div class="input-prepend input-group">
                                     <input name="roleName" id="roleNameQuery" htmlEscape="false" maxlength="50"
                                            class="form-control"/>
@@ -164,9 +164,9 @@
                             message: '请输入角色名称'
                         },
                         stringLength: {
-                            min: 6,
+                            min: 2,
                             max: 30,
-                            message: '角色名称必须在6-30个字符之间'
+                            message: '角色名称必须在2-30个字符之间'
                         }
                     }
                 },

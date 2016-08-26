@@ -9,6 +9,9 @@
         <c:if test="${type=='info'}">
             <strong>提示:</strong> ${content}
         </c:if>
+        <c:if test="${type=='success'}">
+            <strong>提示:</strong> ${content}
+        </c:if>
         <c:if test="${type=='warning'}">
             <strong>警告:</strong> ${content}
         </c:if>

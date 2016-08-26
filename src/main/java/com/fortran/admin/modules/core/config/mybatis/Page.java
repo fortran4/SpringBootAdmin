@@ -22,7 +22,7 @@ public class Page<E> implements Serializable {
     /**
      * 页大小
      */
-    private int pageSize = 20;
+    private int pageSize = 5;
     /**
      * 起始行号
      */
@@ -31,10 +31,7 @@ public class Page<E> implements Serializable {
      * 结束行号
      */
     private int endRow;
-    /**
-     * 总数
-     */
-    private long total;
+
     /**
      * 总页数
      */
@@ -122,26 +119,17 @@ public class Page<E> implements Serializable {
      */
     public static <T> Page<T> getInstance(HttpServletRequest request, T o) {
 
-        String start = request.getParameter("pageNo");
-        String length = request.getParameter("pageSize");
+        String pageNo = request.getParameter("pageNo");
+        String pageSize = request.getParameter("pageSize");
         Page page = new Page();
-        if (StringUtils.isNumeric(start)) {
-            page.setpageNo(Integer.parseInt(start)==0?1:Integer.parseInt(start));
+        if (StringUtils.isNumeric(pageNo)) {
+            page.setpageNo(Integer.parseInt(pageNo)==0?1:Integer.parseInt(pageNo));
         }
-        if (StringUtils.isNumeric(length)) {
-            page.setPageSize(Integer.parseInt(length));
+        if (StringUtils.isNumeric(pageSize)) {
+            page.setPageSize(Integer.parseInt(pageSize));
         }
-        String draw = request.getParameter("draw");
-        if (StringUtils.isNumeric(draw)) {
-            page.setDraw(Integer.parseInt(draw));
-        }
-        page.setCondition(o);
 
-        if (log.isDebugEnabled()) {
-            log.debug("start:" + start);
-            log.debug("length:" + length);
-            log.debug("draw:" + draw);
-        }
+        page.setCondition(o);
 
         PageHelper.startPage(page);
         return page;
@@ -250,21 +238,23 @@ public class Page<E> implements Serializable {
         this.pageSize = pageSize;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public int getStartRow() {
         return pageNo > 0 ? (pageNo - 1) * pageSize : 0;
+
     }
 
     public void setStartRow(int startRow) {
         this.startRow = startRow;
     }
 
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
 
     public E getCondition() {
         return condition;

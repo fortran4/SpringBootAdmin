@@ -78,7 +78,7 @@ public class RoleController extends BaseController {
             log.error("save role error.", e);
             rtnMessage(redirectAttributes, Constants.MSG_TYPE_DANGER,Constants.FAIL_MSG);
         }
-        rtnMessage(redirectAttributes, Constants.SUCCESS_MSG);
+        rtnMessage(redirectAttributes, Constants.MSG_TYPE_SUCCESS,Constants.SUCCESS_MSG);
         return "redirect:/role/findAll";
     }
 

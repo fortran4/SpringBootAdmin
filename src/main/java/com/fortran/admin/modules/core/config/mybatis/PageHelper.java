@@ -83,6 +83,7 @@ public class PageHelper implements Interceptor {
             if (invocation.getTarget() instanceof ResultSetHandler) {
                 Object result = invocation.proceed();
                 Page page = localPage.get();
+                page.initialize();
                 page.setResult((List) result);
                 return result;
             }
@@ -151,7 +152,7 @@ public class PageHelper implements Interceptor {
             if (rs.next()) {
                 totalCount = rs.getInt(1);
             }
-            page.setTotal(totalCount);
+            page.setCount(totalCount);
             int totalPage = totalCount / page.getPageSize() + ((totalCount % page.getPageSize() == 0) ? 0 : 1);
             page.setPages(totalPage);
             log.debug("current page : {}",page);
