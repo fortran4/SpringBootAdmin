@@ -235,18 +235,18 @@ $('.bulk_action input#check-all').on('ifUnchecked', function () {
 
 function countChecked() {
     if (checkState === 'all') {
-        $(".bulk_action input[name='table_records']").iCheck('check');
+        $(".bulk_action input[name='item']").iCheck('check');
     }
     if (checkState === 'none') {
-        $(".bulk_action input[name='table_records']").iCheck('uncheck');
+        $(".bulk_action input[name='item']").iCheck('uncheck');
     }
 
-    var checkCount = $(".bulk_action input[name='table_records']:checked").length;
+    var checkCount = $(".bulk_action input[name='item']:checked").length;
 
     if (checkCount) {
         $('.column-title').hide();
         $('.bulk-actions').show();
-        $('.action-cnt').html(checkCount + ' Records Selected');
+        $('.action-cnt').html('已选择['+checkCount + ']条记录');
     } else {
         $('.column-title').show();
         $('.bulk-actions').hide();

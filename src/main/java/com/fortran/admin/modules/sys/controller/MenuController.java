@@ -13,11 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * <p>菜单控制器</p>
@@ -62,14 +60,9 @@ public class MenuController extends BaseController {
      */
     @RequestMapping(value = "/menu/findAll")
     public String list(HttpServletRequest request, HttpServletResponse response, Model model, Menu menu) {
-        return MENU_LIST;
-    }
-
-    @RequestMapping(value = "/menu/findDataForTables")
-    @ResponseBody
-    public Map<String, Object> findDataForTables(Menu menu, HttpServletRequest request, HttpServletResponse response) {
         Page<Menu> page = menuService.findMenus(Page.getInstance(request,menu));
-        return buliderDataTable(page);
+        model.addAttribute("page",page);
+        return MENU_LIST;
     }
 
 

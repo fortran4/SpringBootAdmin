@@ -12,6 +12,7 @@
         var opts = $.extend({}, my.table.defaults, options);
 
         return $('#' + opts.domId).DataTable({
+            "buttons": ['excel'],
             "serverSide" : opts.serverSide,
             "searching" : opts.searching,
             "scrollX" : opts.scrollX,
@@ -23,6 +24,7 @@
             "order" : opts.order,
             "ordering" :opts.ordering,
             "columns" : opts.columns,
+            "createdRow" :opts.createRow,
             "language" : {
                 "lengthMenu" : "_MENU_ 条记录每页",
                 "zeroRecords" : "没有找到记录",
@@ -53,7 +55,7 @@
         "scrollY" : false,// 垂直滚动条
         "info" : false,// 分页描述信息
         "paging" : true,// 分页
-        "pagingType" : "full_numbers",
+        "pagingType" : "simple",
         "order" : [ [ 1, "desc" ] ],
         "ordering":false,//不排序
         "ajax" : {

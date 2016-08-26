@@ -5,7 +5,7 @@
   Time: 15:16
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!-- jQuery -->
 <script src="/js/formValidation/vendor/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
@@ -36,10 +36,8 @@
 <script src="/js/formValidation/framework/bootstrap.js"></script>
 <script src="/js/formValidation/js/language/zh_CN.js"></script>
 <script src="/js/gentelella/build/js/custom.js"></script>
+
 <script src="/js/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="/js/gentelella/vendors/datatables.net/js/jquery.dataTables.js"></script>
-<script src="/js/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.js"></script>
-<script src="/js/custom/myTable.js"></script>
 
 <script type="text/javascript">
     var ctx = '${ctx}', ctxStatic = '${ctxStatic}';

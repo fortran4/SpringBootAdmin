@@ -13,11 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * <p>角色控制器</p>
@@ -62,14 +60,9 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/role/findAll")
     public String list(HttpServletRequest request, HttpServletResponse response, Model model, Role role) {
-        return ROLE_LIST;
-    }
-
-    @RequestMapping(value = "/role/findDataForTables")
-    @ResponseBody
-    public Map<String, Object> findDataForTables(Role role, HttpServletRequest request, HttpServletResponse response) {
         Page<Role> page = roleService.findRoles(Page.getInstance(request,role));
-        return buliderDataTable(page);
+        model.addAttribute("page",page);
+        return ROLE_LIST;
     }
 
 

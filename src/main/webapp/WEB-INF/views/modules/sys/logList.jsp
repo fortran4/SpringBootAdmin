@@ -66,23 +66,45 @@
                 </div>
                 <div class="table_content">
                     <!--data table-->
-                    <table id="dataTable" class="table table-striped table-bordered nowrap"  cellspacing="0"
+                    <table id="dataTable" class="table table-striped table-bordered jambo_table bulk_action" cellspacing="0"
                            width="100%">
                         <thead>
                         <tr>
-                            <th>日志类型</th>
-                            <th>创建时间</th>
-                            <th>访问IP</th>
-                            <th>客户端</th>
-                            <th>请求地址</th>
-                            <th>请求方法</th>
-                            <th>请求参数</th>
+                            <th>
+                                <input type="checkbox" id="check-all" class="flat">
+                            </th>
+                            <th class="column-title">日志类型</th>
+                            <th class="column-title">创建时间</th>
+                            <th class="column-title">访问IP</th>
+                            <th class="column-title">客户端</th>
+                            <th class="column-title">请求链接</th>
+                            <th class="column-title">请求方法</th>
+                            <th class="column-title">请求参数</th>
+                            <th class="column-title">响应信息</th>
+                            <th class="bulk-actions" colspan="8">
+                                <a class="antoo" style="color:#fff; font-weight:500;">( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                            </th>
                         </tr>
                         </thead>
-                        <tbody></tbody>
-                        <!-- tbody是必须的 -->
+                        <tbody>
+                        <c:forEach var="log" items="${page.result}">
+                            <tr>
+                                <td>
+                                    <input type='checkbox' class='flat' name='item' value='${log.logId}'/>
+                                </td>
+                                <td>${log.type}</td>
+                                <td>${log.createDate}</td>
+                                <td>${log.remoteAddr}</td>
+                                <td>${log.userAgent}</td>
+                                <td>${log.requestUri}</td>
+                                <td>${log.method}</td>
+                                <td>${log.params}</td>
+                                <td>${log.response}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
                     </table>
-
+                    <div class="page">${page}</div>
                 </div>
             </div>
         </div>
@@ -90,38 +112,6 @@
 </div>
 <%@include file="/WEB-INF/views/common/js.jsp" %>
 <script type="text/javascript">
-
-    $(function () {
-
-        $.my.table({
-            "scrollY": 300,
-            "ajax": {
-                "url": "${ctx}/log/findDataForTables",
-                "data":function(d){
-                    d.beginDate = $('#beginDate').val();
-                    d.endDate = $('#endDate').val();
-                    d.type = $('#type').val();
-                }
-            },
-            "columns": [
-                {"data": "type"},
-                {"data": "createDate"},
-                {"data": "remoteAddr"},
-                {"data": "userAgent"},
-                {"data": "requestUri"},
-                {"data": "method"},
-                {"data": "params"}]
-
-
-        });
-
-    });
-
-    function format ( d ) {
-        return 'Full name: '+d.type+' '+d.createDate+'<br>'+
-                'Salary: '+d.remoteAddr+'<br>'+
-                'The child row can contain any data you wish, including links, images, inner tables etc.';
-    }
 
     function page(n, s) {
         if (n) $("#pageNo").val(n);

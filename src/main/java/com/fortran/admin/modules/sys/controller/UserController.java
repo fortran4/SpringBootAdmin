@@ -24,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: lin
@@ -229,18 +228,12 @@ public class UserController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/user/findAll")
+    @RequestMapping(value = "/user/findAllInit")
     public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<User> page = userService.findUsers(Page.getInstance(request,user));
+        model.addAttribute("page",page);
         return USER_LIST;
     }
-
-    @RequestMapping(value = "/user/findDataForTables")
-    @ResponseBody
-    public Map<String, Object> findDataForTables(User user, HttpServletRequest request, HttpServletResponse response) {
-        Page<User> page = userService.findUsers(Page.getInstance(request,user));
-        return buliderDataTable(page);
-    }
-
 
 
 }

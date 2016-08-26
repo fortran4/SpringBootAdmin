@@ -13,11 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * <p>日志控制器</p>
@@ -59,7 +56,9 @@ public class LogController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/log/findAll")
-    public String list(Model model, Log log) {
+    public String list(HttpServletRequest request,Model model, Log log) {
+        Page<Log> page = logService.findLogs(Page.getInstance(request,log));
+        model.addAttribute("page",page);
         return LOG_LIST;
     }
 
@@ -85,18 +84,4 @@ public class LogController extends BaseController {
 
     }
 
-    /**
-     * <p>日志条件查询</p>
-     *
-     * @param log
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping(value = "/log/findDataForTables")
-    @ResponseBody
-    public Map<String, Object> findDataForTables(Log log, HttpServletRequest request, HttpServletResponse response) {
-        Page<Log> page = logService.findLogs(Page.getInstance(request,log));
-        return buliderDataTable(page);
-    }
 }

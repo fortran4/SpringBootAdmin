@@ -31,8 +31,4 @@ public class LogService extends CrudService<LogDao,Log> {
         return PageHelper.endPage();
     }
 
-
-    public List<Log> findLogs(Log log) throws ServiceException{
-        return dao.findLogs(log);
-    }
 }

@@ -43,6 +43,8 @@
 
     <logger name="com.fortran.admin" level="DEBUG"/>
 
+    <logger name="org.springframework.jdbc" level="DEBUG"/>
+
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <!-- <appender-ref ref="FILE" />-->

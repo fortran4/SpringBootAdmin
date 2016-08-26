@@ -41,23 +41,6 @@
                             </ul>
                         </li>
                     </c:forEach>
-
-
-                    <%--<li><a><i class="fa fa-home"></i>系统管理<span
-                            class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href='${ctx}/sys/sysUser/find' target="mainFrame">用户管理</a></li>
-                            <li><a href='${ctx}/sys/sysRole/find' target="mainFrame">角色管理</a></li>
-                            <li><a href='${ctx}/sys/sysMenu/find' target="mainFrame">菜单管理</a></li>
-                            <li><a href='${ctx}/sys/sysLog/find' target="mainFrame">日志管理</a></li>
-                            <li><a href='${ctx}/sys/sysDict/find' target="mainFrame">数据字典管理</a></li>
-                        </ul></li>
-
-                    <li><a><i class="fa fa-edit"></i>代码生成<span
-                            class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="${ctx}/genCode/find" target="mainFrame">代码生成</a></li>
-                        </ul></li>--%>
                 </ul>
             </div>
         </div>
@@ -79,7 +62,6 @@
     </div>
 </div>
 <script>
-
 
     function findChildMenu(pid){
         if (pid=='')return;
