@@ -71,4 +71,10 @@ public class User extends Domain{
      * 生日
      */
     private Date birthday;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
 }
