@@ -2,6 +2,7 @@ package com.fortran.admin.modules.sys.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fortran.admin.modules.core.common.Domain;
+import com.fortran.admin.modules.sys.enumeration.LogType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -59,8 +60,8 @@ public class Log extends Domain{
     private String exception;
 
 
-   /* public String getType(){
+    public String getType(){
         return LogType.getLabelByValue(this.type);
-    }*/
+    }
 
 }

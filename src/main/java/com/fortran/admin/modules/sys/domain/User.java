@@ -1,6 +1,7 @@
 package com.fortran.admin.modules.sys.domain;
 
 import com.fortran.admin.modules.core.common.Domain;
+import com.fortran.admin.modules.sys.enumeration.GenderType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -76,5 +77,10 @@ public class User extends Domain{
      * 角色名称
      */
     private String roleName;
+
+
+    public String getGender(){
+        return GenderType.getLabelByValue(this.gender);
+    }
 
 }

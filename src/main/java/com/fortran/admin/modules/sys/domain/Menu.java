@@ -1,6 +1,7 @@
 package com.fortran.admin.modules.sys.domain;
 
 import com.fortran.admin.modules.core.common.Domain;
+import com.fortran.admin.modules.sys.enumeration.ShowStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -62,6 +63,10 @@ public class Menu extends Domain {
      * 子菜单
      */
     private List<Menu> childMenu;
+
+    public String getIsShow(){
+        return ShowStatus.getLabelByValue(this.isShow);
+    }
 
 
 }
