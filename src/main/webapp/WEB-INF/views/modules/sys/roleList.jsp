@@ -157,6 +157,11 @@
 <script>
     $(function () {
         $('#addForm').formValidation({
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
             fields: {
                 roleName: {
                     validators: {
@@ -167,6 +172,10 @@
                             min: 2,
                             max: 30,
                             message: '角色名称必须在2-30个字符之间'
+                        },
+                        remote: {
+                            url: '${ctx}/role/isExist',
+                            message: '角色名称已存在,请重新输入'
                         }
                     }
                 },

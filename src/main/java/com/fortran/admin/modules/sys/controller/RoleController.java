@@ -113,6 +113,16 @@ public class RoleController extends BaseController {
     }
 
 
+    /**
+     * <p>角色名是否唯一</p>
+     * @param roleName
+     * @return
+     */
+    @RequestMapping(value = "/role/isExist")
+    public boolean isExist(String roleName){
+        return roleService.isExist(roleName);
+    }
+
 
 
 }

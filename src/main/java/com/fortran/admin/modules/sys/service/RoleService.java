@@ -34,4 +34,19 @@ public class RoleService extends CrudService<RoleDao, Role> {
         return PageHelper.endPage();
     }
 
+
+    /**
+     * <p>验证是否存在</p>
+     *
+     * @param roleName
+     * @return
+     * @throws ServiceException
+     */
+    public boolean isExist(String roleName) throws ServiceException {
+        Role role = new Role();
+        role.setRoleName(roleName);
+        List<Role> roles = dao.findRoles(role);
+        return (roles != null && roles.size() > 0);
+    }
+
 }

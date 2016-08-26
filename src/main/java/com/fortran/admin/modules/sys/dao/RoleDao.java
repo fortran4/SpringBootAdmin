@@ -18,4 +18,5 @@ public interface RoleDao extends CrudDao<Role> {
 
     List<Role> findRoles(Role role)throws DataAccessException;
 
+
 }
