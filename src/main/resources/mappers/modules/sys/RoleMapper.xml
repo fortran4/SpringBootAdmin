@@ -36,6 +36,13 @@
           WHERE role_id=#{roleId}
     </update>
 
+    <update id="updateStatus">
+        UPDATE sys_role SET
+        status=#{status}
+        WHERE role_id=#{roleId}
+    </update>
+
+
     <update id="delete">
         UPDATE sys_role set status = 1 WHERE  role_id=#{roleId}
     </update>

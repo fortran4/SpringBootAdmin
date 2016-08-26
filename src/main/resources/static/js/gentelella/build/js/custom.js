@@ -287,14 +287,28 @@ if (typeof NProgress != 'undefined') {
  * @param href
  */
 function confirmx(msg, href) {
-    $.confirm({
-        title: '提示',
-        content: msg,
-        confirm: function () {
-            window.location.href = href;
-        },
-        cancel: function () {
-        }
+
+    layer.confirm(msg, {
+        btn: ['确定', '取消']
+    }, function () {
+        $.ajax({
+            url: href,
+            dataType: 'json',
+            method: 'post',
+            success: function (data) {
+                if (data.code == 200) {
+                    layer.msg('操作成功');
+                    //刷新表格
+                    page(1, 20);
+                } else {
+                    layer.msg(data.msg);
+                }
+            },
+            error: function (error) {
+                layer.msg("操作失败,请稍后重试")
+            }
+        });
+    }, function () {
 
     });
 }

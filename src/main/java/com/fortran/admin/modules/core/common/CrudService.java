@@ -53,6 +53,7 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @param entity 实体
      * @return
      */
+    @Transactional(readOnly = false)
     public int insert(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
         return dao.insert(entity);
@@ -76,9 +77,9 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
      * @return
      */
     @Transactional(readOnly = false)
-    public T updateStatus(T entity) throws ServiceException{
+    public int updateStatus(T entity) throws ServiceException{
         Preconditions.checkArgument(entity != null, "entity must be not null");
-        return (T) dao.update(entity);
+        return dao.updateStatus(entity);
     }
 
     /**

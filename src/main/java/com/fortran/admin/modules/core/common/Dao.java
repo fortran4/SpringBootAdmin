@@ -49,7 +49,7 @@ public interface Dao<T> {
      * @param entity
      * @return
      */
-    T updateStatus(T entity);
+    int updateStatus(T entity);
 
     /**
      * 删除数据

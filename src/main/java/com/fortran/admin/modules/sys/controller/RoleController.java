@@ -4,7 +4,9 @@ import com.fortran.admin.modules.core.common.BaseController;
 import com.fortran.admin.modules.core.common.constant.Constants;
 import com.fortran.admin.modules.core.config.mybatis.Page;
 import com.fortran.admin.modules.core.exception.ServiceException;
+import com.fortran.admin.modules.core.message.RespMsg;
 import com.fortran.admin.modules.sys.domain.Role;
+import com.fortran.admin.modules.sys.enumeration.DelStatus;
 import com.fortran.admin.modules.sys.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,19 +89,30 @@ public class RoleController extends BaseController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/role/delete/{id}")
-    public String delete(Model model, @PathVariable String id, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/role/{action}/{id}")
+    @ResponseBody
+    public RespMsg<Role> delete(Model model,@PathVariable String action, @PathVariable String id) {
 
         Role role = new Role();
+        int flag = 0;
         try {
-            role.setRoleId(Long.parseLong(id));
-            roleService.delete(role);
+            if (Constants.ACTION_START.equalsIgnoreCase(action)){
+                role.setRoleId(Long.parseLong(id));
+                role.setStatus(DelStatus.NOMAL.getValue());
+                flag = roleService.updateStatus(role);
+            }
+            if (Constants.ACTION_STOP.equalsIgnoreCase(action)){
+                role.setRoleId(Long.parseLong(id));
+                flag = roleService.delete(role);
+            }
+
         } catch (ServiceException e) {
-            rtnMessage(redirectAttributes,Constants.FAIL_MSG);
+           return error(role);
         }
-        rtnMessage(redirectAttributes,Constants.SUCCESS_MSG);
-        return "redirect:/role/findAll";
+        return flag > 0 ? ok(role):error(role);
     }
+
+
 
 
 }

@@ -88,10 +88,14 @@
                                     </c:if>
                                 </td>
                                 <td>
-                                    <a href="${ctx}/role/form/edit?id=${role.roleId}" class="fa fa-edit">修改</a> |
+                                    <a href="${ctx}/role/form/edit?id=${role.roleId}" class="fa fa-edit">修改</a>
                                     <c:if test="${role.status == '0'}">
-                                        <a href="javascript:;" class="fa fa-remove"
-                                           onclick="return confirmx('确认要删除该角色吗？', '${ctx}/role/delete/${role.roleId}')">删除</a>
+                                        | <a href="javascript:;" class="fa fa-remove"
+                                           onclick="return confirmx('确认要禁用该角色吗？', '${ctx}/role/stop/${role.roleId}')">禁用</a>
+                                    </c:if>
+                                    <c:if test="${role.status != '0'}">
+                                        | <a href="javascript:;" class="fa fa-remove"
+                                             onclick="return confirmx('确认要启用该角色吗？', '${ctx}/role/start/${role.roleId}')">启用</a>
                                     </c:if>
                                 </td>
                             </tr>

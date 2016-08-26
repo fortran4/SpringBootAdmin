@@ -17,6 +17,22 @@ public enum DelStatus {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public static String getLabelByValue(String value){
         String result = "";
         for (DelStatus status : DelStatus.values()){

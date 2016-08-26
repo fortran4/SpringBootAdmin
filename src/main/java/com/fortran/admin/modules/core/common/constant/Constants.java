@@ -29,4 +29,12 @@ public final class Constants {
     public final static  String MSG_TYPE_WARN = "warning";
 
 
+    //-------------------------------action-----------------------------------
+
+    public final static String ACTION_START = "start";
+
+    public final static String ACTION_STOP ="stop";
+
+
+
 }
