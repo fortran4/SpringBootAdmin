@@ -6,15 +6,16 @@
  *     // code here
  * });
  */
-(function($,sr){
+(function ($, sr) {
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
     var debounce = function (func, threshold, execAsap) {
         var timeout;
 
-        return function debounced () {
+        return function debounced() {
             var obj = this, args = arguments;
-            function delayed () {
+
+            function delayed() {
                 if (!execAsap)
                     func.apply(obj, args);
                 timeout = null;
@@ -30,9 +31,11 @@
     };
 
     // smartresize
-    jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+    jQuery.fn[sr] = function (fn) {
+        return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
+    };
 
-})(jQuery,'smartresize');
+})(jQuery, 'smartresize');
 /**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -50,7 +53,7 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $FOOTER = window.top.$('footer');
 
 // Sidebar
-$(document).ready(function() {
+$(document).ready(function () {
     // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
@@ -67,12 +70,12 @@ $(document).ready(function() {
         $RIGHT_COL.css('min-height', contentHeight);
     };
 
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
+    $SIDEBAR_MENU.find('a').on('click', function (ev) {
         var $li = $(this).parent();
 
         if ($li.is('.active')) {
             $li.removeClass('active active-sm');
-            $('ul:first', $li).slideUp(function() {
+            $('ul:first', $li).slideUp(function () {
                 setContentHeight();
             });
         } else {
@@ -84,14 +87,14 @@ $(document).ready(function() {
 
             $li.addClass('active');
 
-            $('ul:first', $li).slideDown(function() {
+            $('ul:first', $li).slideDown(function () {
                 setContentHeight();
             });
         }
     });
 
     // toggle small or large menu
-    $MENU_TOGGLE.on('click', function() {
+    $MENU_TOGGLE.on('click', function () {
         if ($BODY.hasClass('nav-md')) {
             $SIDEBAR_MENU.find('li.active ul').hide();
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
@@ -110,12 +113,12 @@ $(document).ready(function() {
 
     $SIDEBAR_MENU.find('a').filter(function () {
         return this.href == CURRENT_URL;
-    }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+    }).parent('li').addClass('current-page').parents('ul').slideDown(function () {
         setContentHeight();
     }).parent().addClass('active');
 
     // recompute content when resizing
-    $(window).smartresize(function(){
+    $(window).smartresize(function () {
         setContentHeight();
     });
 
@@ -126,22 +129,22 @@ $(document).ready(function() {
         $('.menu_fixed').mCustomScrollbar({
             autoHideScrollbar: true,
             theme: 'minimal',
-            mouseWheel:{ preventDefault: true }
+            mouseWheel: {preventDefault: true}
         });
     }
 });
 // /Sidebar
 
 // Panel toolbox
-$(document).ready(function() {
-    $('.collapse-link').on('click', function() {
+$(document).ready(function () {
+    $('.collapse-link').on('click', function () {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
 
         // fix for some div with hardcoded fix class
         if ($BOX_PANEL.attr('style')) {
-            $BOX_CONTENT.slideToggle(200, function(){
+            $BOX_CONTENT.slideToggle(200, function () {
                 $BOX_PANEL.removeAttr('style');
             });
         } else {
@@ -161,7 +164,7 @@ $(document).ready(function() {
 // /Panel toolbox
 
 // Tooltip
-$(document).ready(function() {
+$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip({
         container: 'body'
     });
@@ -175,7 +178,7 @@ if ($(".progress .progress-bar")[0]) {
 // /Progressbar
 
 // Switchery
-$(document).ready(function() {
+$(document).ready(function () {
     if ($(".js-switch")[0]) {
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
         elems.forEach(function (html) {
@@ -188,7 +191,7 @@ $(document).ready(function() {
 // /Switchery
 
 // iCheck
-$(document).ready(function() {
+$(document).ready(function () {
     if ($("input.flat")[0]) {
         $(document).ready(function () {
             $('input.flat').iCheck({
@@ -246,7 +249,7 @@ function countChecked() {
     if (checkCount) {
         $('.column-title').hide();
         $('.bulk-actions').show();
-        $('.action-cnt').html('已选择['+checkCount + ']条记录');
+        $('.action-cnt').html('已选择[' + checkCount + ']条记录');
     } else {
         $('.column-title').show();
         $('.bulk-actions').hide();
@@ -254,7 +257,7 @@ function countChecked() {
 }
 
 // Accordion
-$(document).ready(function() {
+$(document).ready(function () {
     $(".expand").on("click", function () {
         $(this).next().slideToggle(200);
         $expand = $(this).find(">:first-child");
@@ -278,3 +281,20 @@ if (typeof NProgress != 'undefined') {
     });
 }
 
+/**
+ * confirm
+ * @param msg
+ * @param href
+ */
+function confirmx(msg, href) {
+    $.confirm({
+        title: '提示',
+        content: msg,
+        confirm: function () {
+            window.location.href = href;
+        },
+        cancel: function () {
+        }
+
+    });
+}

@@ -10,7 +10,14 @@
         SELECT
         <include refid="user_columns"/>
         FROM sys_user
-        WHERE user_id=#{id}
+        <where>
+            <if test="userId != null and userId !=''">
+                user_id = #{userId}
+            </if>
+            <if test="loginName != null and loginName !=''">
+                login_name = #{loginName}
+            </if>
+        </where>
     </select>
 
     <select id="findByLoginName" resultType="User">

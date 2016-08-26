@@ -13,6 +13,8 @@ public final class Constants {
 
     public final static String FAIL_MSG = "操作失败";
 
+    public final static String SERVER_CHECK_FAIL_MSG = "服务端数据校验失败";
+
     public final static  String VILID_MSG = "有效";
 
     public final static  String INVILID_MSG = "无效";

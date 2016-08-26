@@ -14,10 +14,10 @@
     <link href="/css/login.css" rel="stylesheet">
 </head>
 <div class="login-top">
-    <a href="javascript:;;">下载 Testin Pro 客户端</a>
+    <a href="javascript:;;">xxxx</a>
 </div>
 <div class="login-centent">
-    <h2 class="login-title">Testin Pro自动化测试系统</h2>
+    <h2 class="login-title"></h2>
     <div class="login-box">
         <div class="login-box-t"></div>
         <div class="login-box-m">
@@ -74,7 +74,7 @@
     </div>
 </div>
 <div class="support-footer">
-    <p class="support-text"><a href="">Testin云测</a>提供技术支持</p>
+    <p class="support-text"><a href="">xxxx</a>提供技术支持</p>
 </div>
 <script src="/js/formValidation/vendor/jquery/jquery.min.js"></script>
 <script src="/js/formValidation/vendor/bootstrap/js/bootstrap.min.js"></script>

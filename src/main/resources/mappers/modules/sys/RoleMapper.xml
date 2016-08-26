@@ -31,7 +31,7 @@
           role_name=#{roleName},
           remarks=#{remarks},
           status=#{status},
-          update_by=#{currentUser},
+          update_by=#{currentUser.userId},
           update_date=now()
           WHERE role_id=#{roleId}
     </update>
@@ -43,9 +43,9 @@
     <insert id="insert" keyProperty="roleId" useGeneratedKeys="true">
         INSERT INTO  sys_role (
           role_name,create_by,create_date,remarks,status
-        ) VALUES {
-          #{roleName},#{currentUser},now(),#{remarks},0
-        }
+        ) VALUES (
+          #{roleName},#{currentUser.userId},now(),#{remarks},0
+        )
     </insert>
 
 

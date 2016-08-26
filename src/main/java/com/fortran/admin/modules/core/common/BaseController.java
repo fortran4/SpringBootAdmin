@@ -7,6 +7,7 @@ import com.fortran.admin.modules.core.message.RespMsg;
 import com.fortran.admin.modules.core.message.RespMsgStatus;
 import com.fortran.admin.modules.core.utils.guava.MyLists;
 import com.fortran.admin.modules.core.validator.BeanValidators;
+import com.fortran.admin.modules.sys.domain.User;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.beans.PropertyEditorSupport;
@@ -180,6 +182,16 @@ public class BaseController implements Msg {
         result.put("draw", page.getDraw());
         return result;
 
+    }
+
+
+    /**
+     * 当前用户
+     * @param request
+     * @return
+     */
+    protected User getCurrentUser(HttpServletRequest request){
+        return (User)request.getSession().getAttribute("currentUser");
     }
 
 

@@ -10,14 +10,13 @@
 <body class="main-bg">
 <sys:message type="${type}" content="${content}"></sys:message>
 
-
 <div class="container-fluid">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row">
             <div class="search_panel">
                 <div class="search_content">
-                    <form:form id="searchForm" modelAttribute="role" action="${ctx}/role/findAll" method="post"
-                               class="form-inline">
+                    <form id="searchForm" action="${ctx}/role/findAll" method="post"
+                          class="form-inline">
                         <input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
                         <input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 
@@ -25,8 +24,8 @@
                             <div class="form-group  col-xs-6 col-md-4">
                                 <label for="roleName">角色名称</label>
                                 <div class="input-prepend input-group">
-                                    <form:input path="roleName" htmlEscape="false" maxlength="50"
-                                                class="form-control"/>
+                                    <input name="roleName" id="roleNameQuery" htmlEscape="false" maxlength="50"
+                                           class="form-control"/>
                                 </div>
                             </div>
                             <div class="form-group  col-xs-6 col-md-4">
@@ -34,7 +33,7 @@
                             </div>
 
                         </div>
-                    </form:form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -49,7 +48,8 @@
                 </div>
                 <div class="table_content">
                     <div class="tabletools">
-                        <button type="button" class="btn btn-success">新增</button>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#roleForm">新增
+                        </button>
                     </div>
                     <!--data table-->
                     <table id="dataTable" class="table table-striped table-bordered jambo_table bulk_action"
@@ -74,20 +74,25 @@
                         <tbody>
                         <c:forEach items="${page.result}" var="role">
                             <tr>
+                                <td>
+                                    <input type='checkbox' class='flat' name='item' value='${role.roleId}'/>
+                                </td>
                                 <td>${role.roleName}</td>
                                 <td>${role.remarks}</td>
                                 <td>
                                     <c:if test="${role.status == '0'}">
-                                        启用
+                                        <span class="label label-success">启用</span>
                                     </c:if>
                                     <c:if test="${role.status != '0'}">
-                                        禁用
+                                        <span class="label label-danger">禁用</span>
                                     </c:if>
                                 </td>
                                 <td>
                                     <a href="${ctx}/role/form/edit?id=${role.roleId}" class="fa fa-edit">修改</a> |
-                                    <a href="${ctx}/role/delete/${role.roleId}" class="fa fa-remove"
-                                       onclick="return confirmx('确认要删除该用户吗？', this.href)">删除</a>
+                                    <c:if test="${role.status == '0'}">
+                                        <a href="javascript:;" class="fa fa-remove"
+                                           onclick="return confirmx('确认要删除该角色吗？', '${ctx}/role/delete/${role.roleId}')">删除</a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -99,11 +104,84 @@
         </div>
     </div>
 </div>
+
+<!--add form begin-->
+<div id="roleForm" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form:form id="addForm" modelAttribute="role" role="form" action="${ctx}/role/save" method="post"
+                       class="form-horizontal form-label-left">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">新增角色</h4>
+                </div>
+                <div class="modal-body">
+                    <form:hidden path="roleId"/>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="roleName">角色名称<span
+                                class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <form:input path="roleName" placeholder="请输入角色名称" class="form-control col-md-7 col-xs-9"
+                                        maxlength="30"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="remarks">备注<span
+                                class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <form:textarea path="remarks" placeholder="请输入备注" class="form-control" maxlength="200"
+                                           rows="3"></form:textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form:form>
+        </div>
+    </div>
+</div>
+<!--//add form end-->
+
+
 <%@include file="/WEB-INF/views/common/js.jsp" %>
 <script>
     $(function () {
+        $('#addForm').formValidation({
+            fields: {
+                roleName: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入角色名称'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: '角色名称必须在6-30个字符之间'
+                        }
+                    }
+                },
+                remarks: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入备注'
+                        }, stringLength: {
+                            min: 1,
+                            max: 200,
+                            message: '备注必须在1-200个字符之间'
+                        }
+                    }
+                }
+            }
+        });
 
     });
+
 
     function page(n, s) {
         if (n) $("#pageNo").val(n);

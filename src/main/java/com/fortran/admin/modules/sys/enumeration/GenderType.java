@@ -20,7 +20,7 @@ public enum GenderType {
     public static String getLabelByValue(String value){
         String result = "";
         for (GenderType status : GenderType.values()){
-            if (value.equalsIgnoreCase(status.value)){
+            if (status.value.equalsIgnoreCase(value)){
                 result = status.label;
                 break;
             }

@@ -10,6 +10,8 @@
 <script src="/js/formValidation/vendor/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/js/formValidation/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--jconfirm-->
+<script src="/js/jquery-confirm/jquery-confirm.min.js"></script>
 <!-- angularjs -->
 <script src="/js/angularjs/angular.min.js"></script>
 <!-- FastClick -->
@@ -36,8 +38,6 @@
 <script src="/js/formValidation/framework/bootstrap.js"></script>
 <script src="/js/formValidation/js/language/zh_CN.js"></script>
 <script src="/js/gentelella/build/js/custom.js"></script>
-
-<script src="/js/jquery-confirm/jquery-confirm.min.js"></script>
 
 <script type="text/javascript">
     var ctx = '${ctx}', ctxStatic = '${ctxStatic}';

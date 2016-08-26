@@ -99,6 +99,10 @@ public class UserController extends BaseController {
         if (currentUser.isAuthenticated()) {
             log.info("用户[" + username + "]登录认证通过.");
             redirectAttributes.addFlashAttribute("username", username);
+            User param = new User();
+            param.setLoginName(username);
+            User u = userService.get(param);
+            request.getSession().setAttribute("currentUser",u);
             List<Menu> menus = userService.findPermissionByLoginName(username);
             ModelAndView mv = new ModelAndView("index");
             mv.addObject("username", username);
@@ -148,32 +152,6 @@ public class UserController extends BaseController {
     //----------------- menu end -----------------------
 
 
-    //----------------- user -----------------------
-
-   /* @ModelAttribute
-    public User get(@RequestParam(required = false) String id) {
-        if (Strings.isNullOrEmpty(id)) {
-            return userService.get(id);
-        } else {
-            return new User();
-        }
-    }*/
-
-    /**
-     * 新增编辑入口
-     *
-     * @param user
-     * @param model
-     * @param action @See{com.fortran.admin.modules.core.enumeration.Action}
-     * @returnR
-     */
-    @RequestMapping(value = "form/{action}")
-    public String form(Model model, @PathVariable String action,User user) {
-        if (!Strings.isNullOrEmpty(action)) model.addAttribute("action", action);
-        model.addAttribute("user", user);
-        return USER_FORM;
-    }
-
     /**
      * 新增或修改
      *
@@ -181,16 +159,22 @@ public class UserController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/save/{action}/{id}")
-    public String saveOrUpdate(User user, Model model, @PathVariable String action, @PathVariable String id) {
+    @RequestMapping(value = "/user/save/")
+    public String saveOrUpdate(User user, Model model, HttpServletRequest request) {
 
         if (!beanValidator(model, user)) {
-            return form(model, action,user);
+            rtnMessage(model, Constants.MSG_TYPE_DANGER, Constants.SERVER_CHECK_FAIL_MSG);
+            return USER_LIST;
         }
         try {
-            userService.saveOrUpdate(user, user != null ? user.getUserId() : null);
+            if (user.getUserId() > 0) {
+                userService.update(user);
+            } else {
+                userService.insert(user);
+            }
             rtnMessage(model, Constants.MSG_TYPE_SUCCESS);
         } catch (ServiceException e) {
+            log.error("save user error.", e);
             rtnMessage(model, Constants.MSG_TYPE_DANGER);
         }
 
@@ -205,7 +189,7 @@ public class UserController extends BaseController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/user/delete/{id}")
     public RespMsg delete(Model model, @PathVariable String id) {
 
         User user = new User();
@@ -228,10 +212,10 @@ public class UserController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/user/findAllInit")
+    @RequestMapping(value = "/user/findAll")
     public String list(User user, HttpServletRequest request, HttpServletResponse response, Model model) {
-        Page<User> page = userService.findUsers(Page.getInstance(request,user));
-        model.addAttribute("page",page);
+        Page<User> page = userService.findUsers(Page.getInstance(request, user));
+        model.addAttribute("page", page);
         return USER_LIST;
     }
 

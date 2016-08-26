@@ -5077,3 +5077,8 @@ div .tabletools{
 	display: inline-block;
 }
 /* *********  /tables styleing  ****************************** */
+
+
+span .required {
+	color: red;
+}

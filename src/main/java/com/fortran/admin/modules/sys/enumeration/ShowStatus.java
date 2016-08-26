@@ -21,7 +21,7 @@ public enum ShowStatus {
     public static String getLabelByValue(String value){
         String result = "";
         for (ShowStatus status : ShowStatus.values()){
-            if (value.equalsIgnoreCase(status.value)){
+            if (status.value.equalsIgnoreCase(value)){
                 result = status.label;
                 break;
             }

@@ -19,7 +19,7 @@ public enum LogType {
     public static String getLabelByValue(String value){
         String result = "";
         for (LogType logType : LogType.values()){
-                if (value.equalsIgnoreCase(logType.value)){
+                if (logType.value.equalsIgnoreCase(value)){
                     result = logType.label;
                     break;
                 }

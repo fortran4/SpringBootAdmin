@@ -24,9 +24,5 @@
 <link href="/js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 <!--form validation-->
 <link href="/js/formValidation/css/formValidation.min.css" rel="stylesheet">
-<!--datatables-->
-<link href="/js/gentelella/vendors/datatables.net/css/jquery.dataTables.min.css" rel="stylesheet">
-<%--<link href="/js/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet">--%>
-<link href="/js/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="/js/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">

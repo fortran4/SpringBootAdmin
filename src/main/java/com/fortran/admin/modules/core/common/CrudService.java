@@ -93,37 +93,4 @@ public abstract class CrudService<D extends CrudDao, T extends Domain> implement
         return dao.delete(entity);
     }
 
-    /**
-     * 查询分页数据
-     *
-     * @param page   分页对象
-     * @param entity 实体
-     * @return
-     */
-   /* public Page<T> findPage(Page<T> page, T entity) throws ServiceException{
-       // entity.setPage(page);
-        page.setData(dao.findListByCondition(entity));
-        return page;
-    }
-*/
-
-    /**Data
-     * 新增或修改
-     *
-     * @param entity
-     * @return
-     */
-    public T saveOrUpdate(T entity, Long id) throws ServiceException{
-
-        if ( null == id ) {
-            this.insert(entity);
-        } else {
-
-            this.update(entity);
-        }
-        return entity;
-
-    }
-
-
 }

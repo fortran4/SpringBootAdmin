@@ -20,7 +20,7 @@ public enum DelStatus {
     public static String getLabelByValue(String value){
         String result = "";
         for (DelStatus status : DelStatus.values()){
-            if (value.equalsIgnoreCase(status.value)){
+            if (status.value.equalsIgnoreCase(value)){
                 result = status.label;
                 break;
             }
