@@ -119,6 +119,7 @@ public class RoleController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/role/isExist")
+    @ResponseBody
     public boolean isExist(String roleName){
         return roleService.isExist(roleName);
     }

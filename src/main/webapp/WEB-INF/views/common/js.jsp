@@ -26,6 +26,8 @@
 <script src="/js/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 <!-- iCheck -->
 <script src="/js/gentelella/vendors/iCheck/icheck.min.js"></script>
+
+<script src="/js/gentelella/vendors/pnotify/dist/pnotify.js"></script>
 <!-- Skycons -->
 <script src="/js/gentelella/vendors/skycons/skycons.js"></script>
 <!-- jQuery Smart Wizard -->

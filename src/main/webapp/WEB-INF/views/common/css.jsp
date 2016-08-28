@@ -26,3 +26,6 @@
 <link href="/js/formValidation/css/formValidation.min.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="/js/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+<!--pnotify-->
+<link href="/js/gentelella/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
